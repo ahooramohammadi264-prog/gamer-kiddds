@@ -33,7 +33,7 @@
             padding: 20px 40px;
         }
 
-        /* GM KIDS Logo */
+        /* Small GM KIDS logo */
         .logo {
             font-size: 45px;
             font-weight: bold;
@@ -47,7 +47,7 @@
             color: #f44336;
         }
 
-        /* Light/Dark Mode Button */
+        /* Theme button */
         .theme-button {
             border: none;
             padding: 12px 20px;
@@ -68,25 +68,39 @@
             transform: scale(1.05);
         }
 
-        /* Main Section */
         main {
             text-align: center;
             padding: 50px 20px;
         }
 
-        /* Main GM KIDS */
+        /* Big GM KIDS title */
         h1 {
             font-size: 80px;
-            margin-bottom: 50px;
+            margin-bottom: 25px;
         }
 
-        /* Members Title */
+        /* Best Minecraft Players */
+        .players {
+            margin-bottom: 60px;
+        }
+
+        .players h2 {
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+
+        .player {
+            font-size: 22px;
+            margin: 10px 0;
+        }
+
+        /* Members title */
         .members-title {
             font-size: 45px;
             margin-bottom: 40px;
         }
 
-        /* Members Container */
+        /* Member cards */
         .members {
             max-width: 900px;
             margin: auto;
@@ -95,7 +109,6 @@
             gap: 20px;
         }
 
-        /* Member Cards */
         .member {
             padding: 25px;
             border-radius: 15px;
@@ -118,7 +131,12 @@
             margin-bottom: 10px;
         }
 
-        /* Owner */
+        .role {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* OWNER - RED */
         .owner {
             border: 2px solid #f44336;
         }
@@ -128,7 +146,7 @@
             color: #f44336;
         }
 
-        /* Admin */
+        /* ADMIN - BLUE */
         .admin {
             border: 2px solid #2196f3;
         }
@@ -138,9 +156,13 @@
             color: #2196f3;
         }
 
-        .role {
-            font-size: 18px;
-            font-weight: bold;
+        /* NORMAL MEMBER */
+        .normal-member {
+            border: 2px solid #888;
+        }
+
+        body.light .normal-member {
+            border-color: #777;
         }
 
         /* Mobile */
@@ -179,10 +201,21 @@
 
     <main>
 
+        <!-- BIG GM KIDS LOGO -->
         <h1>
             <span class="gm">GM</span>
             <span class="kids">KIDS</span>
         </h1>
+
+        <!-- BEST MINECRAFT PLAYERS -->
+        <section class="players">
+            <h2>🏆 Best Minecraft Players 🏆</h2>
+
+            <div class="player">1. marlowww</div>
+            <div class="player">2. itzrealme</div>
+            <div class="player">3. swight</div>
+            <div class="player">4. coldfied</div>
+        </section>
 
         <!-- GROUP MEMBERS -->
         <h2 class="members-title">😎 اعضای گروه 😎</h2>
@@ -195,40 +228,41 @@
                 <div class="role">OWNER</div>
             </div>
 
-            <!-- ADMINS -->
-            <div class="member admin">
-                <div class="member-name">🛡️ amir</div>
-                <div class="role">ADMIN</div>
-            </div>
-
-            <div class="member admin">
-                <div class="member-name">🛡️ vafajo</div>
-                <div class="role">ADMIN</div>
-            </div>
-
+            <!-- ONLY ADMIN -->
             <div class="member admin">
                 <div class="member-name">🛡️ barad</div>
                 <div class="role">ADMIN</div>
             </div>
 
-            <div class="member admin">
-                <div class="member-name">🛡️ ehsan</div>
-                <div class="role">ADMIN</div>
+            <!-- MEMBERS -->
+            <div class="member normal-member">
+                <div class="member-name">👤 amir</div>
+                <div class="role">MEMBER</div>
             </div>
 
-            <div class="member admin">
-                <div class="member-name">🛡️ mahan</div>
-                <div class="role">ADMIN</div>
+            <div class="member normal-member">
+                <div class="member-name">👤 vafajo</div>
+                <div class="role">MEMBER</div>
             </div>
 
-            <div class="member admin">
-                <div class="member-name">🛡️ yasin</div>
-                <div class="role">ADMIN</div>
+            <div class="member normal-member">
+                <div class="member-name">👤 ehsan</div>
+                <div class="role">MEMBER</div>
             </div>
 
-            <div class="member admin">
-                <div class="member-name">🛡️ 67</div>
-                <div class="role">ADMIN</div>
+            <div class="member normal-member">
+                <div class="member-name">👤 mahan</div>
+                <div class="role">MEMBER</div>
+            </div>
+
+            <div class="member normal-member">
+                <div class="member-name">👤 yasin</div>
+                <div class="role">MEMBER</div>
+            </div>
+
+            <div class="member normal-member">
+                <div class="member-name">👤 67</div>
+                <div class="role">MEMBER</div>
             </div>
 
         </div>
