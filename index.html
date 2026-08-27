@@ -1,18 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>GM KIDS</title>
 
 <style>
-
-/* =====================================
-   GENERAL
-===================================== */
 
 * {
     box-sizing: border-box;
@@ -25,12 +20,9 @@ html {
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-
     background: #111;
     color: white;
-
     transition: 0.3s;
-
     overflow-x: hidden;
 }
 
@@ -39,116 +31,33 @@ body.light {
     color: #111;
 }
 
-
-/* =====================================
-   ANIMATED BACKGROUND
-===================================== */
-
-.particles {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    pointer-events: none;
-
-    overflow: hidden;
-
-    z-index: -1;
-}
-
-.particle {
-    position: absolute;
-
-    width: 8px;
-    height: 8px;
-
-    background: #2196f3;
-
-    opacity: 0.35;
-
-    animation:
-        floatParticle
-        linear
-        infinite;
-}
-
-.particle:nth-child(even) {
-    background: #f44336;
-}
-
-@keyframes floatParticle {
-
-    from {
-        transform:
-            translateY(110vh)
-            rotate(0deg);
-    }
-
-    to {
-        transform:
-            translateY(-10vh)
-            rotate(360deg);
-    }
-
-}
-
-
-/* =====================================
-   HEADER
-===================================== */
+/* ================= HEADER ================= */
 
 header {
-
     position: sticky;
-
     top: 0;
-
     z-index: 1000;
 
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 15px;
 
     padding: 15px 35px;
 
-    background:
-        rgba(17,17,17,0.92);
-
-    backdrop-filter:
-        blur(12px);
-
-    border-bottom:
-        1px solid #333;
+    background: rgba(17,17,17,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #333;
 }
 
 body.light header {
-
-    background:
-        rgba(245,245,245,0.92);
-
-    border-bottom:
-        1px solid #ddd;
+    background: rgba(245,245,245,0.95);
+    border-color: #ddd;
 }
 
-
-/* =====================================
-   LOGO
-===================================== */
-
 .logo {
-
     font-size: 38px;
-
     font-weight: bold;
-
     letter-spacing: 2px;
 }
 
@@ -160,36 +69,22 @@ body.light header {
     color: #f44336;
 }
 
-
-/* =====================================
-   NAVIGATION
-===================================== */
+/* ================= NAV ================= */
 
 nav {
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    gap: 6px;
-
+    gap: 5px;
     flex-wrap: wrap;
 }
 
 nav a {
-
     text-decoration: none;
-
     color: white;
-
-    padding: 9px 12px;
-
+    padding: 9px 11px;
     border-radius: 10px;
-
     font-weight: bold;
-
     transition: 0.2s;
 }
 
@@ -198,1065 +93,578 @@ body.light nav a {
 }
 
 nav a:hover {
-
     background: #2196f3;
-
     color: white;
-
-    transform:
-        translateY(-2px);
+    transform: translateY(-2px);
 }
 
-
-/* =====================================
-   SETTINGS BUTTONS
-===================================== */
+/* ================= SETTINGS ================= */
 
 .settings-buttons {
-
     display: flex;
-
     gap: 8px;
-
-    align-items: center;
 }
 
 .theme-button,
 .music-button {
-
     border: none;
-
-    padding: 10px 15px;
-
+    padding: 10px 14px;
     border-radius: 20px;
-
     cursor: pointer;
-
-    font-size: 14px;
-
     background: #333;
-
     color: white;
-
+    font-weight: bold;
     transition: 0.2s;
 }
 
 body.light .theme-button,
 body.light .music-button {
-
     background: #ddd;
-
     color: #111;
 }
 
 .theme-button:hover,
 .music-button:hover {
-
-    transform:
-        scale(1.07);
+    transform: scale(1.06);
 }
 
-
-/* =====================================
-   MAIN
-===================================== */
+/* ================= MAIN ================= */
 
 main {
-
     text-align: center;
-
-    padding:
-        60px 20px;
+    padding: 50px 20px;
 }
 
 section {
-
-    scroll-margin-top:
-        100px;
+    scroll-margin-top: 100px;
+    margin-bottom: 110px;
 }
 
+.section-title {
+    font-size: clamp(32px, 5vw, 45px);
+    margin-bottom: 35px;
+}
 
-/* =====================================
-   HERO
-===================================== */
+/* ================= HERO ================= */
 
 .hero {
-
-    min-height:
-        70vh;
+    min-height: 65vh;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
 }
 
 .hero h1 {
-
-    font-size:
-        clamp(60px,10vw,110px);
-
-    margin:
-        0 0 20px;
-
-    letter-spacing:
-        5px;
-
-    animation:
-        logoFloat
-        3s
-        ease-in-out
-        infinite;
+    font-size: clamp(65px, 11vw, 110px);
+    margin: 0 0 20px;
+    letter-spacing: 5px;
+    animation: floatLogo 3s ease-in-out infinite;
 }
 
-@keyframes logoFloat {
-
-    0%,100% {
-        transform:
-            translateY(0);
+@keyframes floatLogo {
+    0%, 100% {
+        transform: translateY(0);
     }
 
     50% {
-        transform:
-            translateY(-10px);
+        transform: translateY(-10px);
     }
 }
 
 .hero-text {
-
-    font-size: 23px;
-
+    font-size: 22px;
     opacity: 0.8;
-
     margin-bottom: 30px;
 }
 
 .hero-button {
-
-    display: inline-block;
-
     text-decoration: none;
-
     background: #2196f3;
-
     color: white;
-
-    padding:
-        14px 28px;
-
+    padding: 14px 28px;
     border-radius: 12px;
-
     font-weight: bold;
-
-    font-size: 18px;
-
     transition: 0.2s;
-
-    box-shadow:
-        0 0 20px
-        rgba(33,150,243,0.3);
 }
 
 .hero-button:hover {
-
-    transform:
-        scale(1.08);
-
-    background:
-        #1976d2;
+    transform: scale(1.07);
 }
 
-
-/* =====================================
-   SECTION TITLES
-===================================== */
-
-.section-title {
-
-    font-size: 42px;
-
-    margin-bottom: 35px;
-}
-
-
-/* =====================================
-   PLAYERS
-===================================== */
-
-.players {
-
-    margin-bottom:
-        100px;
-}
+/* ================= PLAYERS ================= */
 
 .player-list {
-
-    max-width:
-        700px;
-
-    margin:
-        auto;
+    max-width: 700px;
+    margin: auto;
 }
 
 .player {
-
-    font-size:
-        24px;
-
-    font-weight:
-        bold;
-
-    padding:
-        14px;
-
-    margin:
-        8px;
-
-    border-radius:
-        12px;
-
-    background:
-        #1d1d1d;
-
-    transition:
-        0.2s;
+    background: #1d1d1d;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 12px;
+    font-size: 23px;
+    font-weight: bold;
+    transition: 0.2s;
 }
 
 body.light .player {
-
-    background:
-        white;
-
-    box-shadow:
-        0 3px 10px
-        rgba(0,0,0,0.1);
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .player:hover {
-
-    transform:
-        translateX(8px)
-        scale(1.02);
-
-    border-left:
-        5px solid #2196f3;
+    transform: translateX(8px);
+    border-left: 5px solid #2196f3;
 }
 
-
-/* =====================================
-   SERVER LIST
-===================================== */
-
-.server-section {
-
-    margin-bottom:
-        100px;
-}
+/* ================= SERVERS ================= */
 
 .servers {
-
-    max-width:
-        950px;
-
-    margin:
-        auto;
-
-    display:
-        grid;
-
-    gap:
-        18px;
+    max-width: 950px;
+    margin: auto;
+    display: grid;
+    gap: 18px;
 }
 
 .server-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 
-    display:
-        flex;
+    background: #1d1d1d;
+    border: 2px solid #333;
 
-    align-items:
-        center;
+    padding: 20px;
+    border-radius: 15px;
 
-    gap:
-        20px;
-
-    padding:
-        20px 25px;
-
-    border-radius:
-        15px;
-
-    background:
-        #1d1d1d;
-
-    border:
-        2px solid #333;
-
-    transition:
-        0.25s;
+    transition: 0.2s;
 }
 
 body.light .server-card {
-
-    background:
-        white;
-
-    border-color:
-        #ddd;
-
-    box-shadow:
-        0 3px 10px
-        rgba(0,0,0,0.1);
+    background: white;
+    border-color: #ddd;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .server-card:hover {
-
-    transform:
-        translateY(-5px);
-
-    border-color:
-        #2196f3;
-
-    box-shadow:
-        0 0 20px
-        rgba(33,150,243,0.2);
+    transform: translateY(-5px);
+    border-color: #2196f3;
 }
 
 .server-number {
-
-    font-weight:
-        bold;
-
-    color:
-        #888;
-
-    width:
-        40px;
+    color: #888;
+    font-weight: bold;
+    width: 35px;
 }
 
 .server-name {
-
-    font-size:
-        23px;
-
-    font-weight:
-        bold;
-
-    min-width:
-        170px;
-
-    text-align:
-        left;
+    font-size: 22px;
+    font-weight: bold;
+    min-width: 170px;
+    text-align: left;
 }
 
 .server-ip {
-
-    font-family:
-        monospace;
-
-    font-size:
-        18px;
-
-    color:
-        #aaa;
-
-    flex:
-        1;
-
-    text-align:
-        left;
+    flex: 1;
+    font-family: monospace;
+    font-size: 17px;
+    color: #aaa;
+    text-align: left;
 }
 
 body.light .server-ip {
     color: #555;
 }
 
+.copy-button,
+.favorite-button {
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
 .copy-button {
-
-    border:
-        none;
-
-    padding:
-        10px 17px;
-
-    border-radius:
-        10px;
-
-    cursor:
-        pointer;
-
-    background:
-        #2196f3;
-
-    color:
-        white;
-
-    font-weight:
-        bold;
-
-    transition:
-        0.2s;
+    background: #2196f3;
 }
 
-.copy-button:hover {
-
-    transform:
-        scale(1.08);
-
-    background:
-        #1976d2;
+.favorite-button {
+    background: #444;
 }
 
-
-/* =====================================
-   MEMBERS
-===================================== */
-
-.members-section {
-
-    margin-bottom:
-        100px;
+.favorite-button.active {
+    background: #f5b700;
 }
+
+.copy-button:hover,
+.favorite-button:hover {
+    transform: scale(1.08);
+}
+
+.favorite-message {
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* ================= MEMBERS ================= */
 
 .members {
+    max-width: 950px;
+    margin: auto;
 
-    max-width:
-        950px;
-
-    margin:
-        auto;
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(200px,1fr)
-        );
-
-    gap:
-        20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
 }
 
 .member {
-
-    padding:
-        25px;
-
-    border-radius:
-        15px;
-
-    background:
-        #1d1d1d;
-
-    transition:
-        0.25s;
+    padding: 25px;
+    border-radius: 15px;
+    background: #1d1d1d;
+    border: 2px solid #666;
+    transition: 0.2s;
 }
 
 body.light .member {
-
-    background:
-        white;
-
-    box-shadow:
-        0 3px 10px
-        rgba(0,0,0,0.1);
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .member:hover {
-
-    transform:
-        translateY(-8px)
-        scale(1.03);
+    transform: translateY(-8px) scale(1.03);
 }
 
 .member-name {
-
-    font-size:
-        25px;
-
-    font-weight:
-        bold;
-
-    margin-bottom:
-        10px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .role {
-
-    font-size:
-        18px;
-
-    font-weight:
-        bold;
+    font-weight: bold;
 }
 
-
-/* OWNER */
-
 .owner {
-
-    border:
-        2px solid #f44336;
-
-    box-shadow:
-        0 0 20px
-        rgba(244,67,54,0.15);
+    border-color: #f44336;
 }
 
 .owner .member-name,
 .owner .role {
-
-    color:
-        #f44336;
+    color: #f44336;
 }
 
-
-/* ADMIN */
-
 .admin {
-
-    border:
-        2px solid #2196f3;
-
-    box-shadow:
-        0 0 20px
-        rgba(33,150,243,0.15);
+    border-color: #2196f3;
 }
 
 .admin .member-name,
 .admin .role {
-
-    color:
-        #2196f3;
+    color: #2196f3;
 }
 
-
-/* NORMAL MEMBER */
-
-.normal-member {
-
-    border:
-        2px solid #666;
-}
-
-
-/* =====================================
-   RULES
-===================================== */
-
-.rules-section {
-
-    max-width:
-        850px;
-
-    margin:
-        auto auto 100px;
-}
+/* ================= RULES ================= */
 
 .rules {
-
-    display:
-        grid;
-
-    gap:
-        15px;
+    max-width: 850px;
+    margin: auto;
+    display: grid;
+    gap: 15px;
 }
 
 .rule {
-
-    background:
-        #1d1d1d;
-
-    padding:
-        20px;
-
-    border-radius:
-        12px;
-
-    font-size:
-        20px;
-
-    text-align:
-        left;
-
-    border-left:
-        4px solid #2196f3;
-
-    transition:
-        0.2s;
+    text-align: left;
+    padding: 20px;
+    background: #1d1d1d;
+    border-radius: 12px;
+    border-left: 4px solid #2196f3;
+    font-size: 19px;
 }
 
 body.light .rule {
-
-    background:
-        white;
-
-    box-shadow:
-        0 3px 10px
-        rgba(0,0,0,0.1);
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
-.rule:hover {
-
-    transform:
-        translateX(8px);
-}
-
-
-/* =====================================
-   RESOURCE PACKS
-===================================== */
-
-.resource-section {
-
-    max-width:
-        950px;
-
-    margin:
-        0 auto 100px;
-}
-
-
-/* Upload button */
+/* ================= RESOURCE PACKS ================= */
 
 .upload-button {
-
-    display:
-        inline-block;
-
-    background:
-        #2196f3;
-
-    color:
-        white;
-
-    padding:
-        15px 25px;
-
-    border-radius:
-        12px;
-
-    cursor:
-        pointer;
-
-    font-size:
-        18px;
-
-    font-weight:
-        bold;
-
-    transition:
-        0.2s;
-
-    margin-bottom:
-        35px;
+    display: inline-block;
+    background: #2196f3;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 30px;
+    transition: 0.2s;
 }
 
 .upload-button:hover {
-
-    transform:
-        scale(1.06);
-
-    background:
-        #1976d2;
+    transform: scale(1.06);
 }
 
-
-/* Hide real file input */
-
-#resourceInput {
-
-    display:
-        none;
+#resourceInput,
+#galleryInput {
+    display: none;
 }
 
+.resource-packs,
+.gallery-grid {
+    max-width: 950px;
+    margin: auto;
 
-/* Resource pack grid */
-
-.resource-packs {
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(230px,1fr)
-        );
-
-    gap:
-        20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
 }
-
-
-/* Resource pack card */
 
 .resource-pack {
+    position: relative;
+    background: #1d1d1d;
+    border: 2px solid #333;
+    border-radius: 15px;
+    padding: 25px;
+    min-height: 170px;
 
-    position:
-        relative;
-
-    padding:
-        25px;
-
-    border-radius:
-        15px;
-
-    background:
-        #1d1d1d;
-
-    border:
-        2px solid #333;
-
-    min-height:
-        150px;
-
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    transition:
-        0.25s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 body.light .resource-pack {
-
-    background:
-        white;
-
-    border-color:
-        #ddd;
-
-    box-shadow:
-        0 3px 10px
-        rgba(0,0,0,0.1);
+    background: white;
+    border-color: #ddd;
 }
-
-.resource-pack:hover {
-
-    transform:
-        translateY(-6px);
-
-    border-color:
-        #2196f3;
-}
-
-
-/* Pack icon */
 
 .pack-icon {
-
-    font-size:
-        45px;
-
-    margin-bottom:
-        10px;
+    font-size: 45px;
 }
-
-
-/* Pack name */
 
 .pack-name {
-
-    font-size:
-        19px;
-
-    font-weight:
-        bold;
-
-    word-break:
-        break-word;
-
-    max-width:
-        100%;
+    font-weight: bold;
+    word-break: break-word;
+    margin-top: 10px;
 }
 
+.delete-pack,
+.delete-image {
+    position: absolute;
+    top: 8px;
+    right: 8px;
 
-/* Delete X */
+    width: 30px;
+    height: 30px;
 
-.delete-pack {
+    border: none;
+    border-radius: 50%;
 
-    position:
-        absolute;
+    background: #f44336;
+    color: white;
 
-    top:
-        8px;
-
-    right:
-        8px;
-
-    width:
-        30px;
-
-    height:
-        30px;
-
-    border:
-        none;
-
-    border-radius:
-        50%;
-
-    background:
-        #f44336;
-
-    color:
-        white;
-
-    font-size:
-        18px;
-
-    font-weight:
-        bold;
-
-    cursor:
-        pointer;
-
-    transition:
-        0.2s;
+    cursor: pointer;
+    font-size: 18px;
 }
-
-.delete-pack:hover {
-
-    transform:
-        scale(1.15);
-
-    background:
-        #d32f2f;
-}
-
-
-/* Download button */
 
 .download-pack {
-
-    margin-top:
-        15px;
-
-    padding:
-        9px 15px;
-
-    border:
-        none;
-
-    border-radius:
-        9px;
-
-    background:
-        #2196f3;
-
-    color:
-        white;
-
-    cursor:
-        pointer;
-
-    font-weight:
-        bold;
+    margin-top: 15px;
+    border: none;
+    padding: 9px 15px;
+    border-radius: 9px;
+    background: #2196f3;
+    color: white;
+    cursor: pointer;
 }
 
+/* ================= GALLERY ================= */
 
-/* Empty message */
-
-.empty-packs {
-
-    opacity:
-        0.6;
-
-    font-size:
-        18px;
-
-    padding:
-        30px;
+.gallery-item {
+    position: relative;
+    height: 220px;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #1d1d1d;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
+.gallery-item:hover {
+    transform: scale(1.03);
+}
 
-/* =====================================
-   COPY MESSAGE
-===================================== */
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ================= IMAGE VIEWER ================= */
+
+.image-viewer {
+    display: none;
+
+    position: fixed;
+    z-index: 9999;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.9);
+
+    align-items: center;
+    justify-content: center;
+}
+
+.image-viewer img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+}
+
+.close-viewer {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+/* ================= CHALLENGES ================= */
+
+.challenge-box {
+    max-width: 750px;
+    margin: auto;
+
+    background: #1d1d1d;
+    border: 2px solid #2196f3;
+
+    border-radius: 18px;
+    padding: 40px;
+}
+
+body.light .challenge-box {
+    background: white;
+}
+
+.challenge-text {
+    font-size: 26px;
+    font-weight: bold;
+    min-height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.challenge-button {
+    margin-top: 20px;
+    border: none;
+
+    background: #2196f3;
+    color: white;
+
+    padding: 15px 25px;
+    border-radius: 12px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.challenge-button:hover {
+    transform: scale(1.08);
+}
+
+/* ================= COPY MESSAGE ================= */
 
 #copy-message {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
 
-    position:
-        fixed;
+    transform: translateX(-50%) translateY(100px);
 
-    bottom:
-        30px;
+    background: #222;
+    color: white;
 
-    left:
-        50%;
+    padding: 14px 22px;
+    border-radius: 12px;
 
-    transform:
-        translateX(-50%)
-        translateY(100px);
-
-    background:
-        #222;
-
-    color:
-        white;
-
-    padding:
-        14px 22px;
-
-    border-radius:
-        12px;
-
-    font-weight:
-        bold;
-
-    opacity:
-        0;
-
-    transition:
-        0.3s;
-
-    z-index:
-        9999;
+    opacity: 0;
+    transition: 0.3s;
+    z-index: 99999;
 }
 
 #copy-message.show {
-
-    opacity:
-        1;
-
-    transform:
-        translateX(-50%)
-        translateY(0);
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
-
-/* =====================================
-   FOOTER
-===================================== */
+/* ================= FOOTER ================= */
 
 footer {
-
-    text-align:
-        center;
-
-    padding:
-        30px;
-
-    border-top:
-        1px solid #333;
-
-    opacity:
-        0.7;
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid #333;
+    opacity: 0.7;
 }
 
-body.light footer {
-    border-color:
-        #ddd;
-}
-
-
-/* =====================================
-   MOBILE
-===================================== */
+/* ================= MOBILE ================= */
 
 @media (max-width: 1000px) {
 
     header {
-
-        flex-wrap:
-            wrap;
-
-        justify-content:
-            center;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     nav {
-        order:
-            3;
-
-        width:
-            100%;
+        width: 100%;
     }
-
 }
-
 
 @media (max-width: 650px) {
 
-    .logo {
-        font-size:
-            30px;
+    header {
+        padding: 15px;
     }
 
-    nav a {
-        padding:
-            7px;
-
-        font-size:
-            13px;
+    .logo {
+        font-size: 30px;
     }
 
     .settings-buttons {
-        width:
-            100%;
-
-        justify-content:
-            center;
-    }
-
-    .hero {
-        min-height:
-            60vh;
-    }
-
-    .hero-text {
-        font-size:
-            18px;
-    }
-
-    .section-title {
-        font-size:
-            32px;
+        width: 100%;
+        justify-content: center;
     }
 
     .server-card {
+        flex-direction: column;
+        text-align: center;
+    }
 
-        flex-direction:
-            column;
-
-        text-align:
-            center;
+    .server-name,
+    .server-ip {
+        text-align: center;
     }
 
     .server-name {
-
-        min-width:
-            auto;
-
-        text-align:
-            center;
-    }
-
-    .server-ip {
-
-        flex:
-            none;
-
-        text-align:
-            center;
-    }
-
-    .server-number {
-        width:
-            auto;
+        min-width: auto;
     }
 
 }
@@ -1265,1052 +673,660 @@ body.light footer {
 
 </head>
 
-
 <body>
-
-
-<!-- =====================================
-     ANIMATED PARTICLES
-===================================== -->
-
-<div class="particles">
-
-    <div class="particle"
-         style="left:5%; animation-duration:14s;"></div>
-
-    <div class="particle"
-         style="left:12%; animation-duration:18s;"></div>
-
-    <div class="particle"
-         style="left:20%; animation-duration:12s;"></div>
-
-    <div class="particle"
-         style="left:29%; animation-duration:20s;"></div>
-
-    <div class="particle"
-         style="left:38%; animation-duration:15s;"></div>
-
-    <div class="particle"
-         style="left:47%; animation-duration:19s;"></div>
-
-    <div class="particle"
-         style="left:56%; animation-duration:13s;"></div>
-
-    <div class="particle"
-         style="left:65%; animation-duration:17s;"></div>
-
-    <div class="particle"
-         style="left:74%; animation-duration:21s;"></div>
-
-    <div class="particle"
-         style="left:83%; animation-duration:16s;"></div>
-
-    <div class="particle"
-         style="left:92%; animation-duration:13s;"></div>
-
-</div>
-
-
-
-<!-- =====================================
-     HEADER
-===================================== -->
 
 <header>
 
+```
+<div class="logo">
+    <span class="gm">GM</span>
+    <span class="kids">KIDS</span>
+</div>
 
-    <div class="logo">
+<nav>
+    <a href="#home">🏠 Home</a>
+    <a href="#players">🏆 Players</a>
+    <a href="#servers">🖥️ Servers</a>
+    <a href="#members">😎 Members</a>
+    <a href="#rules">📜 Rules</a>
+    <a href="#resource-packs">📦 Resource Packs</a>
+    <a href="#gallery">📸 Gallery</a>
+    <a href="#challenges">🎲 Challenges</a>
+</nav>
 
-        <span class="gm">GM</span>
-        <span class="kids">KIDS</span>
+<div class="settings-buttons">
 
-    </div>
+    <button class="theme-button" onclick="toggleTheme()">
+        🌙 Light Mode
+    </button>
 
+    <button class="music-button" onclick="toggleMusic()">
+        🎵 Music: OFF
+    </button>
 
-
-    <nav>
-
-        <a href="#home">
-            🏠 Home
-        </a>
-
-        <a href="#players">
-            🏆 Players
-        </a>
-
-        <a href="#servers">
-            🖥️ Servers
-        </a>
-
-        <a href="#members">
-            😎 Members
-        </a>
-
-        <a href="#rules">
-            📜 Rules
-        </a>
-
-        <a href="#resource-packs">
-            📦 Resource Packs
-        </a>
-
-    </nav>
-
-
-
-    <div class="settings-buttons">
-
-        <button
-            class="theme-button"
-            onclick="toggleTheme()">
-
-            🌙 Light Mode
-
-        </button>
-
-
-        <button
-            class="music-button"
-            onclick="toggleMusic()">
-
-            🎵 Music: OFF
-
-        </button>
-
-    </div>
-
+</div>
+```
 
 </header>
 
-
-
-<!-- =====================================
-     MAIN
-===================================== -->
-
 <main>
 
-
-    <!-- HOME -->
-
-    <section
-        id="home"
-        class="hero">
-
-        <h1>
-
-            <span class="gm">GM</span>
-            <span class="kids">KIDS</span>
-
-        </h1>
-
-
-        <div class="hero-text">
-
-            🎮 Welcome to the GM KIDS Minecraft community!
-
-        </div>
-
-
-        <a
-            href="#servers"
-            class="hero-button">
-
-            🖥️ View Servers
-
-        </a>
-
-    </section>
-
-
-
-    <!-- =====================================
-         BEST PLAYERS
-    ===================================== -->
-
-    <section
-        id="players"
-        class="players">
-
-        <h2 class="section-title">
-
-            🏆 Best Minecraft Players 🏆
-
-        </h2>
-
-
-        <div class="player-list">
-
-            <div class="player">
-                🥇 1. marlowww
-            </div>
-
-            <div class="player">
-                🥈 2. itzrealme
-            </div>
-
-            <div class="player">
-                🥉 3. swight
-            </div>
-
-            <div class="player">
-                🏅 4. coldfied
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================
-         SERVERS
-    ===================================== -->
-
-    <section
-        id="servers"
-        class="server-section">
-
-        <h2 class="section-title">
-
-            🖥️ GM KIDS SERVER LIST 🖥️
-
-        </h2>
-
-
-        <div class="servers">
-
-
-            <div class="server-card">
-
-                <div class="server-number">
-                    #1
-                </div>
-
-                <div class="server-name">
-                    🎮 gameup
-                </div>
-
-                <div class="server-ip">
-                    gameup.ir
-                </div>
-
-                <button
-                    class="copy-button"
-                    onclick="copyIP('gameup.ir')">
-
-                    📋 Copy
-
-                </button>
-
-            </div>
-
-
-
-            <div class="server-card">
-
-                <div class="server-number">
-                    #2
-                </div>
-
-                <div class="server-name">
-                    🦖 trexmine
-                </div>
-
-                <div class="server-ip">
-                    play.trexmine.com
-                </div>
-
-                <button
-                    class="copy-button"
-                    onclick="copyIP('play.trexmine.com')">
-
-                    📋 Copy
-
-                </button>
-
-            </div>
-
-
-
-            <div class="server-card">
-
-                <div class="server-number">
-                    #3
-                </div>
-
-                <div class="server-name">
-                    ⛏️ ucraft
-                </div>
-
-                <div class="server-ip">
-                    play.ucraft.ir
-                </div>
-
-                <button
-                    class="copy-button"
-                    onclick="copyIP('play.ucraft.ir')">
-
-                    📋 Copy
-
-                </button>
-
-            </div>
-
-
-
-            <div class="server-card">
-
-                <div class="server-number">
-                    #4
-                </div>
-
-                <div class="server-name">
-                    ❄️ coldgames
-                </div>
-
-                <div class="server-ip">
-                    play.coldgames.ir
-                </div>
-
-                <button
-                    class="copy-button"
-                    onclick="copyIP('play.coldgames.ir')">
-
-                    📋 Copy
-
-                </button>
-
-            </div>
-
-
-
-            <div class="server-card">
-
-                <div class="server-number">
-                    #5
-                </div>
-
-                <div class="server-name">
-                    🟨 fakepixel
-                </div>
-
-                <div class="server-ip">
-                    play.fakepixel.me
-                </div>
-
-                <button
-                    class="copy-button"
-                    onclick="copyIP('play.fakepixel.me')">
-
-                    📋 Copy
-
-                </button>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================
-         MEMBERS
-    ===================================== -->
-
-    <section
-        id="members"
-        class="members-section">
-
-        <h2 class="section-title">
-
-            😎 اعضای گروه 😎
-
-        </h2>
-
-
-        <div class="members">
-
-
-            <!-- OWNER -->
-
-            <div class="member owner">
-
-                <div class="member-name">
-                    👑 ahoora
-                </div>
-
-                <div class="role">
-                    OWNER
-                </div>
-
-            </div>
-
-
-
-            <!-- ADMIN -->
-
-            <div class="member admin">
-
-                <div class="member-name">
-                    🛡️ barad
-                </div>
-
-                <div class="role">
-                    ADMIN
-                </div>
-
-            </div>
-
-
-
-            <!-- MEMBERS -->
-
-            <div class="member normal-member">
-
-                <div class="member-name">
-                    👤 amir
-                </div>
-
-                <div class="role">
-                    MEMBER
-                </div>
-
-            </div>
-
-
-            <div class="member normal-member">
-
-                <div class="member-name">
-                    👤 vafajo
-                </div>
-
-                <div class="role">
-                    MEMBER
-                </div>
-
-            </div>
-
-
-            <div class="member normal-member">
-
-                <div class="member-name">
-                    👤 ehsan
-                </div>
-
-                <div class="role">
-                    MEMBER
-                </div>
-
-            </div>
-
-
-            <div class="member normal-member">
-
-                <div class="member-name">
-                    👤 mahan
-                </div>
-
-                <div class="role">
-                    MEMBER
-                </div>
-
-            </div>
-
-
-            <div class="member normal-member">
-
-                <div class="member-name">
-                    👤 yasin
-                </div>
-
-                <div class="role">
-                    MEMBER
-                </div>
-
-            </div>
-
-
-            <div class="member normal-member">
-
-                <div class="member-name">
-                    👤 67
-                </div>
-
-                <div class="role">
-                    MEMBER
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================
-         RULES
-    ===================================== -->
-
-    <section
-        id="rules"
-        class="rules-section">
-
-        <h2 class="section-title">
-
-            📜 GM KIDS RULES 📜
-
-        </h2>
-
-
-        <div class="rules">
-
-            <div class="rule">
-                🚫 No cheating or unfair advantages.
-            </div>
-
-            <div class="rule">
-                🏠 Don't destroy another player's builds.
-            </div>
-
-            <div class="rule">
-                🤝 Respect the other GM KIDS members.
-            </div>
-
-            <div class="rule">
-                ⚔️ PvP is allowed when everyone agrees.
-            </div>
-
-            <div class="rule">
-                😂 Have fun and enjoy Minecraft!
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================
-         RESOURCE PACKS
-    ===================================== -->
-
-    <section
-        id="resource-packs"
-        class="resource-section">
-
-        <h2 class="section-title">
-
-            📦 Resource Packs 📦
-
-        </h2>
-
-
-        <p>
-
-            Add your favorite Minecraft resource packs!
-
-        </p>
-
-
-        <!-- ADD BUTTON -->
-
-        <label
-            for="resourceInput"
-            class="upload-button">
-
-            ➕ Add Resource Pack
-
-        </label>
-
-
-        <input
-            type="file"
-            id="resourceInput"
-            accept=".zip"
-            multiple>
-
-
-        <!-- PACKS -->
-
-        <div
-            id="resourcePacks"
-            class="resource-packs">
-
-        </div>
-
-    </section>
-
-
-</main>
-
-
-
-<!-- =====================================
-     COPY MESSAGE
-===================================== -->
-
-<div id="copy-message">
-
-    ✅ IP copied!
+<!-- HOME -->
+
+<section id="home" class="hero">
+
+```
+<h1>
+    <span class="gm">GM</span>
+    <span class="kids">KIDS</span>
+</h1>
+
+<div class="hero-text">
+    🎮 Welcome to the GM KIDS Minecraft community!
+</div>
+
+<a href="#servers" class="hero-button">
+    🖥️ View Servers
+</a>
+```
+
+</section>
+
+<!-- BEST PLAYERS -->
+
+<section id="players">
+
+```
+<h2 class="section-title">
+    🏆 Best Minecraft Players 🏆
+</h2>
+
+<div class="player-list">
+
+    <div class="player">🥇 1. marlowww</div>
+    <div class="player">🥈 2. itzrealme</div>
+    <div class="player">🥉 3. swight</div>
+    <div class="player">🏅 4. coldfied</div>
+
+</div>
+```
+
+</section>
+
+<!-- SERVERS -->
+
+<section id="servers">
+
+```
+<h2 class="section-title">
+    🖥️ GM KIDS SERVER LIST 🖥️
+</h2>
+
+<div class="servers">
+
+    <div class="server-card">
+        <div class="server-number">#1</div>
+        <div class="server-name">🎮 gameup</div>
+        <div class="server-ip">gameup.ir</div>
+        <button class="copy-button" onclick="copyIP('gameup.ir')">📋 Copy</button>
+        <button class="favorite-button" onclick="favoriteServer(this, 'gameup')">☆</button>
+    </div>
+
+    <div class="server-card">
+        <div class="server-number">#2</div>
+        <div class="server-name">🦖 trexmine</div>
+        <div class="server-ip">play.trexmine.com</div>
+        <button class="copy-button" onclick="copyIP('play.trexmine.com')">📋 Copy</button>
+        <button class="favorite-button" onclick="favoriteServer(this, 'trexmine')">☆</button>
+    </div>
+
+    <div class="server-card">
+        <div class="server-number">#3</div>
+        <div class="server-name">⛏️ ucraft</div>
+        <div class="server-ip">play.ucraft.ir</div>
+        <button class="copy-button" onclick="copyIP('play.ucraft.ir')">📋 Copy</button>
+        <button class="favorite-button" onclick="favoriteServer(this, 'ucraft')">☆</button>
+    </div>
+
+    <div class="server-card">
+        <div class="server-number">#4</div>
+        <div class="server-name">❄️ coldgames</div>
+        <div class="server-ip">play.coldgames.ir</div>
+        <button class="copy-button" onclick="copyIP('play.coldgames.ir')">📋 Copy</button>
+        <button class="favorite-button" onclick="favoriteServer(this, 'coldgames')">☆</button>
+    </div>
+
+    <div class="server-card">
+        <div class="server-number">#5</div>
+        <div class="server-name">🟨 fakepixel</div>
+        <div class="server-ip">play.fakepixel.me</div>
+        <button class="copy-button" onclick="copyIP('play.fakepixel.me')">📋 Copy</button>
+        <button class="favorite-button" onclick="favoriteServer(this, 'fakepixel')">☆</button>
+    </div>
 
 </div>
 
+<div id="favoriteMessage" class="favorite-message">
+    ⭐ No favorite server selected yet.
+</div>
+```
 
+</section>
 
-<!-- =====================================
-     FOOTER
-===================================== -->
+<!-- MEMBERS -->
+
+<section id="members">
+
+```
+<h2 class="section-title">
+    😎 اعضای گروه 😎
+</h2>
+
+<div class="members">
+
+    <div class="member owner">
+        <div class="member-name">👑 ahoora</div>
+        <div class="role">OWNER</div>
+    </div>
+
+    <div class="member admin">
+        <div class="member-name">🛡️ barad</div>
+        <div class="role">ADMIN</div>
+    </div>
+
+    <div class="member">
+        <div class="member-name">👤 amir</div>
+        <div class="role">MEMBER</div>
+    </div>
+
+    <div class="member">
+        <div class="member-name">👤 vafajo</div>
+        <div class="role">MEMBER</div>
+    </div>
+
+    <div class="member">
+        <div class="member-name">👤 ehsan</div>
+        <div class="role">MEMBER</div>
+    </div>
+
+    <div class="member">
+        <div class="member-name">👤 mahan</div>
+        <div class="role">MEMBER</div>
+    </div>
+
+    <div class="member">
+        <div class="member-name">👤 yasin</div>
+        <div class="role">MEMBER</div>
+    </div>
+
+    <div class="member">
+        <div class="member-name">👤 67</div>
+        <div class="role">MEMBER</div>
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- RULES -->
+
+<section id="rules">
+
+```
+<h2 class="section-title">
+    📜 GM KIDS RULES 📜
+</h2>
+
+<div class="rules">
+
+    <div class="rule">🚫 No cheating or unfair advantages.</div>
+    <div class="rule">🏠 Don't destroy another player's builds.</div>
+    <div class="rule">🤝 Respect the other GM KIDS members.</div>
+    <div class="rule">⚔️ PvP is allowed when everyone agrees.</div>
+    <div class="rule">😂 Have fun and enjoy Minecraft!</div>
+
+</div>
+```
+
+</section>
+
+<!-- RESOURCE PACKS -->
+
+<section id="resource-packs">
+
+```
+<h2 class="section-title">
+    📦 Resource Packs 📦
+</h2>
+
+<p>Add your favorite Minecraft resource packs!</p>
+
+<label for="resourceInput" class="upload-button">
+    ➕ Add Resource Pack
+</label>
+
+<input type="file" id="resourceInput" accept=".zip" multiple>
+
+<div id="resourcePacks" class="resource-packs"></div>
+```
+
+</section>
+
+<!-- GALLERY -->
+
+<section id="gallery">
+
+```
+<h2 class="section-title">
+    📸 GM KIDS GALLERY 📸
+</h2>
+
+<p>Upload your best Minecraft screenshots!</p>
+
+<label for="galleryInput" class="upload-button">
+    ➕ Upload Screenshot
+</label>
+
+<input
+    type="file"
+    id="galleryInput"
+    accept="image/*"
+    multiple
+>
+
+<div id="galleryGrid" class="gallery-grid"></div>
+```
+
+</section>
+
+<!-- CHALLENGES -->
+
+<section id="challenges">
+
+```
+<h2 class="section-title">
+    🎲 MINECRAFT CHALLENGES 🎲
+</h2>
+
+<div class="challenge-box">
+
+    <div id="challengeText" class="challenge-text">
+        🎯 Press the button to get a random Minecraft challenge!
+    </div>
+
+    <button class="challenge-button" onclick="newChallenge()">
+        🎲 GIVE ME A CHALLENGE!
+    </button>
+
+</div>
+```
+
+</section>
+
+</main>
+
+<!-- COPY MESSAGE -->
+
+<div id="copy-message">
+    ✅ IP copied!
+</div>
+
+<!-- IMAGE VIEWER -->
+
+<div id="imageViewer" class="image-viewer" onclick="closeImage()">
+
+```
+<span class="close-viewer">×</span>
+
+<img id="viewerImage" src="" alt="Gallery image">
+```
+
+</div>
+
+<!-- MUSIC -->
+
+<audio id="bgMusic" loop>
+    <source src="minecraft-music.mp3" type="audio/mpeg">
+</audio>
 
 <footer>
 
-    🔵 GM <span class="kids">KIDS</span> 🔴
+```
+🔵 GM <span class="kids">KIDS</span> 🔴
 
-    <br><br>
+<br><br>
 
-    Made for the GM KIDS Minecraft crew 🎮
+Made for the GM KIDS Minecraft crew 🎮
+```
 
 </footer>
 
-
-
-<!-- =====================================
-     BACKGROUND MUSIC
-===================================== -->
-
-<audio
-    id="bgMusic"
-    loop>
-
-    <source
-        src="minecraft-music.mp3"
-        type="audio/mpeg">
-
-</audio>
-
-
-
 <script>
 
-
-/* =====================================
-   LIGHT / DARK MODE
-===================================== */
+/* LIGHT / DARK MODE */
 
 function toggleTheme() {
 
     document.body.classList.toggle("light");
 
+    const button = document.querySelector(".theme-button");
 
-    const button =
-        document.querySelector(
-            ".theme-button"
-        );
-
-
-    if (
-        document.body.classList.contains(
-            "light"
-        )
-    ) {
-
-        button.innerHTML =
-            "☀️ Dark Mode";
-
+    if (document.body.classList.contains("light")) {
+        button.innerHTML = "☀️ Dark Mode";
+    } else {
+        button.innerHTML = "🌙 Light Mode";
     }
-
-    else {
-
-        button.innerHTML =
-            "🌙 Light Mode";
-
-    }
-
 }
 
-
-
-/* =====================================
-   MUSIC
-===================================== */
+/* MUSIC */
 
 let musicPlaying = false;
 
-
 function toggleMusic() {
 
-    const music =
-        document.getElementById(
-            "bgMusic"
-        );
-
-
-    const button =
-        document.querySelector(
-            ".music-button"
-        );
-
+    const music = document.getElementById("bgMusic");
+    const button = document.querySelector(".music-button");
 
     if (musicPlaying) {
 
         music.pause();
+        button.innerHTML = "🎵 Music: OFF";
+        musicPlaying = false;
 
-        button.innerHTML =
-            "🎵 Music: OFF";
-
-        musicPlaying =
-            false;
-
-    }
-
-    else {
+    } else {
 
         music.play()
-            .then(function() {
-
-                button.innerHTML =
-                    "🎵 Music: ON";
-
-                musicPlaying =
-                    true;
-
-            })
-            .catch(function() {
-
-                alert(
-                    "Put minecraft-music.mp3 in the same folder as index.html first!"
-                );
-
-            });
-
-    }
-
-}
-
-
-
-/* =====================================
-   COPY SERVER IP
-===================================== */
-
-function copyIP(ip) {
-
-    navigator.clipboard
-        .writeText(ip)
         .then(function() {
 
-
-            const message =
-                document.getElementById(
-                    "copy-message"
-                );
-
-
-            message.innerHTML =
-                "✅ Copied: " + ip;
-
-
-            message.classList.add(
-                "show"
-            );
-
-
-            setTimeout(
-                function() {
-
-                    message.classList.remove(
-                        "show"
-                    );
-
-                },
-                2000
-            );
-
+            button.innerHTML = "🎵 Music: ON";
+            musicPlaying = true;
 
         })
         .catch(function() {
 
-            alert(
-                "Could not copy the IP. Please copy it manually."
-            );
+            alert("Put minecraft-music.mp3 in the same folder as index.html!");
 
         });
-
+    }
 }
 
+/* COPY IP */
 
+function copyIP(ip) {
 
-/* =====================================
-   RESOURCE PACKS
-===================================== */
+    navigator.clipboard.writeText(ip);
 
-const resourceInput =
-    document.getElementById(
-        "resourceInput"
-    );
+    const message = document.getElementById("copy-message");
 
+    message.innerHTML = "✅ Copied: " + ip;
 
-const resourcePacks =
-    document.getElementById(
-        "resourcePacks"
-    );
+    message.classList.add("show");
 
+    setTimeout(function() {
+        message.classList.remove("show");
+    }, 2000);
+}
 
-/*
-   Store pack information.
+/* FAVORITE SERVER */
 
-   IMPORTANT:
-   The browser stores the actual
-   selected file temporarily for
-   this page session.
-*/
+function favoriteServer(button, server) {
+
+    document.querySelectorAll(".favorite-button").forEach(function(btn) {
+
+        btn.classList.remove("active");
+        btn.innerHTML = "☆";
+
+    });
+
+    button.classList.add("active");
+    button.innerHTML = "⭐";
+
+    document.getElementById("favoriteMessage").innerHTML =
+        "⭐ Your Favorite Server: " + server;
+}
+
+/* RESOURCE PACKS */
+
+const resourceInput = document.getElementById("resourceInput");
+const resourcePacks = document.getElementById("resourcePacks");
 
 let packs = [];
 
+resourceInput.addEventListener("change", function(event) {
 
+    const files = Array.from(event.target.files);
 
-/* =====================================
-   LOAD RESOURCE PACKS
-===================================== */
+    files.forEach(function(file) {
+
+        if (file.name.toLowerCase().endsWith(".zip")) {
+
+            packs.push({
+                name: file.name,
+                file: file
+            });
+
+        }
+
+    });
+
+    displayPacks();
+
+    resourceInput.value = "";
+
+});
 
 function displayPacks() {
 
     resourcePacks.innerHTML = "";
 
-
     if (packs.length === 0) {
 
-        resourcePacks.innerHTML = `
-            <div class="empty-packs">
-                📦 No resource packs added yet.
-                <br><br>
-                Press ➕ Add Resource Pack
-            </div>
-        `;
+        resourcePacks.innerHTML =
+            "<p>📦 No resource packs added yet.</p>";
 
         return;
     }
 
-
     packs.forEach(function(pack, index) {
 
+        const card = document.createElement("div");
 
-        const card =
-            document.createElement(
-                "div"
-            );
-
-
-        card.className =
-            "resource-pack";
-
+        card.className = "resource-pack";
 
         card.innerHTML = `
+            <button class="delete-pack" onclick="deletePack(${index})">×</button>
 
-            <button
-                class="delete-pack"
-                onclick="deletePack(${index})">
+            <div class="pack-icon">📦</div>
 
-                ×
+            <div class="pack-name">${escapeHTML(pack.name)}</div>
 
-            </button>
-
-            <div class="pack-icon">
-                📦
-            </div>
-
-            <div class="pack-name">
-                ${escapeHTML(pack.name)}
-            </div>
-
-            <button
-                class="download-pack"
-                onclick="downloadPack(${index})">
-
+            <button class="download-pack" onclick="downloadPack(${index})">
                 ⬇️ Download
-
             </button>
-
         `;
 
-
-        resourcePacks.appendChild(
-            card
-        );
+        resourcePacks.appendChild(card);
 
     });
 
 }
 
-
-
-/* =====================================
-   ADD RESOURCE PACK
-===================================== */
-
-resourceInput.addEventListener(
-    "change",
-    function(event) {
-
-
-        const files =
-            Array.from(
-                event.target.files
-            );
-
-
-        files.forEach(function(file) {
-
-
-            if (
-                !file.name
-                    .toLowerCase()
-                    .endsWith(".zip")
-            ) {
-
-                return;
-
-            }
-
-
-            packs.push({
-
-                name: file.name,
-
-                file: file
-
-            });
-
-        });
-
-
-        displayPacks();
-
-
-        resourceInput.value = "";
-
-    }
-);
-
-
-
-/* =====================================
-   DELETE RESOURCE PACK
-===================================== */
-
 function deletePack(index) {
 
-    const pack =
-        packs[index];
+    packs.splice(index, 1);
 
-
-    if (
-        confirm(
-            "Delete " +
-            pack.name +
-            "?"
-        )
-    ) {
-
-        packs.splice(
-            index,
-            1
-        );
-
-
-        displayPacks();
-
-    }
-
+    displayPacks();
 }
-
-
-
-/* =====================================
-   DOWNLOAD RESOURCE PACK
-===================================== */
 
 function downloadPack(index) {
 
-    const pack =
-        packs[index];
+    const pack = packs[index];
 
+    const url = URL.createObjectURL(pack.file);
 
-    const url =
-        URL.createObjectURL(
-            pack.file
-        );
+    const link = document.createElement("a");
 
-
-    const link =
-        document.createElement(
-            "a"
-        );
-
-
-    link.href =
-        url;
-
-
-    link.download =
-        pack.name;
-
-
-    document.body.appendChild(
-        link
-    );
-
+    link.href = url;
+    link.download = pack.name;
 
     link.click();
 
-
-    link.remove();
-
-
-    URL.revokeObjectURL(
-        url
-    );
-
+    URL.revokeObjectURL(url);
 }
-
-
-
-/* =====================================
-   SAFELY DISPLAY FILE NAMES
-===================================== */
 
 function escapeHTML(text) {
 
-    const div =
-        document.createElement(
-            "div"
-        );
+    const div = document.createElement("div");
 
-
-    div.textContent =
-        text;
-
+    div.textContent = text;
 
     return div.innerHTML;
-
 }
-
-
-
-/* =====================================
-   START RESOURCE PACK DISPLAY
-===================================== */
 
 displayPacks();
 
+/* GALLERY */
+
+const galleryInput = document.getElementById("galleryInput");
+const galleryGrid = document.getElementById("galleryGrid");
+
+let galleryImages = [];
+
+galleryInput.addEventListener("change", function(event) {
+
+    const files = Array.from(event.target.files);
+
+    files.forEach(function(file) {
+
+        if (file.type.startsWith("image/")) {
+
+            const imageURL = URL.createObjectURL(file);
+
+            galleryImages.push({
+                url: imageURL
+            });
+
+        }
+
+    });
+
+    displayGallery();
+
+    galleryInput.value = "";
+
+});
+
+function displayGallery() {
+
+    galleryGrid.innerHTML = "";
+
+    if (galleryImages.length === 0) {
+
+        galleryGrid.innerHTML =
+            "<p>📸 No screenshots uploaded yet.</p>";
+
+        return;
+    }
+
+    galleryImages.forEach(function(image, index) {
+
+        const item = document.createElement("div");
+
+        item.className = "gallery-item";
+
+        item.innerHTML = `
+            <img
+                src="${image.url}"
+                onclick="openImage('${image.url}')"
+                alt="Minecraft Screenshot"
+            >
+
+            <button
+                class="delete-image"
+                onclick="deleteImage(event, ${index})"
+            >
+                ×
+            </button>
+        `;
+
+        galleryGrid.appendChild(item);
+
+    });
+
+}
+
+function deleteImage(event, index) {
+
+    event.stopPropagation();
+
+    URL.revokeObjectURL(galleryImages[index].url);
+
+    galleryImages.splice(index, 1);
+
+    displayGallery();
+}
+
+function openImage(url) {
+
+    const viewer = document.getElementById("imageViewer");
+
+    document.getElementById("viewerImage").src = url;
+
+    viewer.style.display = "flex";
+}
+
+function closeImage() {
+
+    document.getElementById("imageViewer").style.display = "none";
+}
+
+/* CHALLENGES */
+
+const challenges = [
+
+    "⛏️ Mine 3 stacks of diamonds!",
+
+    "🧟 Survive an entire Minecraft night without armor!",
+
+    "🏠 Build a house using only ONE type of block!",
+
+    "🏹 Kill 10 skeletons using only a bow!",
+
+    "🌋 Spend 10 minutes in the Nether!",
+
+    "⚔️ Win a PvP fight without eating food!",
+
+    "🐉 Try to defeat the Ender Dragon!",
+
+    "🎣 Catch 10 fish!",
+
+    "🪨 Get a full stack of every stone type you can find!",
+
+    "🐄 Build a farm with at least 5 different animals!",
+
+    "💀 Survive 5 minutes without taking any damage!",
+
+    "🧱 Build the tallest tower you can without falling!",
+
+    "🔥 Travel 1000 blocks in the Nether!",
+
+    "🗡️ Defeat 20 mobs without using a sword!",
+
+    "💎 Find diamonds in under 10 minutes!"
+
+];
+
+function newChallenge() {
+
+    const randomNumber =
+        Math.floor(Math.random() * challenges.length);
+
+    document.getElementById("challengeText").innerHTML =
+        challenges[randomNumber];
+}
 
 </script>
 
-
 </body>
-
 </html>
