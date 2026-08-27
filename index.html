@@ -1,9 +1,10 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>GM KIDS</title>
 
 <style>
@@ -13,23 +14,20 @@
 
 html, body {
     margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    background: #101010;
+    background: #0b0f17;
     color: white;
-    transition: background .3s, color .3s;
+    transition: 0.3s;
 }
 
-/* =========================
-   LIGHT MODE
-========================= */
-
 body.light {
-    background: #eeeeee;
+    background: #eef2f7;
     color: #111;
 }
 
@@ -42,19 +40,25 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25px;
-    border-bottom: 2px solid #252525;
-    background: #151515;
+    padding: 0 30px;
+    background: rgba(10, 14, 23, 0.96);
+    border-bottom: 2px solid #222b3a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 body.light header {
-    background: white;
+    background: rgba(255,255,255,0.96);
     border-bottom: 2px solid #ddd;
 }
 
 .logo {
     font-size: 38px;
     font-weight: 900;
+    letter-spacing: 2px;
 }
 
 .gm {
@@ -66,75 +70,95 @@ body.light header {
 }
 
 /* =========================
-   TABS
+   NAVIGATION
 ========================= */
 
-.tabs {
+nav {
     height: 60px;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    padding: 8px 15px;
+
+    background: #111722;
+    border-bottom: 1px solid #283243;
     overflow-x: auto;
-    background: #191919;
-    border-bottom: 1px solid #333;
 }
 
-body.light .tabs {
-    background: #fafafa;
+body.light nav {
+    background: white;
     border-bottom: 1px solid #ddd;
 }
 
-.tab {
-    flex-shrink: 0;
+.nav-button {
     border: none;
-    padding: 10px 16px;
+    background: transparent;
+    color: #aaa;
+    padding: 12px 16px;
     border-radius: 10px;
-    background: #292929;
-    color: white;
     cursor: pointer;
-    font-weight: bold;
-    transition: .2s;
+    font-size: 15px;
+    white-space: nowrap;
+    transition: 0.2s;
 }
 
-body.light .tab {
-    background: #ddd;
-    color: #111;
-}
-
-.tab:hover {
-    transform: translateY(-2px);
-}
-
-.tab.active {
+.nav-button:hover,
+.nav-button.active {
     background: #2196f3;
     color: white;
 }
 
-/* =========================
-   PAGES
-========================= */
-
-.page {
-    display: none;
-    height: calc(100vh - 140px);
-    overflow-y: auto;
-    padding: 35px 25px;
+.theme-button {
+    border: none;
+    padding: 11px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #222c3b;
+    color: white;
 }
 
-.page.active {
+/* =========================
+   MAIN
+========================= */
+
+main {
+    padding-top: 140px;
+    min-height: 100vh;
+}
+
+.tab {
+    display: none;
+    width: 100%;
+    min-height: calc(100vh - 140px);
+    padding: 35px 25px 80px;
+}
+
+.tab.active {
     display: block;
 }
 
-/* =========================
-   MAIN LOGO
-========================= */
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
 
 .big-logo {
     text-align: center;
     font-size: 85px;
     font-weight: 900;
-    margin: 20px 0 15px;
+    margin: 30px 0 15px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 20px;
+    opacity: 0.75;
 }
 
 /* =========================
@@ -143,44 +167,122 @@ body.light .tab {
 
 .players {
     max-width: 600px;
-    margin: 0 auto 50px;
-    text-align: center;
+    margin: 35px auto;
+    padding: 25px;
+    border-radius: 18px;
+    background: #151d2a;
+    border: 1px solid #2b394d;
+}
+
+body.light .players {
+    background: white;
+    border-color: #ddd;
 }
 
 .players h2 {
-    font-size: 30px;
+    text-align: center;
+    margin-top: 0;
 }
 
 .player {
-    font-size: 21px;
-    margin: 13px;
+    padding: 12px;
+    margin: 7px 0;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+/* =========================
+   TITLES
+========================= */
+
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+/* =========================
+   SERVER LIST
+========================= */
+
+.servers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+}
+
+.server-card {
+    background: #151d2a;
+    border: 1px solid #2c3a50;
+    padding: 22px;
+    border-radius: 16px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+body.light .server-card {
+    background: white;
+    border-color: #ddd;
+}
+
+.server-card:hover {
+    transform: translateY(-5px);
+    border-color: #2196f3;
+}
+
+.server-number {
+    color: #777;
+    font-weight: bold;
+}
+
+.server-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.server-ip {
+    font-family: monospace;
+    color: #2196f3;
+    margin-bottom: 15px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.copy-button,
+.add-button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 9px;
+    background: #2196f3;
+    color: white;
+    font-weight: bold;
+}
+
+.copy-button:hover,
+.add-button:hover {
+    filter: brightness(1.15);
 }
 
 /* =========================
    MEMBERS
 ========================= */
 
-.members-title {
-    text-align: center;
-    font-size: 35px;
-    margin-bottom: 30px;
-}
-
 .members {
-    max-width: 950px;
-    margin: auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     gap: 18px;
 }
 
 .member {
-    background: #1d1d1d;
-    border-radius: 15px;
     padding: 22px;
     text-align: center;
+    border-radius: 15px;
+    background: #151d2a;
     border: 2px solid #777;
-    transition: .2s;
+    transition: 0.2s;
 }
 
 body.light .member {
@@ -191,20 +293,11 @@ body.light .member {
     transform: translateY(-5px);
 }
 
-.member-name {
-    font-size: 23px;
-    font-weight: bold;
-}
-
-.role {
-    margin-top: 8px;
-    font-weight: bold;
-}
-
 .owner {
     border-color: #f44336;
 }
 
+.owner .member-name,
 .owner .role {
     color: #f44336;
 }
@@ -213,281 +306,276 @@ body.light .member {
     border-color: #2196f3;
 }
 
+.admin .member-name,
 .admin .role {
     color: #2196f3;
 }
 
-/* =========================
-   SERVER LIST
-========================= */
-
-.server-section {
-    max-width: 900px;
-    margin: auto;
-}
-
-.server-title {
-    text-align: center;
-    font-size: 35px;
-}
-
-.server-card {
-    background: #1d1d1d;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 15px 0;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
-
-body.light .server-card {
-    background: white;
-}
-
-.server-number {
-    font-weight: bold;
-    color: #888;
-}
-
-.server-name {
+.member-name {
     font-size: 22px;
     font-weight: bold;
-    min-width: 150px;
 }
 
-.server-ip {
-    flex: 1;
-    font-family: monospace;
-    font-size: 18px;
-}
-
-button {
-    cursor: pointer;
-}
-
-.copy-btn,
-.primary-btn {
-    border: none;
-    background: #2196f3;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 9px;
+.role {
+    margin-top: 8px;
     font-weight: bold;
-}
-
-.copy-btn:hover,
-.primary-btn:hover {
-    filter: brightness(1.15);
 }
 
 /* =========================
-   RESOURCE PACKS / VIDEOS
+   GALLERY / SCREENSHOTS
 ========================= */
 
-.section-head {
-    max-width: 1000px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-}
-
-.section-head h2 {
-    font-size: 34px;
-}
-
-.upload-btn {
-    background: #43a047;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 18px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.upload-btn:hover {
-    filter: brightness(1.1);
-}
-
-.empty {
+.upload-area {
     text-align: center;
-    opacity: .65;
-    margin-top: 70px;
-    font-size: 20px;
+    margin-bottom: 30px;
 }
 
-.pack-grid,
-.video-grid {
-    max-width: 1000px;
-    margin: 25px auto;
+.gallery,
+.video-grid,
+.pack-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
 
+.media-card {
+    background: #151d2a;
+    border: 1px solid #2b394d;
+    border-radius: 15px;
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+body.light .media-card {
+    background: white;
+    border-color: #ddd;
+}
+
+.media-card img,
+.media-card video {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+}
+
+.media-name {
+    font-weight: bold;
+    margin: 10px 0 4px;
+}
+
+.media-user {
+    color: #888;
+    font-size: 13px;
+}
+
+.delete-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #f44336;
+    color: white;
+    font-size: 18px;
+}
+
 /* =========================
-   RESOURCE PACK CARD
+   RESOURCE PACKS
 ========================= */
 
 .pack-card {
-    position: relative;
-    background: #1d1d1d;
+    background: #151d2a;
+    border: 1px solid #2b394d;
+    padding: 20px;
     border-radius: 15px;
-    padding: 22px;
-    text-align: center;
+    position: relative;
 }
 
 body.light .pack-card {
     background: white;
 }
 
-.delete-x {
-    position: absolute;
-    top: 8px;
-    right: 10px;
+.pack-icon {
+    font-size: 50px;
+    text-align: center;
+}
+
+.pack-name {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+}
+
+.download-button {
+    width: 100%;
     border: none;
-    background: #f44336;
+    padding: 11px;
+    border-radius: 9px;
+    background: #4caf50;
     color: white;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    cursor: pointer;
     font-weight: bold;
 }
 
 /* =========================
-   VIDEO CARD
+   VIDEOS
 ========================= */
 
-.video-card {
-    background: #1d1d1d;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
+.video-card video {
+    background: black;
+    width: 100%;
+    min-height: 180px;
+    object-fit: contain;
 }
 
-body.light .video-card {
+.video-thumbnail {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-box {
+    max-width: 800px;
+    margin: auto;
+    background: #151d2a;
+    border: 1px solid #2b394d;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+body.light .chat-box {
     background: white;
 }
 
-.video-card video {
-    width: 100%;
-    display: block;
-    background: black;
-    max-height: 400px;
+.messages {
+    height: 450px;
+    overflow-y: auto;
+    padding: 20px;
 }
 
-.video-info {
-    padding: 15px;
+.message {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
 }
 
-.video-name {
-    font-size: 19px;
+.message-user {
     font-weight: bold;
-    word-break: break-word;
+    color: #2196f3;
 }
 
-.video-author {
-    opacity: .7;
-    margin-top: 6px;
+.chat-input {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid #2b394d;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 9px;
+    border: 1px solid #555;
+    background: transparent;
+    color: inherit;
 }
 
 /* =========================
    LOGIN
 ========================= */
 
-.auth-box {
-    width: min(450px, 95%);
+.login-box {
+    max-width: 450px;
     margin: 50px auto;
-    background: #1d1d1d;
     padding: 30px;
+    background: #151d2a;
     border-radius: 18px;
+    border: 1px solid #2b394d;
 }
 
-body.light .auth-box {
+body.light .login-box {
     background: white;
 }
 
-.auth-box h2 {
-    text-align: center;
-}
-
-.auth-box input {
+.login-box input {
     width: 100%;
-    padding: 13px;
     margin: 8px 0;
-    border-radius: 8px;
-    border: 1px solid #555;
-    background: #111;
-    color: white;
-}
-
-body.light .auth-box input {
-    background: white;
-    color: black;
-}
-
-.auth-box button {
-    width: 100%;
     padding: 13px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 8px;
-    background: #2196f3;
-    color: white;
-    font-weight: bold;
+    border-radius: 9px;
+    border: 1px solid #555;
+    background: transparent;
+    color: inherit;
 }
 
-.auth-switch {
+.login-box button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.auth-message {
     text-align: center;
-    margin-top: 18px;
-    cursor: pointer;
-    color: #2196f3;
+    margin-top: 12px;
+    color: #f44336;
 }
 
 /* =========================
-   PROFILE
+   PROFILE PICTURES
 ========================= */
 
-.avatar-grid {
+.mob-grid {
     display: grid;
-    grid-template-columns: repeat(5, 70px);
-    justify-content: center;
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
     margin: 20px 0;
 }
 
-.avatar {
-    font-size: 42px;
-    background: #292929;
-    border: 3px solid transparent;
+.mob {
+    border: 2px solid transparent;
     border-radius: 12px;
-    padding: 8px;
+    padding: 10px;
+    text-align: center;
     cursor: pointer;
+    background: rgba(255,255,255,0.05);
 }
 
-.avatar.selected {
+.mob.selected {
     border-color: #2196f3;
 }
 
+.mob-face {
+    font-size: 45px;
+}
+
 /* =========================
-   MUSIC
+   LOGGED IN USER
 ========================= */
 
-.music-button {
-    position: fixed;
-    right: 20px;
-    bottom: 20px;
-    z-index: 20;
-    border: none;
-    background: #9c27b0;
-    color: white;
-    padding: 12px 18px;
-    border-radius: 25px;
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name {
     font-weight: bold;
+}
+
+.logout-button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #f44336;
+    color: white;
 }
 
 /* =========================
@@ -497,12 +585,11 @@ body.light .auth-box input {
 .modal {
     display: none;
     position: fixed;
-    z-index: 100;
     inset: 0;
-    background: rgba(0,0,0,.75);
+    background: rgba(0,0,0,0.75);
+    z-index: 5000;
     align-items: center;
     justify-content: center;
-    padding: 20px;
 }
 
 .modal.show {
@@ -510,43 +597,37 @@ body.light .auth-box input {
 }
 
 .modal-box {
-    width: min(500px, 100%);
-    background: #1c1c1c;
-    color: white;
+    background: #151d2a;
     padding: 30px;
     border-radius: 18px;
+    width: min(420px, 90%);
+    text-align: center;
 }
 
-.modal-box h2 {
-    margin-top: 0;
-}
-
-.modal-box input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
+body.light .modal-box {
+    background: white;
 }
 
 .modal-buttons {
     display: flex;
     gap: 10px;
-    margin-top: 15px;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .modal-buttons button {
-    flex: 1;
-    padding: 11px;
+    padding: 11px 25px;
     border: none;
     border-radius: 8px;
 }
 
-.cancel {
-    background: #555;
+.yes {
+    background: #f44336;
     color: white;
 }
 
-.confirm {
-    background: #2196f3;
+.no {
+    background: #555;
     color: white;
 }
 
@@ -554,114 +635,125 @@ body.light .auth-box input {
    RESPONSIVE
 ========================= */
 
-@media(max-width:700px) {
+@media(max-width: 700px) {
+
+    header {
+        padding: 0 15px;
+    }
 
     .logo {
         font-size: 27px;
+    }
+
+    .user-name {
+        display: none;
     }
 
     .big-logo {
         font-size: 55px;
     }
 
-    .server-card {
-        flex-wrap: wrap;
+    nav {
+        justify-content: flex-start;
+        padding: 0 10px;
     }
 
-    .server-ip {
-        flex-basis: 100%;
-    }
-
-    .section-head {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .avatar-grid {
-        grid-template-columns: repeat(4, 60px);
+    .section-title {
+        font-size: 28px;
     }
 }
 </style>
+
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
-    <div class="logo">
-        <span class="gm">GM</span>
-        <span class="kids">KIDS</span>
-    </div>
+```
+<div class="logo">
+    <span class="gm">GM</span>
+    <span class="kids">KIDS</span>
+</div>
 
-    <div>
-        <button class="primary-btn" onclick="toggleTheme()">
-            🌙 Light Mode
-        </button>
+<div class="user-area" id="userArea">
+    <button class="theme-button" onclick="toggleTheme()">
+        🌙 Theme
+    </button>
 
-        <button class="primary-btn" onclick="showAuth()">
-            👤 Account
-        </button>
-    </div>
+    <button class="theme-button" onclick="openTab('login')">
+        🔐 Login
+    </button>
+</div>
+```
 
 </header>
 
-<!-- =========================
-     TABS
-========================= -->
+<nav>
 
-<nav class="tabs">
+```
+<button class="nav-button active" onclick="openTab('home')">🏠 Home</button>
 
-    <button class="tab active" onclick="openTab('home', this)">
-        🏠 Home
-    </button>
+<button class="nav-button" onclick="openTab('servers')">
+    🖥️ Servers
+</button>
 
-    <button class="tab" onclick="openTab('servers', this)">
-        🖥️ Servers
-    </button>
+<button class="nav-button" onclick="openTab('members')">
+    👥 Members
+</button>
 
-    <button class="tab" onclick="openTab('members', this)">
-        👥 Members
-    </button>
+<button class="nav-button" onclick="openTab('screenshots')">
+    📸 Screenshots
+</button>
 
-    <button class="tab" onclick="openTab('packs', this)">
-        📦 Resource Packs
-    </button>
+<button class="nav-button" onclick="openTab('videos')">
+    🎥 Videos
+</button>
 
-    <button class="tab" onclick="openTab('videos', this)">
-        🎥 Videos
-    </button>
+<button class="nav-button" onclick="openTab('packs')">
+    📦 Resource Packs
+</button>
 
-    <button class="tab" onclick="openTab('account', this)">
-        👤 My Account
-    </button>
+<button class="nav-button" onclick="openTab('chat')">
+    💬 Chat
+</button>
+```
 
 </nav>
+
+<main>
 
 <!-- =========================
      HOME
 ========================= -->
 
-<section id="home" class="page active">
+<section id="home" class="tab active">
 
-    <div class="big-logo">
-        <span class="gm">GM</span>
-        <span class="kids">KIDS</span>
-    </div>
+<div class="container">
 
-    <section class="players">
+```
+<div class="big-logo">
+    <span class="gm">GM</span>
+    <span class="kids">KIDS</span>
+</div>
 
-        <h2>🏆 Best Minecraft Players 🏆</h2>
+<p class="subtitle">
+    🎮 Welcome to the GM KIDS Minecraft community!
+</p>
 
-        <div class="player">1. marlowww</div>
-        <div class="player">2. itzrealme</div>
-        <div class="player">3. swight</div>
-        <div class="player">4. coldfied</div>
+<div class="players">
 
-    </section>
+    <h2>🏆 Best Minecraft Players 🏆</h2>
+
+    <div class="player">1. marlowww</div>
+    <div class="player">2. itzrealme</div>
+    <div class="player">3. swight</div>
+    <div class="player">4. coldfied</div>
+
+</div>
+```
+
+</div>
 
 </section>
 
@@ -669,400 +761,418 @@ body.light .auth-box input {
      SERVERS
 ========================= -->
 
-<section id="servers" class="page">
+<section id="servers" class="tab">
 
-    <section class="server-section">
+<div class="container">
 
-        <h2 class="server-title">
-            🖥️ GM KIDS SERVER LIST 🖥️
-        </h2>
+<h2 class="section-title">
+    🖥️ GM KIDS SERVER LIST 🖥️
+</h2>
 
-        <div class="servers">
+<div class="servers">
 
-            <div class="server-card">
-                <div class="server-number">#1</div>
-                <div class="server-name">🎮 gameup</div>
-                <div class="server-ip">gameup.ir</div>
-                <button class="copy-btn"
-                    onclick="copyIP('gameup.ir')">
-                    📋 Copy
-                </button>
-            </div>
+<div class="server-card">
+    <div class="server-number">#1</div>
+    <div class="server-name">🎮 gameup</div>
+    <div class="server-ip">gameup.ir</div>
+    <button class="copy-button"
+            onclick="copyIP('gameup.ir')">
+        📋 Copy
+    </button>
+</div>
 
-            <div class="server-card">
-                <div class="server-number">#2</div>
-                <div class="server-name">🦖 trexmine</div>
-                <div class="server-ip">play.trexmine.com</div>
-                <button class="copy-btn"
-                    onclick="copyIP('play.trexmine.com')">
-                    📋 Copy
-                </button>
-            </div>
+<div class="server-card">
+    <div class="server-number">#2</div>
+    <div class="server-name">🦖 trexmine</div>
+    <div class="server-ip">play.trexmine.com</div>
+    <button class="copy-button"
+            onclick="copyIP('play.trexmine.com')">
+        📋 Copy
+    </button>
+</div>
 
-            <div class="server-card">
-                <div class="server-number">#3</div>
-                <div class="server-name">⛏️ ucraft</div>
-                <div class="server-ip">play.ucraft.ir</div>
-                <button class="copy-btn"
-                    onclick="copyIP('play.ucraft.ir')">
-                    📋 Copy
-                </button>
-            </div>
+<div class="server-card">
+    <div class="server-number">#3</div>
+    <div class="server-name">⛏️ ucraft</div>
+    <div class="server-ip">play.ucraft.ir</div>
+    <button class="copy-button"
+            onclick="copyIP('play.ucraft.ir')">
+        📋 Copy
+    </button>
+</div>
 
-            <div class="server-card">
-                <div class="server-number">#4</div>
-                <div class="server-name">❄️ coldgames</div>
-                <div class="server-ip">play.coldgames.ir</div>
-                <button class="copy-btn"
-                    onclick="copyIP('play.coldgames.ir')">
-                    📋 Copy
-                </button>
-            </div>
+<div class="server-card">
+    <div class="server-number">#4</div>
+    <div class="server-name">❄️ coldgames</div>
+    <div class="server-ip">play.coldgames.ir</div>
+    <button class="copy-button"
+            onclick="copyIP('play.coldgames.ir')">
+        📋 Copy
+    </button>
+</div>
 
-            <div class="server-card">
-                <div class="server-number">#5</div>
-                <div class="server-name">🟨 fakepixel</div>
-                <div class="server-ip">play.fakepixel.me</div>
-                <button class="copy-btn"
-                    onclick="copyIP('play.fakepixel.me')">
-                    📋 Copy
-                </button>
-            </div>
+<div class="server-card">
+    <div class="server-number">#5</div>
+    <div class="server-name">🟨 fakepixel</div>
+    <div class="server-ip">play.fakepixel.me</div>
+    <button class="copy-button"
+            onclick="copyIP('play.fakepixel.me')">
+        📋 Copy
+    </button>
+</div>
 
-        </div>
-
-    </section>
-
+</div>
+</div>
 </section>
 
 <!-- =========================
      MEMBERS
 ========================= -->
 
-<section id="members" class="page">
+<section id="members" class="tab">
 
-    <h2 class="members-title">
-        😎 اعضای گروه 😎
-    </h2>
+<div class="container">
 
-    <div class="members">
+<h2 class="section-title">😎 اعضای گروه 😎</h2>
 
-        <div class="member owner">
-            <div class="member-name">👑 ahoora</div>
-            <div class="role">OWNER</div>
-        </div>
+<div class="members">
 
-        <div class="member admin">
-            <div class="member-name">🛡️ barad</div>
-            <div class="role">ADMIN</div>
-        </div>
+<div class="member owner">
+    <div class="member-name">👑 ahoora</div>
+    <div class="role">OWNER</div>
+</div>
 
-        <div class="member">
-            <div class="member-name">👤 amir</div>
-            <div class="role">MEMBER</div>
-        </div>
+<div class="member admin">
+    <div class="member-name">🛡️ barad</div>
+    <div class="role">ADMIN</div>
+</div>
 
-        <div class="member">
-            <div class="member-name">👤 vafajo</div>
-            <div class="role">MEMBER</div>
-        </div>
+<div class="member">
+    <div class="member-name">👤 amir</div>
+    <div class="role">MEMBER</div>
+</div>
 
-        <div class="member">
-            <div class="member-name">👤 ehsan</div>
-            <div class="role">MEMBER</div>
-        </div>
+<div class="member">
+    <div class="member-name">👤 vafajo</div>
+    <div class="role">MEMBER</div>
+</div>
 
-        <div class="member">
-            <div class="member-name">👤 mahan</div>
-            <div class="role">MEMBER</div>
-        </div>
+<div class="member">
+    <div class="member-name">👤 ehsan</div>
+    <div class="role">MEMBER</div>
+</div>
 
-        <div class="member">
-            <div class="member-name">👤 yasin</div>
-            <div class="role">MEMBER</div>
-        </div>
+<div class="member">
+    <div class="member-name">👤 mahan</div>
+    <div class="role">MEMBER</div>
+</div>
 
-        <div class="member">
-            <div class="member-name">👤 67</div>
-            <div class="role">MEMBER</div>
-        </div>
+<div class="member">
+    <div class="member-name">👤 yasin</div>
+    <div class="role">MEMBER</div>
+</div>
 
-    </div>
+<div class="member">
+    <div class="member-name">👤 67</div>
+    <div class="role">MEMBER</div>
+</div>
 
+</div>
+</div>
 </section>
 
 <!-- =========================
-     RESOURCE PACKS
+     SCREENSHOTS
 ========================= -->
 
-<section id="packs" class="page">
+<section id="screenshots" class="tab">
 
-    <div class="section-head">
+<div class="container">
 
-        <h2>📦 Resource Packs</h2>
+<h2 class="section-title">📸 Minecraft Screenshots</h2>
 
-        <button class="upload-btn"
-                onclick="addResourcePack()">
-            ➕ Add Resource Pack
-        </button>
+<div class="upload-area">
 
-    </div>
+<button class="add-button"
+     onclick="requireLogin(addScreenshot)">
+➕ Add Screenshot </button>
 
-    <input
-        id="packInput"
-        type="file"
-        accept=".zip"
-        hidden
-        onchange="saveResourcePack(event)"
-    >
+<p>Anyone can view screenshots. Only logged-in members can post.</p>
 
-    <div id="packGrid" class="pack-grid"></div>
+</div>
 
+<div id="gallery" class="gallery"></div>
+
+</div>
 </section>
 
 <!-- =========================
      VIDEOS
 ========================= -->
 
-<section id="videos" class="page">
+<section id="videos" class="tab">
 
-    <div class="section-head">
+<div class="container">
 
-        <h2>🎥 GM KIDS Videos</h2>
+<h2 class="section-title">🎥 GM KIDS Videos</h2>
 
-        <button class="upload-btn"
-                onclick="startVideoUpload()">
-            ➕ Add Video
-        </button>
+<div class="upload-area">
 
-    </div>
+<button class="add-button"
+     onclick="requireLogin(addVideo)">
+➕ Add Video </button>
 
-    <input
-        id="videoInput"
-        type="file"
-        accept="video/mp4,video/webm,video/ogg,.mp4,.webm,.ogg"
-        hidden
-        onchange="videoSelected(event)"
-    >
-
-    <div id="videoGrid" class="video-grid"></div>
-
-</section>
-
-<!-- =========================
-     ACCOUNT
-========================= -->
-
-<section id="account" class="page">
-
-    <div class="auth-box" id="accountBox">
-
-        <h2>👤 Account</h2>
-
-        <div id="accountContent"></div>
-
-    </div>
-
-</section>
-
-<!-- =========================
-     MUSIC BUTTON
-========================= -->
-
-<button class="music-button" onclick="toggleMusic()">
-    🎵 Music OFF
-</button>
-
-<audio id="music" loop>
-    <!--
-    Put your Minecraft music file next to index.html
-    and name it minecraft.mp3
-    -->
-    <source src="minecraft.mp3" type="audio/mpeg">
-</audio>
-
-<!-- =========================
-     VIDEO THUMBNAIL MODAL
-========================= -->
-
-<div id="videoModal" class="modal">
-
-    <div class="modal-box">
-
-        <h2>🎥 Add Video</h2>
-
-        <p>
-            Video selected! Now choose a thumbnail.
-        </p>
-
-        <label>Video title:</label>
-
-        <input
-            id="videoTitle"
-            type="text"
-            placeholder="My Minecraft video"
-        >
-
-        <label>Thumbnail:</label>
-
-        <input
-            id="thumbnailInput"
-            type="file"
-            accept="image/png,image/jpeg,image/webp"
-        >
-
-        <div class="modal-buttons">
-
-            <button class="cancel"
-                    onclick="closeVideoModal()">
-                Cancel
-            </button>
-
-            <button class="confirm"
-                    onclick="saveVideo()">
-                Upload Video
-            </button>
-
-        </div>
-
-    </div>
+<p>
+    Anyone can watch videos. Only logged-in members can upload.
+</p>
 
 </div>
 
+<div id="videosGrid" class="video-grid"></div>
+
+</div>
+</section>
+
 <!-- =========================
-     SIGNUP MODAL
+     RESOURCE PACKS
 ========================= -->
 
-<div id="signupModal" class="modal">
+<section id="packs" class="tab">
 
-    <div class="modal-box">
+<div class="container">
 
-        <h2>📝 Create Account</h2>
+<h2 class="section-title">📦 Resource Packs</h2>
 
-        <input
-            id="signupUsername"
-            placeholder="Username"
-        >
+<div class="upload-area">
 
-        <input
-            id="signupPassword"
-            type="password"
-            placeholder="Password"
-        >
+<button class="add-button"
+     onclick="requireLogin(addResourcePack)">
+➕ Add Resource Pack </button>
 
-        <p>Select your Minecraft profile picture:</p>
+<p>
+    Anyone can download resource packs.
+    Only logged-in members can upload or delete their own packs.
+</p>
 
-        <div class="avatar-grid">
+</div>
 
-            <button class="avatar" onclick="selectAvatar(this)">😎</button>
-            <button class="avatar" onclick="selectAvatar(this)">🐷</button>
-            <button class="avatar" onclick="selectAvatar(this)">🐺</button>
-            <button class="avatar" onclick="selectAvatar(this)">🧟</button>
-            <button class="avatar" onclick="selectAvatar(this)">🧙</button>
-            <button class="avatar" onclick="selectAvatar(this)">🐸</button>
-            <button class="avatar" onclick="selectAvatar(this)">🐮</button>
-            <button class="avatar" onclick="selectAvatar(this)">💀</button>
-            <button class="avatar" onclick="selectAvatar(this)">🐔</button>
-            <button class="avatar" onclick="selectAvatar(this)">🕷️</button>
+<div id="packsGrid" class="pack-grid"></div>
 
-        </div>
+</div>
+</section>
 
-        <div class="modal-buttons">
+<!-- =========================
+     CHAT
+========================= -->
 
-            <button class="cancel"
-                    onclick="closeSignup()">
-                Cancel
-            </button>
+<section id="chat" class="tab">
 
-            <button class="confirm"
-                    onclick="createAccount()">
-                Create Account
-            </button>
+<div class="container">
 
-        </div>
+<h2 class="section-title">💬 GM KIDS Chat</h2>
 
-    </div>
+<div class="chat-box">
+
+<div id="messages" class="messages"></div>
+
+<div class="chat-input">
+
+<input
+id="chatInput"
+type="text"
+placeholder="Write a message..."
+onkeydown="if(event.key==='Enter') sendMessage()"
+
+>
+
+<button class="add-button"
+     onclick="requireLogin(sendMessage)">
+Send </button>
+
+</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<section id="login" class="tab">
+
+<div class="login-box">
+
+<h2>🔐 Login</h2>
+
+<input id="loginUsername"
+    type="text"
+    placeholder="Username">
+
+<input id="loginPassword"
+    type="password"
+    placeholder="Password">
+
+<button class="add-button"
+     onclick="login()">
+Login </button>
+
+<button class="add-button"
+     onclick="openTab('signup')">
+Create Account </button>
+
+<div id="loginMessage" class="auth-message"></div>
+
+</div>
+
+</section>
+
+<!-- =========================
+     SIGN UP
+========================= -->
+
+<section id="signup" class="tab">
+
+<div class="login-box">
+
+<h2>✨ Create GM KIDS Account</h2>
+
+<input id="signupUsername"
+    type="text"
+    placeholder="Username">
+
+<input id="signupPassword"
+    type="password"
+    placeholder="Password">
+
+<h3>Choose your Minecraft profile picture</h3>
+
+<div class="mob-grid">
+
+<div class="mob" onclick="selectMob(this,'🧟')">
+    <div class="mob-face">🧟</div>
+    Zombie
+</div>
+
+<div class="mob" onclick="selectMob(this,'💀')">
+    <div class="mob-face">💀</div>
+    Skeleton
+</div>
+
+<div class="mob" onclick="selectMob(this,'💚')">
+    <div class="mob-face">💚</div>
+    Creeper
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐷')">
+    <div class="mob-face">🐷</div>
+    Pig
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐮')">
+    <div class="mob-face">🐮</div>
+    Cow
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐑')">
+    <div class="mob-face">🐑</div>
+    Sheep
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐔')">
+    <div class="mob-face">🐔</div>
+    Chicken
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐺')">
+    <div class="mob-face">🐺</div>
+    Wolf
+</div>
+
+</div>
+
+<button class="add-button"
+     onclick="createAccount()">
+Create Account </button>
+
+<button class="add-button"
+     onclick="openTab('login')">
+Back to Login </button>
+
+<div id="signupMessage" class="auth-message"></div>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- LOGOUT MODAL -->
+
+<div id="logoutModal" class="modal">
+
+<div class="modal-box">
+
+<h2>🚪 Log Out?</h2>
+
+<p>Are you sure you want to log out?</p>
+
+<div class="modal-buttons">
+
+<button class="yes" onclick="logout()">
+    Yes
+</button>
+
+<button class="no" onclick="closeLogout()">
+    No
+</button>
+
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-/* =========================================================
-   DATABASE
-========================================================= */
+/* =========================
+   DATA
+========================= */
 
-const DB_NAME = "GMKIDS_DATABASE";
-const DB_VERSION = 1;
+let currentUser =
+    JSON.parse(localStorage.getItem("gmCurrentUser")) || null;
 
-let db;
+let selectedMob = "🧟";
 
-const request = indexedDB.open(DB_NAME, DB_VERSION);
 
-request.onupgradeneeded = function(event) {
+/* =========================
+   TAB SYSTEM
+========================= */
 
-    db = event.target.result;
-
-    if (!db.objectStoreNames.contains("videos")) {
-        db.createObjectStore("videos", {
-            keyPath: "id",
-            autoIncrement: true
-        });
-    }
-
-    if (!db.objectStoreNames.contains("packs")) {
-        db.createObjectStore("packs", {
-            keyPath: "id",
-            autoIncrement: true
-        });
-    }
-};
-
-request.onsuccess = function(event) {
-
-    db = event.target.result;
-
-    loadVideos();
-    loadPacks();
-};
-
-request.onerror = function() {
-    console.error("Database could not be opened.");
-};
-
-/* =========================================================
-   TABS
-========================================================= */
-
-function openTab(id, button) {
-
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
+function openTab(id) {
 
     document.querySelectorAll(".tab").forEach(tab => {
         tab.classList.remove("active");
     });
 
-    button.classList.add("active");
+    const target = document.getElementById(id);
 
-    if (id === "videos") {
-        loadVideos();
+    if (target) {
+        target.classList.add("active");
     }
 
-    if (id === "packs") {
-        loadPacks();
-    }
+    document.querySelectorAll(".nav-button").forEach(button => {
+        button.classList.remove("active");
+    });
 
-    if (id === "account") {
-        updateAccountPage();
-    }
+    window.scrollTo(0,0);
 }
 
-/* =========================================================
-   DARK / LIGHT
-========================================================= */
+
+/* =========================
+   THEME
+========================= */
 
 function toggleTheme() {
 
@@ -1080,9 +1190,10 @@ if (localStorage.getItem("gmTheme") === "light") {
     document.body.classList.add("light");
 }
 
-/* =========================================================
+
+/* =========================
    COPY SERVER IP
-========================================================= */
+========================= */
 
 function copyIP(ip) {
 
@@ -1091,743 +1202,891 @@ function copyIP(ip) {
             alert("✅ Copied: " + ip);
         })
         .catch(() => {
-            alert("Copy failed. IP: " + ip);
+            prompt("Copy this IP:", ip);
         });
 }
 
-/* =========================================================
-   ACCOUNT SYSTEM
-========================================================= */
 
-let selectedAvatar = "😎";
+/* =========================
+   ACCOUNTS
+========================= */
 
-function getUsers() {
-    return JSON.parse(localStorage.getItem("gmUsers") || "[]");
-}
+function getAccounts() {
 
-function saveUsers(users) {
-    localStorage.setItem("gmUsers", JSON.stringify(users));
-}
-
-function showAuth() {
-
-    openTabDirect("account");
-
-    updateAccountPage();
-}
-
-function openTabDirect(id) {
-
-    document.querySelectorAll(".page").forEach(page => {
-        page.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
-
-    document.querySelectorAll(".tab").forEach(tab => {
-        tab.classList.remove("active");
-    });
-
-    const matchingTab = [...document.querySelectorAll(".tab")]
-        .find(tab => tab.textContent.includes("Account"));
-
-    if (matchingTab) {
-        matchingTab.classList.add("active");
-    }
-}
-
-function updateAccountPage() {
-
-    const box = document.getElementById("accountContent");
-
-    const currentUser =
-        localStorage.getItem("gmLoggedUser");
-
-    if (currentUser) {
-
-        const users = getUsers();
-
-        const user = users.find(
-            u => u.username === currentUser
-        );
-
-        if (!user) {
-            localStorage.removeItem("gmLoggedUser");
-            updateAccountPage();
-            return;
-        }
-
-        box.innerHTML = `
-            <div style="text-align:center">
-
-                <div style="font-size:80px">
-                    ${user.avatar}
-                </div>
-
-                <h2>${escapeHTML(user.username)}</h2>
-
-                <p>You are logged in.</p>
-
-                <button
-                    class="primary-btn"
-                    onclick="logout()"
-                    style="width:100%">
-                    🚪 Log Out
-                </button>
-
-            </div>
-        `;
-
-    } else {
-
-        box.innerHTML = `
-
-            <button
-                class="primary-btn"
-                onclick="loginPrompt()"
-                style="width:100%">
-                🔑 Login
-            </button>
-
-            <button
-                class="primary-btn"
-                onclick="openSignup()"
-                style="width:100%; margin-top:10px">
-                📝 Sign Up
-            </button>
-
-            <p style="text-align:center;opacity:.6">
-                You must be logged in to upload videos
-                or resource packs.
-            </p>
-
-        `;
-    }
-}
-
-function loginPrompt() {
-
-    const username = prompt("Username:");
-
-    if (!username) return;
-
-    const password = prompt("Password:");
-
-    if (!password) return;
-
-    const users = getUsers();
-
-    const user = users.find(
-        u =>
-        u.username === username &&
-        u.password === password
+    return JSON.parse(
+        localStorage.getItem("gmAccounts") || "[]"
     );
+}
 
-    if (!user) {
-        alert("❌ Wrong username or password.");
-        return;
-    }
+function saveAccounts(accounts) {
 
     localStorage.setItem(
-        "gmLoggedUser",
-        username
+        "gmAccounts",
+        JSON.stringify(accounts)
     );
-
-    alert("✅ Logged in!");
-
-    updateAccountPage();
 }
 
-function openSignup() {
-    document.getElementById("signupModal")
-        .classList.add("show");
+
+/* =========================
+   PROFILE MOB
+========================= */
+
+function selectMob(element, mob) {
+
+    document.querySelectorAll(".mob")
+        .forEach(x => x.classList.remove("selected"));
+
+    element.classList.add("selected");
+
+    selectedMob = mob;
 }
 
-function closeSignup() {
-    document.getElementById("signupModal")
-        .classList.remove("show");
-}
 
-function selectAvatar(button) {
-
-    document.querySelectorAll(".avatar")
-        .forEach(a => a.classList.remove("selected"));
-
-    button.classList.add("selected");
-
-    selectedAvatar = button.textContent;
-}
+/* =========================
+   CREATE ACCOUNT
+========================= */
 
 function createAccount() {
 
     const username =
-        document.getElementById("signupUsername")
-            .value.trim();
+        document.getElementById("signupUsername").value.trim();
 
     const password =
-        document.getElementById("signupPassword")
-            .value;
+        document.getElementById("signupPassword").value;
+
+    const message =
+        document.getElementById("signupMessage");
 
     if (!username || !password) {
-        alert("❌ Enter a username and password.");
+
+        message.textContent =
+            "❌ Enter a username and password.";
+
         return;
     }
 
-    const users = getUsers();
+    const accounts = getAccounts();
 
-    if (users.some(u => u.username === username)) {
-        alert("❌ That username already exists.");
+    if (
+        accounts.some(
+            user =>
+                user.username.toLowerCase() ===
+                username.toLowerCase()
+        )
+    ) {
+
+        message.textContent =
+            "❌ That username already exists.";
+
         return;
     }
 
-    users.push({
+    const account = {
         username: username,
         password: password,
-        avatar: selectedAvatar
-    });
+        avatar: selectedMob
+    };
 
-    saveUsers(users);
+    accounts.push(account);
+
+    saveAccounts(accounts);
+
+    currentUser = account;
 
     localStorage.setItem(
-        "gmLoggedUser",
-        username
+        "gmCurrentUser",
+        JSON.stringify(account)
     );
 
-    closeSignup();
+    updateUserArea();
 
     alert("🎉 Account created!");
 
-    updateAccountPage();
+    openTab("home");
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function login() {
+
+    const username =
+        document.getElementById("loginUsername").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const message =
+        document.getElementById("loginMessage");
+
+    const accounts = getAccounts();
+
+    const account = accounts.find(
+        user =>
+            user.username.toLowerCase() ===
+            username.toLowerCase() &&
+            user.password === password
+    );
+
+    if (!account) {
+
+        message.textContent =
+            "❌ Wrong username or password.";
+
+        return;
+    }
+
+    currentUser = account;
+
+    localStorage.setItem(
+        "gmCurrentUser",
+        JSON.stringify(account)
+    );
+
+    updateUserArea();
+
+    alert("✅ Welcome back, " + account.username + "!");
+
+    openTab("home");
+}
+
+
+/* =========================
+   USER AREA
+========================= */
+
+function updateUserArea() {
+
+    const area =
+        document.getElementById("userArea");
+
+    if (!currentUser) {
+
+        area.innerHTML = `
+            <button class="theme-button"
+                    onclick="toggleTheme()">
+                🌙 Theme
+            </button>
+
+            <button class="theme-button"
+                    onclick="openTab('login')">
+                🔐 Login
+            </button>
+        `;
+
+        return;
+    }
+
+    area.innerHTML = `
+
+        <span class="user-name">
+            ${currentUser.avatar}
+            ${escapeHTML(currentUser.username)}
+        </span>
+
+        <button class="theme-button"
+                onclick="toggleTheme()">
+            🌙 Theme
+        </button>
+
+        <button class="logout-button"
+                onclick="openLogout()">
+            🚪 Exit
+        </button>
+    `;
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function openLogout() {
+
+    document
+        .getElementById("logoutModal")
+        .classList.add("show");
+}
+
+function closeLogout() {
+
+    document
+        .getElementById("logoutModal")
+        .classList.remove("show");
 }
 
 function logout() {
 
-    const yes = confirm(
-        "⚠️ Are you sure you want to log out?"
-    );
+    currentUser = null;
 
-    if (!yes) return;
+    localStorage.removeItem("gmCurrentUser");
 
-    localStorage.removeItem("gmLoggedUser");
+    closeLogout();
+
+    updateUserArea();
 
     alert("👋 You have been logged out.");
 
-    updateAccountPage();
+    openTab("home");
 }
 
-/* =========================================================
-   VIDEO UPLOAD
-========================================================= */
 
-let selectedVideoFile = null;
+/* =========================
+   LOGIN REQUIRED
+========================= */
 
-function startVideoUpload() {
+function requireLogin(callback) {
 
-    if (!localStorage.getItem("gmLoggedUser")) {
+    if (!currentUser) {
 
         alert(
-            "🔒 You must be logged in to upload videos."
+            "🔐 You need to be logged in to do that!"
         );
 
-        showAuth();
+        openTab("login");
 
         return;
     }
 
-    document.getElementById("videoInput").click();
+    callback();
 }
 
-function videoSelected(event) {
 
-    const file = event.target.files[0];
-
-    if (!file) return;
-
-    if (!file.type.startsWith("video/")) {
-
-        alert("❌ Please choose a real video file.");
-
-        event.target.value = "";
-
-        return;
-    }
-
-    selectedVideoFile = file;
-
-    document.getElementById("videoModal")
-        .classList.add("show");
-}
-
-function closeVideoModal() {
-
-    document.getElementById("videoModal")
-        .classList.remove("show");
-
-    document.getElementById("videoInput").value = "";
-
-    selectedVideoFile = null;
-}
-
-async function saveVideo() {
-
-    if (!selectedVideoFile) {
-
-        alert("❌ No video selected.");
-
-        return;
-    }
-
-    const title =
-        document.getElementById("videoTitle")
-            .value.trim()
-        || selectedVideoFile.name;
-
-    const thumbnailInput =
-        document.getElementById("thumbnailInput");
-
-    let thumbnail = null;
-
-    if (thumbnailInput.files.length > 0) {
-
-        thumbnail =
-            await fileToDataURL(
-                thumbnailInput.files[0]
-            );
-    }
-
-    const username =
-        localStorage.getItem("gmLoggedUser")
-        || "Unknown";
-
-    const transaction =
-        db.transaction(["videos"], "readwrite");
-
-    const store =
-        transaction.objectStore("videos");
-
-    store.add({
-        title: title,
-        username: username,
-        video: selectedVideoFile,
-        thumbnail: thumbnail,
-        created: Date.now()
-    });
-
-    transaction.oncomplete = function() {
-
-        alert("🎉 Video uploaded successfully!");
-
-        closeVideoModal();
-
-        loadVideos();
-    };
-
-    transaction.onerror = function() {
-
-        alert(
-            "❌ The video could not be saved. " +
-            "The file may be too large for your browser."
-        );
-    };
-}
-
-function loadVideos() {
-
-    if (!db) return;
-
-    const grid =
-        document.getElementById("videoGrid");
-
-    grid.innerHTML = "";
-
-    const transaction =
-        db.transaction(["videos"], "readonly");
-
-    const store =
-        transaction.objectStore("videos");
-
-    const request =
-        store.getAll();
-
-    request.onsuccess = function() {
-
-        const videos = request.result;
-
-        if (videos.length === 0) {
-
-            grid.innerHTML = `
-                <div class="empty">
-                    🎥 No videos yet.<br>
-                    Log in and upload the first one!
-                </div>
-            `;
-
-            return;
-        }
-
-        videos.reverse().forEach(video => {
-
-            const card =
-                document.createElement("div");
-
-            card.className = "video-card";
-
-            const player =
-                document.createElement("video");
-
-            /*
-              THIS IS THE IMPORTANT PART.
-
-              The actual stored video Blob is converted
-              into a temporary browser URL.
-
-              This prevents the black-screen problem
-              caused by trying to put a file path into
-              the HTML.
-            */
-
-            const videoURL =
-                URL.createObjectURL(video.video);
-
-            player.src = videoURL;
-
-            player.controls = true;
-
-            player.preload = "metadata";
-
-            player.playsInline = true;
-
-            if (video.thumbnail) {
-                player.poster = video.thumbnail;
-            }
-
-            const info =
-                document.createElement("div");
-
-            info.className = "video-info";
-
-            info.innerHTML = `
-                <div class="video-name">
-                    ${escapeHTML(video.title)}
-                </div>
-
-                <div class="video-author">
-                    👤 ${escapeHTML(video.username)}
-                </div>
-            `;
-
-            if (
-                localStorage.getItem("gmLoggedUser")
-                === video.username
-            ) {
-
-                const deleteButton =
-                    document.createElement("button");
-
-                deleteButton.className =
-                    "delete-x";
-
-                deleteButton.textContent = "×";
-
-                deleteButton.title =
-                    "Delete video";
-
-                deleteButton.onclick =
-                    () => deleteVideo(video.id);
-
-                card.appendChild(deleteButton);
-            }
-
-            card.appendChild(player);
-            card.appendChild(info);
-
-            grid.appendChild(card);
-        });
-    };
-}
-
-function deleteVideo(id) {
-
-    if (!confirm("Delete this video?")) {
-        return;
-    }
-
-    const transaction =
-        db.transaction(["videos"], "readwrite");
-
-    transaction
-        .objectStore("videos")
-        .delete(id);
-
-    transaction.oncomplete = function() {
-        loadVideos();
-    };
-}
-
-/* =========================================================
-   RESOURCE PACKS
-========================================================= */
-
-function addResourcePack() {
-
-    if (!localStorage.getItem("gmLoggedUser")) {
-
-        alert(
-            "🔒 You must be logged in to upload resource packs."
-        );
-
-        showAuth();
-
-        return;
-    }
-
-    document.getElementById("packInput").click();
-}
-
-function saveResourcePack(event) {
-
-    const file = event.target.files[0];
-
-    if (!file) return;
-
-    if (!file.name.toLowerCase().endsWith(".zip")) {
-
-        alert("❌ Resource packs must be ZIP files.");
-
-        event.target.value = "";
-
-        return;
-    }
-
-    const username =
-        localStorage.getItem("gmLoggedUser");
-
-    const transaction =
-        db.transaction(["packs"], "readwrite");
-
-    transaction.objectStore("packs").add({
-        name: file.name,
-        username: username,
-        file: file,
-        created: Date.now()
-    });
-
-    transaction.oncomplete = function() {
-
-        alert("📦 Resource pack uploaded!");
-
-        event.target.value = "";
-
-        loadPacks();
-    };
-}
-
-function loadPacks() {
-
-    if (!db) return;
-
-    const grid =
-        document.getElementById("packGrid");
-
-    grid.innerHTML = "";
-
-    const transaction =
-        db.transaction(["packs"], "readonly");
-
-    const request =
-        transaction.objectStore("packs")
-            .getAll();
-
-    request.onsuccess = function() {
-
-        const packs = request.result;
-
-        if (packs.length === 0) {
-
-            grid.innerHTML = `
-                <div class="empty">
-                    📦 No resource packs yet.
-                </div>
-            `;
-
-            return;
-        }
-
-        packs.reverse().forEach(pack => {
-
-            const card =
-                document.createElement("div");
-
-            card.className = "pack-card";
-
-            const download =
-                document.createElement("button");
-
-            download.className =
-                "primary-btn";
-
-            download.textContent =
-                "⬇️ Download";
-
-            download.onclick =
-                () => downloadPack(pack);
-
-            card.innerHTML = `
-                <div style="font-size:45px">
-                    📦
-                </div>
-
-                <h3>
-                    ${escapeHTML(pack.name)}
-                </h3>
-
-                <p>
-                    👤 ${escapeHTML(pack.username)}
-                </p>
-            `;
-
-            card.appendChild(download);
-
-            if (
-                localStorage.getItem("gmLoggedUser")
-                === pack.username
-            ) {
-
-                const deleteButton =
-                    document.createElement("button");
-
-                deleteButton.className =
-                    "delete-x";
-
-                deleteButton.textContent = "×";
-
-                deleteButton.onclick =
-                    () => deletePack(pack.id);
-
-                card.appendChild(deleteButton);
-            }
-
-            grid.appendChild(card);
-        });
-    };
-}
-
-function downloadPack(pack) {
-
-    const url =
-        URL.createObjectURL(pack.file);
-
-    const a =
-        document.createElement("a");
-
-    a.href = url;
-
-    a.download = pack.name;
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-
-    setTimeout(() => {
-        URL.revokeObjectURL(url);
-    }, 1000);
-}
-
-function deletePack(id) {
-
-    if (!confirm("Delete this resource pack?")) {
-        return;
-    }
-
-    const transaction =
-        db.transaction(["packs"], "readwrite");
-
-    transaction.objectStore("packs").delete(id);
-
-    transaction.oncomplete = function() {
-        loadPacks();
-    };
-}
-
-/* =========================================================
-   MUSIC
-========================================================= */
-
-let musicOn = false;
-
-function toggleMusic() {
-
-    const music =
-        document.getElementById("music");
-
-    const button =
-        document.querySelector(".music-button");
-
-    if (musicOn) {
-
-        music.pause();
-
-        musicOn = false;
-
-        button.textContent =
-            "🎵 Music OFF";
-
-    } else {
-
-        music.play()
-            .then(() => {
-
-                musicOn = true;
-
-                button.textContent =
-                    "🎵 Music ON";
-
-            })
-            .catch(() => {
-
-                alert(
-                    "Put minecraft.mp3 next to index.html."
-                );
-
-            });
-    }
-}
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function fileToDataURL(file) {
-
-    return new Promise((resolve, reject) => {
-
-        const reader =
-            new FileReader();
-
-        reader.onload =
-            () => resolve(reader.result);
-
-        reader.onerror =
-            reject;
-
-        reader.readAsDataURL(file);
-    });
-}
+/* =========================
+   ESCAPE HTML
+========================= */
 
 function escapeHTML(text) {
 
-    const div =
-        document.createElement("div");
+    const div = document.createElement("div");
 
     div.textContent = text;
 
     return div.innerHTML;
 }
 
+
+/* =========================
+   SCREENSHOTS
+========================= */
+
+function addScreenshot() {
+
+    const input =
+        document.createElement("input");
+
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = function() {
+
+        const file = input.files[0];
+
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+
+            const screenshots =
+                JSON.parse(
+                    localStorage.getItem(
+                        "gmScreenshots"
+                    ) || "[]"
+                );
+
+            screenshots.push({
+                id: Date.now(),
+                user: currentUser.username,
+                name: file.name,
+                image: e.target.result
+            });
+
+            localStorage.setItem(
+                "gmScreenshots",
+                JSON.stringify(screenshots)
+            );
+
+            renderScreenshots();
+        };
+
+        reader.readAsDataURL(file);
+    };
+
+    input.click();
+}
+
+
+function renderScreenshots() {
+
+    const gallery =
+        document.getElementById("gallery");
+
+    const screenshots =
+        JSON.parse(
+            localStorage.getItem(
+                "gmScreenshots"
+            ) || "[]"
+        );
+
+    gallery.innerHTML = "";
+
+    screenshots.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "media-card";
+
+        card.innerHTML = `
+
+            <button class="delete-button"
+                    onclick="deleteScreenshot(${item.id})">
+                ×
+            </button>
+
+            <img src="${item.image}">
+
+            <div class="media-name">
+                ${escapeHTML(item.name)}
+            </div>
+
+            <div class="media-user">
+                Posted by ${escapeHTML(item.user)}
+            </div>
+        `;
+
+        gallery.appendChild(card);
+    });
+}
+
+
+function deleteScreenshot(id) {
+
+    if (!currentUser) return;
+
+    let screenshots =
+        JSON.parse(
+            localStorage.getItem(
+                "gmScreenshots"
+            ) || "[]"
+        );
+
+    screenshots =
+        screenshots.filter(item => {
+
+            if (item.id !== id) {
+                return true;
+            }
+
+            return item.user !== currentUser.username;
+        });
+
+    localStorage.setItem(
+        "gmScreenshots",
+        JSON.stringify(screenshots)
+    );
+
+    renderScreenshots();
+}
+
+
+/* =========================
+   VIDEOS
+========================= */
+
+function addVideo() {
+
+    const videoInput =
+        document.createElement("input");
+
+    videoInput.type = "file";
+    videoInput.accept = "video/mp4,video/webm,video/ogg";
+
+    videoInput.onchange = function() {
+
+        const videoFile =
+            videoInput.files[0];
+
+        if (!videoFile) return;
+
+        const thumbnailInput =
+            document.createElement("input");
+
+        thumbnailInput.type = "file";
+        thumbnailInput.accept = "image/*";
+
+        thumbnailInput.onchange = function() {
+
+            const thumbnailFile =
+                thumbnailInput.files[0];
+
+            if (!thumbnailFile) {
+
+                saveVideo(videoFile, null);
+
+                return;
+            }
+
+            const videoReader =
+                new FileReader();
+
+            const thumbnailReader =
+                new FileReader();
+
+            videoReader.onload = function() {
+
+                const videoData =
+                    videoReader.result;
+
+                thumbnailReader.onload = function() {
+
+                    saveVideo(
+                        videoFile,
+                        thumbnailReader.result,
+                        videoData
+                    );
+                };
+
+                thumbnailReader.readAsDataURL(
+                    thumbnailFile
+                );
+            };
+
+            videoReader.readAsDataURL(videoFile);
+        };
+
+        thumbnailInput.click();
+    };
+
+    videoInput.click();
+}
+
+
+function saveVideo(
+    file,
+    thumbnail,
+    suppliedData
+) {
+
+    const reader =
+        new FileReader();
+
+    reader.onload = function(e) {
+
+        const data =
+            suppliedData || e.target.result;
+
+        const videos =
+            JSON.parse(
+                localStorage.getItem(
+                    "gmVideos"
+                ) || "[]"
+            );
+
+        videos.push({
+            id: Date.now(),
+            user: currentUser.username,
+            name: file.name,
+            video: data,
+            thumbnail: thumbnail
+        });
+
+        try {
+
+            localStorage.setItem(
+                "gmVideos",
+                JSON.stringify(videos)
+            );
+
+        } catch(error) {
+
+            alert(
+                "⚠️ This video is too large for browser storage. Try a smaller video."
+            );
+
+            return;
+        }
+
+        renderVideos();
+    };
+
+    if (!suppliedData) {
+        reader.readAsDataURL(file);
+    } else {
+        reader.onload({
+            target: {
+                result: suppliedData
+            }
+        });
+    }
+}
+
+
+function renderVideos() {
+
+    const grid =
+        document.getElementById("videosGrid");
+
+    const videos =
+        JSON.parse(
+            localStorage.getItem(
+                "gmVideos"
+            ) || "[]"
+        );
+
+    grid.innerHTML = "";
+
+    videos.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "media-card video-card";
+
+        const thumbnail =
+            item.thumbnail
+                ? `<img class="video-thumbnail"
+                        src="${item.thumbnail}">`
+                : "";
+
+        card.innerHTML = `
+
+            <button class="delete-button"
+                    onclick="deleteVideo(${item.id})">
+                ×
+            </button>
+
+            ${thumbnail}
+
+            <video controls preload="metadata">
+                <source
+                    src="${item.video}">
+                Your browser cannot play this video.
+            </video>
+
+            <div class="media-name">
+                ${escapeHTML(item.name)}
+            </div>
+
+            <div class="media-user">
+                Posted by ${escapeHTML(item.user)}
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+
+function deleteVideo(id) {
+
+    if (!currentUser) return;
+
+    let videos =
+        JSON.parse(
+            localStorage.getItem(
+                "gmVideos"
+            ) || "[]"
+        );
+
+    videos =
+        videos.filter(item => {
+
+            if (item.id !== id) {
+                return true;
+            }
+
+            return item.user !== currentUser.username;
+        });
+
+    localStorage.setItem(
+        "gmVideos",
+        JSON.stringify(videos)
+    );
+
+    renderVideos();
+}
+
+
+/* =========================
+   RESOURCE PACKS
+========================= */
+
+function addResourcePack() {
+
+    const input =
+        document.createElement("input");
+
+    input.type = "file";
+    input.accept = ".zip,.mcpack";
+
+    input.onchange = function() {
+
+        const file = input.files[0];
+
+        if (!file) return;
+
+        const reader =
+            new FileReader();
+
+        reader.onload = function(e) {
+
+            const packs =
+                JSON.parse(
+                    localStorage.getItem(
+                        "gmPacks"
+                    ) || "[]"
+                );
+
+            packs.push({
+                id: Date.now(),
+                user: currentUser.username,
+                name: file.name,
+                data: e.target.result
+            });
+
+            try {
+
+                localStorage.setItem(
+                    "gmPacks",
+                    JSON.stringify(packs)
+                );
+
+            } catch(error) {
+
+                alert(
+                    "⚠️ This resource pack is too large for browser storage."
+                );
+
+                return;
+            }
+
+            renderPacks();
+        };
+
+        reader.readAsDataURL(file);
+    };
+
+    input.click();
+}
+
+
+function renderPacks() {
+
+    const grid =
+        document.getElementById("packsGrid");
+
+    const packs =
+        JSON.parse(
+            localStorage.getItem(
+                "gmPacks"
+            ) || "[]"
+        );
+
+    grid.innerHTML = "";
+
+    packs.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "pack-card";
+
+        card.innerHTML = `
+
+            ${
+                currentUser &&
+                currentUser.username === item.user
+                ? `
+                <button class="delete-button"
+                        onclick="deletePack(${item.id})">
+                    ×
+                </button>
+                `
+                : ""
+            }
+
+            <div class="pack-icon">
+                📦
+            </div>
+
+            <div class="pack-name">
+                ${escapeHTML(item.name)}
+            </div>
+
+            <div class="media-user"
+                 style="text-align:center;margin-bottom:15px;">
+                Uploaded by ${escapeHTML(item.user)}
+            </div>
+
+            <button class="download-button"
+                    onclick="downloadPack(${item.id})">
+                ⬇️ Download
+            </button>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+
+function downloadPack(id) {
+
+    const packs =
+        JSON.parse(
+            localStorage.getItem(
+                "gmPacks"
+            ) || "[]"
+        );
+
+    const pack =
+        packs.find(x => x.id === id);
+
+    if (!pack) return;
+
+    const link =
+        document.createElement("a");
+
+    link.href = pack.data;
+
+    link.download = pack.name;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+}
+
+
+function deletePack(id) {
+
+    if (!currentUser) return;
+
+    let packs =
+        JSON.parse(
+            localStorage.getItem(
+                "gmPacks"
+            ) || "[]"
+        );
+
+    packs =
+        packs.filter(item => {
+
+            if (item.id !== id) {
+                return true;
+            }
+
+            return item.user !== currentUser.username;
+        });
+
+    localStorage.setItem(
+        "gmPacks",
+        JSON.stringify(packs)
+    );
+
+    renderPacks();
+}
+
+
+/* =========================
+   CHAT
+========================= */
+
+function sendMessage() {
+
+    if (!currentUser) return;
+
+    const input =
+        document.getElementById("chatInput");
+
+    const text =
+        input.value.trim();
+
+    if (!text) return;
+
+    const messages =
+        JSON.parse(
+            localStorage.getItem(
+                "gmChat"
+            ) || "[]"
+        );
+
+    messages.push({
+        user: currentUser.username,
+        avatar: currentUser.avatar,
+        text: text,
+        time: new Date().toLocaleTimeString()
+    });
+
+    localStorage.setItem(
+        "gmChat",
+        JSON.stringify(messages)
+    );
+
+    input.value = "";
+
+    renderChat();
+}
+
+
+function renderChat() {
+
+    const box =
+        document.getElementById("messages");
+
+    const messages =
+        JSON.parse(
+            localStorage.getItem(
+                "gmChat"
+            ) || "[]"
+        );
+
+    box.innerHTML = "";
+
+    messages.forEach(message => {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "message";
+
+        div.innerHTML = `
+            <div class="message-user">
+                ${message.avatar}
+                ${escapeHTML(message.user)}
+                <small style="color:#777">
+                    ${escapeHTML(message.time)}
+                </small>
+            </div>
+
+            <div>
+                ${escapeHTML(message.text)}
+            </div>
+        `;
+
+        box.appendChild(div);
+    });
+
+    box.scrollTop = box.scrollHeight;
+}
+
+
+/* =========================
+   STARTUP
+========================= */
+
+updateUserArea();
+renderScreenshots();
+renderVideos();
+renderPacks();
+renderChat();
+
 </script>
 
 </body>
 </html>
-```
