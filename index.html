@@ -1,287 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- SERVER LIST -->
+<section class="server-section">
+    <h2 class="server-title">🖥️ GM KIDS SERVER LIST 🖥️</h2>
 
-    <title>GM KIDS</title>
+    <div class="servers">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: white;
-            transition: 0.3s;
-        }
-
-        /* Light Mode */
-        body.light {
-            background-color: #f5f5f5;
-            color: #111;
-        }
-
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-        }
-
-        /* Small GM KIDS logo */
-        .logo {
-            font-size: 45px;
-            font-weight: bold;
-        }
-
-        .gm {
-            color: #2196f3;
-        }
-
-        .kids {
-            color: #f44336;
-        }
-
-        /* Theme button */
-        .theme-button {
-            border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            background: #333;
-            color: white;
-            transition: 0.3s;
-        }
-
-        body.light .theme-button {
-            background: #ddd;
-            color: black;
-        }
-
-        .theme-button:hover {
-            transform: scale(1.05);
-        }
-
-        main {
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        /* Big GM KIDS title */
-        h1 {
-            font-size: 80px;
-            margin-bottom: 25px;
-        }
-
-        /* Best Minecraft Players */
-        .players {
-            margin-bottom: 60px;
-        }
-
-        .players h2 {
-            font-size: 35px;
-            margin-bottom: 20px;
-        }
-
-        .player {
-            font-size: 22px;
-            margin: 10px 0;
-        }
-
-        /* Members title */
-        .members-title {
-            font-size: 45px;
-            margin-bottom: 40px;
-        }
-
-        /* Member cards */
-        .members {
-            max-width: 900px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .member {
-            padding: 25px;
-            border-radius: 15px;
-            background: #1d1d1d;
-            transition: 0.3s;
-        }
-
-        body.light .member {
-            background: white;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
-        }
-
-        .member:hover {
-            transform: translateY(-7px) scale(1.03);
-        }
-
-        .member-name {
-            font-size: 25px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .role {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        /* OWNER - RED */
-        .owner {
-            border: 2px solid #f44336;
-        }
-
-        .owner .member-name,
-        .owner .role {
-            color: #f44336;
-        }
-
-        /* ADMIN - BLUE */
-        .admin {
-            border: 2px solid #2196f3;
-        }
-
-        .admin .member-name,
-        .admin .role {
-            color: #2196f3;
-        }
-
-        /* NORMAL MEMBER */
-        .normal-member {
-            border: 2px solid #888;
-        }
-
-        body.light .normal-member {
-            border-color: #777;
-        }
-
-        /* Mobile */
-        @media (max-width: 600px) {
-            header {
-                padding: 15px 20px;
-            }
-
-            .logo {
-                font-size: 30px;
-            }
-
-            h1 {
-                font-size: 55px;
-            }
-
-            .members-title {
-                font-size: 35px;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <header>
-        <div class="logo">
-            <span class="gm">GM</span>
-            <span class="kids">KIDS</span>
+        <!-- 1. GAMEUP -->
+        <div class="server-card">
+            <div class="server-number">#1</div>
+            <div class="server-name">🎮 gameup</div>
+            <div class="server-ip">gameup.ir</div>
+            <button onclick="copyIP('gameup.ir')">📋 Copy</button>
         </div>
 
-        <button class="theme-button" onclick="toggleTheme()">
-            🌙 Light Mode
-        </button>
-    </header>
-
-    <main>
-
-        <!-- BIG GM KIDS LOGO -->
-        <h1>
-            <span class="gm">GM</span>
-            <span class="kids">KIDS</span>
-        </h1>
-
-        <!-- BEST MINECRAFT PLAYERS -->
-        <section class="players">
-            <h2>🏆 Best Minecraft Players 🏆</h2>
-
-            <div class="player">1. marlowww</div>
-            <div class="player">2. itzrealme</div>
-            <div class="player">3. swight</div>
-            <div class="player">4. coldfied</div>
-        </section>
-
-        <!-- GROUP MEMBERS -->
-        <h2 class="members-title">😎 اعضای گروه 😎</h2>
-
-        <div class="members">
-
-            <!-- OWNER -->
-            <div class="member owner">
-                <div class="member-name">👑 ahoora</div>
-                <div class="role">OWNER</div>
-            </div>
-
-            <!-- ONLY ADMIN -->
-            <div class="member admin">
-                <div class="member-name">🛡️ barad</div>
-                <div class="role">ADMIN</div>
-            </div>
-
-            <!-- MEMBERS -->
-            <div class="member normal-member">
-                <div class="member-name">👤 amir</div>
-                <div class="role">MEMBER</div>
-            </div>
-
-            <div class="member normal-member">
-                <div class="member-name">👤 vafajo</div>
-                <div class="role">MEMBER</div>
-            </div>
-
-            <div class="member normal-member">
-                <div class="member-name">👤 ehsan</div>
-                <div class="role">MEMBER</div>
-            </div>
-
-            <div class="member normal-member">
-                <div class="member-name">👤 mahan</div>
-                <div class="role">MEMBER</div>
-            </div>
-
-            <div class="member normal-member">
-                <div class="member-name">👤 yasin</div>
-                <div class="role">MEMBER</div>
-            </div>
-
-            <div class="member normal-member">
-                <div class="member-name">👤 67</div>
-                <div class="role">MEMBER</div>
-            </div>
-
+        <!-- 2. TREXMINE -->
+        <div class="server-card">
+            <div class="server-number">#2</div>
+            <div class="server-name">🦖 trexmine</div>
+            <div class="server-ip">play.trexmine.com</div>
+            <button onclick="copyIP('play.trexmine.com')">📋 Copy</button>
         </div>
 
-    </main>
+        <!-- 3. UCRAFT -->
+        <div class="server-card">
+            <div class="server-number">#3</div>
+            <div class="server-name">⛏️ ucraft</div>
+            <div class="server-ip">play.ucraft.ir</div>
+            <button onclick="copyIP('play.ucraft.ir')">📋 Copy</button>
+        </div>
 
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle("light");
+        <!-- 4. COLDGAMES -->
+        <div class="server-card">
+            <div class="server-number">#4</div>
+            <div class="server-name">❄️ coldgames</div>
+            <div class="server-ip">play.coldgames.ir</div>
+            <button onclick="copyIP('play.coldgames.ir')">📋 Copy</button>
+        </div>
 
-            const button = document.querySelector(".theme-button");
+        <!-- 5. FAKEPIXEL -->
+        <div class="server-card">
+            <div class="server-number">#5</div>
+            <div class="server-name">🟨 fakepixel</div>
+            <div class="server-ip">play.fakepixel.me</div>
+            <button onclick="copyIP('play.fakepixel.me')">📋 Copy</button>
+        </div>
 
-            if (document.body.classList.contains("light")) {
-                button.innerHTML = "☀️ Dark Mode";
-            } else {
-                button.innerHTML = "🌙 Light Mode";
-            }
-        }
-    </script>
-
-</body>
-</html>
+    </div>
+</section>
