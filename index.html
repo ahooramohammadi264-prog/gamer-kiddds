@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GM KIDS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            transition: 0.3s;
+        }
+
+        /* Light Mode */
+        body.light {
+            background-color: #f5f5f5;
+            color: #111;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        /* GM KIDS Logo */
+        .logo {
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        .gm {
+            color: #2196f3;
+        }
+
+        .kids {
+            color: #f44336;
+        }
+
+        /* Light/Dark Button */
+        .theme-button {
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            background: #333;
+            color: white;
+            transition: 0.3s;
+        }
+
+        body.light .theme-button {
+            background: #ddd;
+            color: black;
+        }
+
+        .theme-button:hover {
+            transform: scale(1.05);
+        }
+
+        main {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        h1 {
+            font-size: 80px;
+            margin-bottom: 60px;
+        }
+
+        .install-title {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .skip-message {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        video {
+            width: 80%;
+            max-width: 900px;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <span class="gm">GM</span>
+            <span class="kids">KIDS</span>
+        </div>
+
+        <button class="theme-button" onclick="toggleTheme()">
+            🌙 Light Mode
+        </button>
+    </header>
+
+    <main>
+
+        <!-- GM KIDS MAIN LOGO -->
+        <h1>
+            <span class="gm">GM</span>
+            <span class="kids">KIDS</span>
+        </h1>
+
+        <!-- INSTALL SECTION -->
+        <h2 class="install-title">HOW TO INSTALL MINECRAFT</h2>
+
+        <p class="skip-message">
+            If you already have the launcher, you can skip this step.
+        </p>
+
+        <!-- YOUR VIDEO -->
+        <video controls>
+            <source src="minecraft-install.mp4" type="video/mp4">
+            Your browser does not support this video.
+        </video>
+
+    </main>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light");
+
+            const button = document.querySelector(".theme-button");
+
+            if (document.body.classList.contains("light")) {
+                button.innerHTML = "☀️ Dark Mode";
+            } else {
+                button.innerHTML = "🌙 Light Mode";
+            }
+        }
+    </script>
+
+</body>
+</html>
