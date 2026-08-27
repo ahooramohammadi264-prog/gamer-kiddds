@@ -424,20 +424,60 @@ body.light .pack-card {
    VIDEOS
 ========================= */
 
-.video-card video {
-    background: black;
-    width: 100%;
-    min-height: 180px;
-    object-fit: contain;
-}
+<!-- ==================== VIDEOS ==================== -->
+<section id="videos" class="page">
 
-.video-thumbnail {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 8px;
-}
+    <div class="section-header">
+        <div>
+            <h2>🎬 GM KIDS VIDEOS</h2>
+            <p>Watch Minecraft videos from the GM KIDS community!</p>
+        </div>
+
+        <button class="add-button" id="addVideoButton" onclick="openVideoUploader()">
+            ➕ Add Video
+        </button>
+    </div>
+
+    <!-- VIDEO UPLOADER -->
+    <div id="videoUploader" class="upload-box" style="display:none;">
+
+        <button class="close-upload" onclick="closeVideoUploader()">✖</button>
+
+        <h3>🎬 Add a Video</h3>
+
+        <label>Video file</label>
+        <input
+            type="file"
+            id="videoFile"
+            accept="video/mp4,video/webm,video/ogg"
+        >
+
+        <label>Thumbnail</label>
+        <input
+            type="file"
+            id="videoThumbnail"
+            accept="image/png,image/jpeg,image/webp"
+        >
+
+        <label>Video title</label>
+        <input
+            type="text"
+            id="videoTitle"
+            placeholder="My Minecraft Video"
+        >
+
+        <button class="create-video-button" onclick="addVideo()">
+            🚀 Add Video
+        </button>
+
+        <p id="videoError" class="error-message"></p>
+
+    </div>
+
+    <!-- VIDEOS WILL APPEAR HERE -->
+    <div id="videoList" class="video-grid"></div>
+
+</section>
 
 /* =========================
    CHAT
