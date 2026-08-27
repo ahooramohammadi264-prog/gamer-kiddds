@@ -4,61 +4,317 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>GM KIDS</title>
 
 <style>
-
 * {
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
     background: #111;
     color: white;
-    transition: 0.3s;
-    overflow-x: hidden;
+    overflow: hidden;
+    transition: .3s;
 }
 
 body.light {
-    background: #f5f5f5;
+    background: #f4f4f4;
     color: #111;
 }
 
-/* ================= HEADER ================= */
+/* ================= AUTH ================= */
 
-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
+.auth-screen {
+    width: 100%;
+    height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-
-    padding: 15px 35px;
-
-    background: rgba(17,17,17,0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid #333;
+    justify-content: center;
+    background:
+        radial-gradient(circle at top, #182c44, #080808 65%);
 }
 
-body.light header {
-    background: rgba(245,245,245,0.95);
+.auth-box {
+    width: min(440px, 92%);
+    background: rgba(25,25,25,.96);
+    border: 2px solid #2196f3;
+    border-radius: 22px;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(33,150,243,.25);
+}
+
+.auth-logo {
+    font-size: 55px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.auth-subtitle {
+    opacity: .7;
+    margin-bottom: 25px;
+}
+
+.auth-box input {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    border: 2px solid #444;
+    border-radius: 10px;
+    background: #111;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.auth-box input:focus {
+    border-color: #2196f3;
+}
+
+.auth-button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #2196f3;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.auth-button:hover {
+    transform: scale(1.03);
+}
+
+.secondary-button {
+    background: #333;
+}
+
+.auth-error {
+    color: #f44336;
+    min-height: 25px;
+    margin-top: 10px;
+}
+
+/* ================= SCREENS ================= */
+
+.screen {
+    display: none;
+    width: 100%;
+    height: 100vh;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* ================= SIGNUP MOB SELECTION ================= */
+
+.mob-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.mob {
+    border: 2px solid #444;
+    border-radius: 12px;
+    padding: 12px 5px;
+    cursor: pointer;
+    font-size: 36px;
+    background: #151515;
+    transition: .2s;
+}
+
+.mob span {
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.mob:hover {
+    border-color: #2196f3;
+    transform: scale(1.05);
+}
+
+.mob.selected {
+    border-color: #f44336;
+    box-shadow: 0 0 15px rgba(244,67,54,.5);
+}
+
+/* ================= APP ================= */
+
+.app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 245px;
+    height: 100%;
+    background: #181818;
+    border-right: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 12px;
+}
+
+body.light .sidebar {
+    background: white;
     border-color: #ddd;
 }
 
-.logo {
-    font-size: 38px;
+.side-logo {
+    text-align: center;
+    font-size: 35px;
     font-weight: bold;
-    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.profile-mini {
+    text-align: center;
+    padding: 12px;
+    border-radius: 15px;
+    background: #222;
+    margin-bottom: 18px;
+}
+
+body.light .profile-mini {
+    background: #eee;
+}
+
+.profile-pic {
+    font-size: 42px;
+}
+
+.profile-name {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tab-button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #ccc;
+    padding: 13px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .2s;
+}
+
+body.light .tab-button {
+    color: #333;
+}
+
+.tab-button:hover {
+    background: #292929;
+    color: white;
+}
+
+body.light .tab-button:hover {
+    background: #eee;
+    color: #111;
+}
+
+.tab-button.active {
+    background: #2196f3;
+    color: white;
+}
+
+/* SIDEBAR BOTTOM */
+
+.sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.side-action {
+    border: none;
+    padding: 11px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #333;
+    color: white;
+    font-weight: bold;
+}
+
+body.light .side-action {
+    background: #ddd;
+    color: #111;
+}
+
+.logout-button {
+    background: #f44336 !important;
+    color: white !important;
+}
+
+/* CONTENT */
+
+.content {
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    padding: 35px;
+}
+
+.page {
+    display: none;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-title {
+    font-size: 42px;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+/* ================= HOME ================= */
+
+.home-logo {
+    font-size: clamp(70px, 12vw, 130px);
+    font-weight: bold;
+    text-align: center;
+    margin-top: 80px;
+    letter-spacing: 5px;
+}
+
+.home-subtitle {
+    text-align: center;
+    font-size: 23px;
+    opacity: .75;
+    margin: 20px;
 }
 
 .gm {
@@ -69,128 +325,19 @@ body.light header {
     color: #f44336;
 }
 
-/* ================= NAV ================= */
-
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    flex-wrap: wrap;
-}
-
-nav a {
-    text-decoration: none;
-    color: white;
-    padding: 9px 11px;
-    border-radius: 10px;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-body.light nav a {
-    color: #111;
-}
-
-nav a:hover {
-    background: #2196f3;
-    color: white;
-    transform: translateY(-2px);
-}
-
-/* ================= SETTINGS ================= */
-
-.settings-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.theme-button,
-.music-button {
-    border: none;
-    padding: 10px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    background: #333;
-    color: white;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-body.light .theme-button,
-body.light .music-button {
-    background: #ddd;
-    color: #111;
-}
-
-.theme-button:hover,
-.music-button:hover {
-    transform: scale(1.06);
-}
-
-/* ================= MAIN ================= */
-
-main {
+.welcome-box {
+    max-width: 700px;
+    margin: 45px auto;
+    padding: 30px;
+    background: #1d1d1d;
+    border-radius: 18px;
     text-align: center;
-    padding: 50px 20px;
+    border: 1px solid #333;
 }
 
-section {
-    scroll-margin-top: 100px;
-    margin-bottom: 110px;
-}
-
-.section-title {
-    font-size: clamp(32px, 5vw, 45px);
-    margin-bottom: 35px;
-}
-
-/* ================= HERO ================= */
-
-.hero {
-    min-height: 65vh;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.hero h1 {
-    font-size: clamp(65px, 11vw, 110px);
-    margin: 0 0 20px;
-    letter-spacing: 5px;
-    animation: floatLogo 3s ease-in-out infinite;
-}
-
-@keyframes floatLogo {
-    0%, 100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-.hero-text {
-    font-size: 22px;
-    opacity: 0.8;
-    margin-bottom: 30px;
-}
-
-.hero-button {
-    text-decoration: none;
-    background: #2196f3;
-    color: white;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-.hero-button:hover {
-    transform: scale(1.07);
+body.light .welcome-box {
+    background: white;
+    border-color: #ddd;
 }
 
 /* ================= PLAYERS ================= */
@@ -201,18 +348,18 @@ section {
 }
 
 .player {
+    padding: 18px;
+    margin: 12px;
     background: #1d1d1d;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 12px;
-    font-size: 23px;
+    border-radius: 13px;
+    font-size: 22px;
     font-weight: bold;
-    transition: 0.2s;
+    transition: .2s;
 }
 
 body.light .player {
     background: white;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 3px 10px #ddd;
 }
 
 .player:hover {
@@ -223,131 +370,110 @@ body.light .player {
 /* ================= SERVERS ================= */
 
 .servers {
-    max-width: 950px;
-    margin: auto;
     display: grid;
-    gap: 18px;
+    gap: 15px;
 }
 
 .server-card {
     display: flex;
     align-items: center;
-    gap: 18px;
-
+    gap: 15px;
+    padding: 18px;
     background: #1d1d1d;
     border: 2px solid #333;
-
-    padding: 20px;
     border-radius: 15px;
-
-    transition: 0.2s;
+    transition: .2s;
 }
 
 body.light .server-card {
     background: white;
     border-color: #ddd;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .server-card:hover {
-    transform: translateY(-5px);
     border-color: #2196f3;
+    transform: translateY(-3px);
 }
 
 .server-number {
     color: #888;
     font-weight: bold;
-    width: 35px;
 }
 
 .server-name {
-    font-size: 22px;
+    width: 170px;
     font-weight: bold;
-    min-width: 170px;
-    text-align: left;
+    font-size: 20px;
 }
 
 .server-ip {
     flex: 1;
     font-family: monospace;
-    font-size: 17px;
     color: #aaa;
-    text-align: left;
-}
-
-body.light .server-ip {
-    color: #555;
 }
 
 .copy-button,
 .favorite-button {
     border: none;
     padding: 10px 14px;
-    border-radius: 10px;
+    border-radius: 9px;
     cursor: pointer;
-    color: white;
     font-weight: bold;
-    transition: 0.2s;
 }
 
 .copy-button {
     background: #2196f3;
+    color: white;
 }
 
 .favorite-button {
     background: #444;
+    color: white;
 }
 
 .favorite-button.active {
     background: #f5b700;
 }
 
-.copy-button:hover,
-.favorite-button:hover {
-    transform: scale(1.08);
-}
-
 .favorite-message {
-    margin-top: 25px;
-    font-size: 20px;
+    text-align: center;
+    margin: 25px;
+    font-size: 18px;
     font-weight: bold;
 }
 
 /* ================= MEMBERS ================= */
 
 .members {
-    max-width: 950px;
-    margin: auto;
-
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    gap: 18px;
 }
 
 .member {
     padding: 25px;
-    border-radius: 15px;
     background: #1d1d1d;
     border: 2px solid #666;
-    transition: 0.2s;
+    border-radius: 15px;
+    text-align: center;
+    transition: .2s;
 }
 
 body.light .member {
     background: white;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
 
 .member:hover {
-    transform: translateY(-8px) scale(1.03);
+    transform: translateY(-6px);
 }
 
 .member-name {
-    font-size: 25px;
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
 .role {
+    margin-top: 8px;
     font-weight: bold;
 }
 
@@ -372,72 +498,55 @@ body.light .member {
 /* ================= RULES ================= */
 
 .rules {
-    max-width: 850px;
-    margin: auto;
     display: grid;
     gap: 15px;
 }
 
 .rule {
-    text-align: left;
     padding: 20px;
     background: #1d1d1d;
     border-radius: 12px;
     border-left: 4px solid #2196f3;
-    font-size: 19px;
+    font-size: 18px;
 }
 
 body.light .rule {
     background: white;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* ================= UPLOAD ================= */
+
+.upload-button {
+    display: inline-block;
+    padding: 14px 22px;
+    border-radius: 11px;
+    background: #2196f3;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+.file-input {
+    display: none;
 }
 
 /* ================= RESOURCE PACKS ================= */
 
-.upload-button {
-    display: inline-block;
-    background: #2196f3;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 17px;
-    margin-bottom: 30px;
-    transition: 0.2s;
-}
-
-.upload-button:hover {
-    transform: scale(1.06);
-}
-
-#resourceInput,
-#galleryInput {
-    display: none;
-}
-
-.resource-packs,
-.gallery-grid {
-    max-width: 950px;
-    margin: auto;
-
+.resource-packs {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    gap: 18px;
 }
 
 .resource-pack {
     position: relative;
+    min-height: 170px;
+    padding: 25px;
     background: #1d1d1d;
     border: 2px solid #333;
     border-radius: 15px;
-    padding: 25px;
-    min-height: 170px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 }
 
 body.light .resource-pack {
@@ -446,58 +555,51 @@ body.light .resource-pack {
 }
 
 .pack-icon {
-    font-size: 45px;
+    font-size: 50px;
 }
 
 .pack-name {
-    font-weight: bold;
+    margin: 10px 0;
     word-break: break-word;
-    margin-top: 10px;
+    font-weight: bold;
 }
 
-.delete-pack,
-.delete-image {
+.delete-button {
     position: absolute;
     top: 8px;
     right: 8px;
-
-    width: 30px;
-    height: 30px;
-
     border: none;
-    border-radius: 50%;
-
     background: #f44336;
     color: white;
-
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 18px;
 }
 
-.download-pack {
-    margin-top: 15px;
+.download-button {
     border: none;
-    padding: 9px 15px;
-    border-radius: 9px;
     background: #2196f3;
     color: white;
+    padding: 9px 14px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
 /* ================= GALLERY ================= */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 18px;
+}
 
 .gallery-item {
     position: relative;
     height: 220px;
     border-radius: 15px;
     overflow: hidden;
-    background: #1d1d1d;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.gallery-item:hover {
-    transform: scale(1.03);
 }
 
 .gallery-item img {
@@ -506,22 +608,18 @@ body.light .resource-pack {
     object-fit: cover;
 }
 
-/* ================= IMAGE VIEWER ================= */
+.gallery-item .delete-button {
+    z-index: 2;
+}
+
+/* IMAGE VIEWER */
 
 .image-viewer {
     display: none;
-
     position: fixed;
+    inset: 0;
     z-index: 9999;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background: rgba(0,0,0,0.9);
-
+    background: rgba(0,0,0,.92);
     align-items: center;
     justify-content: center;
 }
@@ -529,16 +627,14 @@ body.light .resource-pack {
 .image-viewer img {
     max-width: 90%;
     max-height: 90%;
-    border-radius: 10px;
+    border-radius: 12px;
 }
 
 .close-viewer {
     position: absolute;
     top: 20px;
     right: 30px;
-
-    font-size: 40px;
-    color: white;
+    font-size: 45px;
     cursor: pointer;
 }
 
@@ -546,13 +642,12 @@ body.light .resource-pack {
 
 .challenge-box {
     max-width: 750px;
-    margin: auto;
-
+    margin: 60px auto;
+    padding: 45px;
+    text-align: center;
     background: #1d1d1d;
     border: 2px solid #2196f3;
-
-    border-radius: 18px;
-    padding: 40px;
+    border-radius: 20px;
 }
 
 body.light .challenge-box {
@@ -560,113 +655,178 @@ body.light .challenge-box {
 }
 
 .challenge-text {
-    font-size: 26px;
-    font-weight: bold;
-    min-height: 80px;
-
+    min-height: 90px;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.challenge-button {
+    margin-top: 25px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 12px;
+    background: #2196f3;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ================= LOGOUT MODAL ================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0,0,0,.75);
     align-items: center;
     justify-content: center;
 }
 
-.challenge-button {
-    margin-top: 20px;
+.modal-box {
+    width: min(400px, 90%);
+    background: #1d1d1d;
+    border: 2px solid #f44336;
+    border-radius: 18px;
+    padding: 30px;
+    text-align: center;
+}
+
+body.light .modal-box {
+    background: white;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 12px;
     border: none;
-
-    background: #2196f3;
-    color: white;
-
-    padding: 15px 25px;
-    border-radius: 12px;
-
-    font-size: 18px;
-    font-weight: bold;
-
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.2s;
+    font-weight: bold;
 }
 
-.challenge-button:hover {
-    transform: scale(1.08);
+.yes-button {
+    background: #f44336;
+    color: white;
 }
 
-/* ================= COPY MESSAGE ================= */
+.no-button {
+    background: #444;
+    color: white;
+}
 
-#copy-message {
+/* ================= TOAST ================= */
+
+#toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 25px;
     left: 50%;
-
     transform: translateX(-50%) translateY(100px);
-
     background: #222;
     color: white;
-
-    padding: 14px 22px;
+    padding: 13px 20px;
     border-radius: 12px;
-
     opacity: 0;
-    transition: 0.3s;
-    z-index: 99999;
+    transition: .3s;
+    z-index: 20000;
 }
 
-#copy-message.show {
+#toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
 
-/* ================= FOOTER ================= */
-
-footer {
-    text-align: center;
-    padding: 30px;
-    border-top: 1px solid #333;
-    opacity: 0.7;
-}
-
 /* ================= MOBILE ================= */
 
-@media (max-width: 1000px) {
+@media(max-width: 850px) {
 
-    header {
-        flex-wrap: wrap;
-        justify-content: center;
+    body {
+        overflow: auto;
     }
 
-    nav {
+    .app {
+        height: auto;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    .sidebar {
         width: 100%;
-    }
-}
-
-@media (max-width: 650px) {
-
-    header {
-        padding: 15px;
-    }
-
-    .logo {
-        font-size: 30px;
+        height: auto;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-right: none;
+        border-bottom: 1px solid #333;
     }
 
-    .settings-buttons {
-        width: 100%;
-        justify-content: center;
+    .side-logo {
+        margin-bottom: 10px;
+    }
+
+    .profile-mini {
+        display: none;
+    }
+
+    .sidebar nav {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .tab-button {
+        min-width: max-content;
+        text-align: center;
+    }
+
+    .sidebar-bottom {
+        flex-direction: row;
+        margin-top: 10px;
+    }
+
+    .content {
+        height: auto;
+        min-height: calc(100vh - 150px);
+        overflow: visible;
+        padding: 20px;
     }
 
     .server-card {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .server-name,
-    .server-ip {
-        text-align: center;
+        flex-wrap: wrap;
     }
 
     .server-name {
-        min-width: auto;
+        width: auto;
     }
 
+    .server-ip {
+        width: 100%;
+        flex-basis: 100%;
+    }
+}
+
+@media(max-width: 500px) {
+
+    .mob-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .auth-box {
+        padding: 25px;
+    }
+
+    .home-logo {
+        margin-top: 30px;
+    }
 }
 
 </style>
@@ -675,363 +835,888 @@ footer {
 
 <body>
 
-<header>
+<!-- ================= LOGIN ================= -->
+
+<div id="loginScreen" class="auth-screen">
 
 ```
-<div class="logo">
-    <span class="gm">GM</span>
-    <span class="kids">KIDS</span>
-</div>
+<div class="auth-box">
 
-<nav>
-    <a href="#home">🏠 Home</a>
-    <a href="#players">🏆 Players</a>
-    <a href="#servers">🖥️ Servers</a>
-    <a href="#members">😎 Members</a>
-    <a href="#rules">📜 Rules</a>
-    <a href="#resource-packs">📦 Resource Packs</a>
-    <a href="#gallery">📸 Gallery</a>
-    <a href="#challenges">🎲 Challenges</a>
-</nav>
+    <div class="auth-logo">
+        <span class="gm">GM</span>
+        <span class="kids">KIDS</span>
+    </div>
 
-<div class="settings-buttons">
+    <div class="auth-subtitle">
+        🎮 Minecraft Community
+    </div>
 
-    <button class="theme-button" onclick="toggleTheme()">
-        🌙 Light Mode
+    <input id="loginUsername" type="text" placeholder="Username">
+
+    <input id="loginPassword" type="password" placeholder="Password">
+
+    <button class="auth-button" onclick="login()">
+        🔐 Login
     </button>
 
-    <button class="music-button" onclick="toggleMusic()">
-        🎵 Music: OFF
+    <button class="auth-button secondary-button" onclick="showSignup()">
+        ✨ Sign Up
     </button>
 
-</div>
-```
-
-</header>
-
-<main>
-
-<!-- HOME -->
-
-<section id="home" class="hero">
-
-```
-<h1>
-    <span class="gm">GM</span>
-    <span class="kids">KIDS</span>
-</h1>
-
-<div class="hero-text">
-    🎮 Welcome to the GM KIDS Minecraft community!
-</div>
-
-<a href="#servers" class="hero-button">
-    🖥️ View Servers
-</a>
-```
-
-</section>
-
-<!-- BEST PLAYERS -->
-
-<section id="players">
-
-```
-<h2 class="section-title">
-    🏆 Best Minecraft Players 🏆
-</h2>
-
-<div class="player-list">
-
-    <div class="player">🥇 1. marlowww</div>
-    <div class="player">🥈 2. itzrealme</div>
-    <div class="player">🥉 3. swight</div>
-    <div class="player">🏅 4. coldfied</div>
+    <div id="loginError" class="auth-error"></div>
 
 </div>
 ```
 
-</section>
-
-<!-- SERVERS -->
-
-<section id="servers">
-
-```
-<h2 class="section-title">
-    🖥️ GM KIDS SERVER LIST 🖥️
-</h2>
-
-<div class="servers">
-
-    <div class="server-card">
-        <div class="server-number">#1</div>
-        <div class="server-name">🎮 gameup</div>
-        <div class="server-ip">gameup.ir</div>
-        <button class="copy-button" onclick="copyIP('gameup.ir')">📋 Copy</button>
-        <button class="favorite-button" onclick="favoriteServer(this, 'gameup')">☆</button>
-    </div>
-
-    <div class="server-card">
-        <div class="server-number">#2</div>
-        <div class="server-name">🦖 trexmine</div>
-        <div class="server-ip">play.trexmine.com</div>
-        <button class="copy-button" onclick="copyIP('play.trexmine.com')">📋 Copy</button>
-        <button class="favorite-button" onclick="favoriteServer(this, 'trexmine')">☆</button>
-    </div>
-
-    <div class="server-card">
-        <div class="server-number">#3</div>
-        <div class="server-name">⛏️ ucraft</div>
-        <div class="server-ip">play.ucraft.ir</div>
-        <button class="copy-button" onclick="copyIP('play.ucraft.ir')">📋 Copy</button>
-        <button class="favorite-button" onclick="favoriteServer(this, 'ucraft')">☆</button>
-    </div>
-
-    <div class="server-card">
-        <div class="server-number">#4</div>
-        <div class="server-name">❄️ coldgames</div>
-        <div class="server-ip">play.coldgames.ir</div>
-        <button class="copy-button" onclick="copyIP('play.coldgames.ir')">📋 Copy</button>
-        <button class="favorite-button" onclick="favoriteServer(this, 'coldgames')">☆</button>
-    </div>
-
-    <div class="server-card">
-        <div class="server-number">#5</div>
-        <div class="server-name">🟨 fakepixel</div>
-        <div class="server-ip">play.fakepixel.me</div>
-        <button class="copy-button" onclick="copyIP('play.fakepixel.me')">📋 Copy</button>
-        <button class="favorite-button" onclick="favoriteServer(this, 'fakepixel')">☆</button>
-    </div>
-
 </div>
 
-<div id="favoriteMessage" class="favorite-message">
-    ⭐ No favorite server selected yet.
-</div>
-```
+<!-- ================= SIGNUP STEP 1 ================= -->
 
-</section>
-
-<!-- MEMBERS -->
-
-<section id="members">
+<div id="signupScreen" class="auth-screen" style="display:none">
 
 ```
-<h2 class="section-title">
-    😎 اعضای گروه 😎
-</h2>
+<div class="auth-box">
 
-<div class="members">
-
-    <div class="member owner">
-        <div class="member-name">👑 ahoora</div>
-        <div class="role">OWNER</div>
+    <div class="auth-logo">
+        <span class="gm">GM</span>
+        <span class="kids">KIDS</span>
     </div>
 
-    <div class="member admin">
-        <div class="member-name">🛡️ barad</div>
-        <div class="role">ADMIN</div>
-    </div>
+    <h2>✨ Create Account</h2>
 
-    <div class="member">
-        <div class="member-name">👤 amir</div>
-        <div class="role">MEMBER</div>
-    </div>
+    <input id="signupUsername" type="text" placeholder="Username">
 
-    <div class="member">
-        <div class="member-name">👤 vafajo</div>
-        <div class="role">MEMBER</div>
-    </div>
+    <input id="signupPassword" type="password" placeholder="Password">
 
-    <div class="member">
-        <div class="member-name">👤 ehsan</div>
-        <div class="role">MEMBER</div>
-    </div>
-
-    <div class="member">
-        <div class="member-name">👤 mahan</div>
-        <div class="role">MEMBER</div>
-    </div>
-
-    <div class="member">
-        <div class="member-name">👤 yasin</div>
-        <div class="role">MEMBER</div>
-    </div>
-
-    <div class="member">
-        <div class="member-name">👤 67</div>
-        <div class="role">MEMBER</div>
-    </div>
-
-</div>
-```
-
-</section>
-
-<!-- RULES -->
-
-<section id="rules">
-
-```
-<h2 class="section-title">
-    📜 GM KIDS RULES 📜
-</h2>
-
-<div class="rules">
-
-    <div class="rule">🚫 No cheating or unfair advantages.</div>
-    <div class="rule">🏠 Don't destroy another player's builds.</div>
-    <div class="rule">🤝 Respect the other GM KIDS members.</div>
-    <div class="rule">⚔️ PvP is allowed when everyone agrees.</div>
-    <div class="rule">😂 Have fun and enjoy Minecraft!</div>
-
-</div>
-```
-
-</section>
-
-<!-- RESOURCE PACKS -->
-
-<section id="resource-packs">
-
-```
-<h2 class="section-title">
-    📦 Resource Packs 📦
-</h2>
-
-<p>Add your favorite Minecraft resource packs!</p>
-
-<label for="resourceInput" class="upload-button">
-    ➕ Add Resource Pack
-</label>
-
-<input type="file" id="resourceInput" accept=".zip" multiple>
-
-<div id="resourcePacks" class="resource-packs"></div>
-```
-
-</section>
-
-<!-- GALLERY -->
-
-<section id="gallery">
-
-```
-<h2 class="section-title">
-    📸 GM KIDS GALLERY 📸
-</h2>
-
-<p>Upload your best Minecraft screenshots!</p>
-
-<label for="galleryInput" class="upload-button">
-    ➕ Upload Screenshot
-</label>
-
-<input
-    type="file"
-    id="galleryInput"
-    accept="image/*"
-    multiple
->
-
-<div id="galleryGrid" class="gallery-grid"></div>
-```
-
-</section>
-
-<!-- CHALLENGES -->
-
-<section id="challenges">
-
-```
-<h2 class="section-title">
-    🎲 MINECRAFT CHALLENGES 🎲
-</h2>
-
-<div class="challenge-box">
-
-    <div id="challengeText" class="challenge-text">
-        🎯 Press the button to get a random Minecraft challenge!
-    </div>
-
-    <button class="challenge-button" onclick="newChallenge()">
-        🎲 GIVE ME A CHALLENGE!
+    <button class="auth-button" onclick="continueSignup()">
+        Continue ➡️
     </button>
 
+    <button class="auth-button secondary-button" onclick="showLogin()">
+        ⬅️ Back
+    </button>
+
+    <div id="signupError" class="auth-error"></div>
+
 </div>
 ```
 
-</section>
-
-</main>
-
-<!-- COPY MESSAGE -->
-
-<div id="copy-message">
-    ✅ IP copied!
 </div>
 
-<!-- IMAGE VIEWER -->
+<!-- ================= SIGNUP STEP 2 ================= -->
+
+<div id="avatarScreen" class="auth-screen" style="display:none">
+
+```
+<div class="auth-box">
+
+    <h2>🧟 Choose Your Profile Picture</h2>
+
+    <p>Select a Minecraft mob.</p>
+
+    <div class="mob-grid">
+
+        <div class="mob" onclick="selectMob(this,'🧟')">
+            🧟<span>Zombie</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'💀')">
+            💀<span>Skeleton</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🟩')">
+            🟩<span>Creeper</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'👁️')">
+            👁️<span>Enderman</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🐷')">
+            🐷<span>Pig</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🐺')">
+            🐺<span>Wolf</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🐮')">
+            🐮<span>Cow</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🕷️')">
+            🕷️<span>Spider</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🔥')">
+            🔥<span>Blaze</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🐔')">
+            🐔<span>Chicken</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🐑')">
+            🐑<span>Sheep</span>
+        </div>
+
+        <div class="mob" onclick="selectMob(this,'🐢')">
+            🐢<span>Turtle</span>
+        </div>
+
+    </div>
+
+    <button class="auth-button" onclick="createAccount()">
+        🎉 Create Account
+    </button>
+
+    <button class="auth-button secondary-button" onclick="showSignup()">
+        ⬅️ Back
+    </button>
+
+    <div id="avatarError" class="auth-error"></div>
+
+</div>
+```
+
+</div>
+
+<!-- ================= MAIN APP ================= -->
+
+<div id="mainApp" class="screen">
+
+```
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="side-logo">
+            <span class="gm">GM</span>
+            <span class="kids">KIDS</span>
+        </div>
+
+        <div class="profile-mini">
+            <div id="profilePic" class="profile-pic">👤</div>
+            <div id="profileName" class="profile-name">Player</div>
+        </div>
+
+        <nav>
+
+            <button class="tab-button active" onclick="openPage('home',this)">
+                🏠 Home
+            </button>
+
+            <button class="tab-button" onclick="openPage('players',this)">
+                🏆 Players
+            </button>
+
+            <button class="tab-button" onclick="openPage('servers',this)">
+                🖥️ Servers
+            </button>
+
+            <button class="tab-button" onclick="openPage('members',this)">
+                😎 Members
+            </button>
+
+            <button class="tab-button" onclick="openPage('rules',this)">
+                📜 Rules
+            </button>
+
+            <button class="tab-button" onclick="openPage('packs',this)">
+                📦 Resource Packs
+            </button>
+
+            <button class="tab-button" onclick="openPage('gallery',this)">
+                📸 Gallery
+            </button>
+
+            <button class="tab-button" onclick="openPage('challenges',this)">
+                🎲 Challenges
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <button class="side-action" onclick="toggleTheme()">
+                🌙 Light / Dark
+            </button>
+
+            <button id="musicButton" class="side-action" onclick="toggleMusic()">
+                🎵 Music: OFF
+            </button>
+
+            <button class="side-action logout-button" onclick="openLogout()">
+                🚪 Exit / Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- CONTENT -->
+
+    <div class="content">
+
+        <!-- HOME -->
+
+        <section id="home" class="page active">
+
+            <div class="home-logo">
+                <span class="gm">GM</span>
+                <span class="kids">KIDS</span>
+            </div>
+
+            <div class="home-subtitle">
+                🎮 Welcome to the GM KIDS Minecraft Community!
+            </div>
+
+            <div class="welcome-box">
+
+                <h2>🔥 Welcome!</h2>
+
+                <p>
+                    Welcome to GM KIDS!
+                    Check out our servers, resource packs,
+                    screenshots and Minecraft challenges.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- PLAYERS -->
+
+        <section id="players" class="page">
+
+            <h1 class="page-title">
+                🏆 Best Minecraft Players
+            </h1>
+
+            <div class="player-list">
+
+                <div class="player">🥇 1. marlowww</div>
+                <div class="player">🥈 2. itzrealme</div>
+                <div class="player">🥉 3. swight</div>
+                <div class="player">🏅 4. coldfied</div>
+
+            </div>
+
+        </section>
+
+        <!-- SERVERS -->
+
+        <section id="servers" class="page">
+
+            <h1 class="page-title">
+                🖥️ GM KIDS Server List
+            </h1>
+
+            <div class="servers">
+
+                <div class="server-card">
+                    <div class="server-number">#1</div>
+                    <div class="server-name">🎮 gameup</div>
+                    <div class="server-ip">gameup.ir</div>
+                    <button class="copy-button" onclick="copyIP('gameup.ir')">📋 Copy</button>
+                    <button class="favorite-button" onclick="favoriteServer(this,'gameup')">☆</button>
+                </div>
+
+                <div class="server-card">
+                    <div class="server-number">#2</div>
+                    <div class="server-name">🦖 trexmine</div>
+                    <div class="server-ip">play.trexmine.com</div>
+                    <button class="copy-button" onclick="copyIP('play.trexmine.com')">📋 Copy</button>
+                    <button class="favorite-button" onclick="favoriteServer(this,'trexmine')">☆</button>
+                </div>
+
+                <div class="server-card">
+                    <div class="server-number">#3</div>
+                    <div class="server-name">⛏️ ucraft</div>
+                    <div class="server-ip">play.ucraft.ir</div>
+                    <button class="copy-button" onclick="copyIP('play.ucraft.ir')">📋 Copy</button>
+                    <button class="favorite-button" onclick="favoriteServer(this,'ucraft')">☆</button>
+                </div>
+
+                <div class="server-card">
+                    <div class="server-number">#4</div>
+                    <div class="server-name">❄️ coldgames</div>
+                    <div class="server-ip">play.coldgames.ir</div>
+                    <button class="copy-button" onclick="copyIP('play.coldgames.ir')">📋 Copy</button>
+                    <button class="favorite-button" onclick="favoriteServer(this,'coldgames')">☆</button>
+                </div>
+
+                <div class="server-card">
+                    <div class="server-number">#5</div>
+                    <div class="server-name">🟨 fakepixel</div>
+                    <div class="server-ip">play.fakepixel.me</div>
+                    <button class="copy-button" onclick="copyIP('play.fakepixel.me')">📋 Copy</button>
+                    <button class="favorite-button" onclick="favoriteServer(this,'fakepixel')">☆</button>
+                </div>
+
+            </div>
+
+            <div id="favoriteMessage" class="favorite-message">
+                ⭐ No favorite server selected yet.
+            </div>
+
+        </section>
+
+        <!-- MEMBERS -->
+
+        <section id="members" class="page">
+
+            <h1 class="page-title">
+                😎 اعضای گروه
+            </h1>
+
+            <div class="members">
+
+                <div class="member owner">
+                    <div class="member-name">👑 ahoora</div>
+                    <div class="role">OWNER</div>
+                </div>
+
+                <div class="member admin">
+                    <div class="member-name">🛡️ barad</div>
+                    <div class="role">ADMIN</div>
+                </div>
+
+                <div class="member">
+                    <div class="member-name">👤 amir</div>
+                    <div class="role">MEMBER</div>
+                </div>
+
+                <div class="member">
+                    <div class="member-name">👤 vafajo</div>
+                    <div class="role">MEMBER</div>
+                </div>
+
+                <div class="member">
+                    <div class="member-name">👤 ehsan</div>
+                    <div class="role">MEMBER</div>
+                </div>
+
+                <div class="member">
+                    <div class="member-name">👤 mahan</div>
+                    <div class="role">MEMBER</div>
+                </div>
+
+                <div class="member">
+                    <div class="member-name">👤 yasin</div>
+                    <div class="role">MEMBER</div>
+                </div>
+
+                <div class="member">
+                    <div class="member-name">👤 67</div>
+                    <div class="role">MEMBER</div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- RULES -->
+
+        <section id="rules" class="page">
+
+            <h1 class="page-title">
+                📜 GM KIDS Rules
+            </h1>
+
+            <div class="rules">
+
+                <div class="rule">🚫 No cheating or unfair advantages.</div>
+                <div class="rule">🏠 Don't destroy another player's builds.</div>
+                <div class="rule">🤝 Respect other GM KIDS members.</div>
+                <div class="rule">⚔️ PvP is allowed when everyone agrees.</div>
+                <div class="rule">😂 Have fun!</div>
+
+            </div>
+
+        </section>
+
+        <!-- RESOURCE PACKS -->
+
+        <section id="packs" class="page">
+
+            <h1 class="page-title">
+                📦 Resource Packs
+            </h1>
+
+            <p>Upload your Minecraft resource packs here.</p>
+
+            <label for="resourceInput" class="upload-button">
+                ➕ Add Resource Pack
+            </label>
+
+            <input
+                id="resourceInput"
+                class="file-input"
+                type="file"
+                accept=".zip"
+                multiple
+            >
+
+            <div id="resourcePacks" class="resource-packs"></div>
+
+        </section>
+
+        <!-- GALLERY -->
+
+        <section id="gallery" class="page">
+
+            <h1 class="page-title">
+                📸 GM KIDS Gallery
+            </h1>
+
+            <p>Upload your best Minecraft screenshots!</p>
+
+            <label for="galleryInput" class="upload-button">
+                ➕ Upload Screenshot
+            </label>
+
+            <input
+                id="galleryInput"
+                class="file-input"
+                type="file"
+                accept="image/*"
+                multiple
+            >
+
+            <div id="galleryGrid" class="gallery-grid"></div>
+
+        </section>
+
+        <!-- CHALLENGES -->
+
+        <section id="challenges" class="page">
+
+            <h1 class="page-title">
+                🎲 Minecraft Challenges
+            </h1>
+
+            <div class="challenge-box">
+
+                <div id="challengeText" class="challenge-text">
+                    🎯 Press the button to get a random challenge!
+                </div>
+
+                <button class="challenge-button" onclick="newChallenge()">
+                    🎲 GIVE ME A CHALLENGE!
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ================= LOGOUT MODAL ================= -->
+
+<div id="logoutModal" class="modal">
+
+```
+<div class="modal-box">
+
+    <h2>⚠️ Are you sure?</h2>
+
+    <p>Are you sure you want to log out?</p>
+
+    <div class="modal-buttons">
+
+        <button class="no-button" onclick="closeLogout()">
+            ❌ No
+        </button>
+
+        <button class="yes-button" onclick="logout()">
+            ✅ Yes
+        </button>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+<!-- ================= IMAGE VIEWER ================= -->
 
 <div id="imageViewer" class="image-viewer" onclick="closeImage()">
 
 ```
 <span class="close-viewer">×</span>
 
-<img id="viewerImage" src="" alt="Gallery image">
+<img id="viewerImage" src="" alt="Minecraft Screenshot">
 ```
 
 </div>
 
-<!-- MUSIC -->
+<!-- ================= TOAST ================= -->
+
+<div id="toast"></div>
+
+<!-- ================= MUSIC ================= -->
 
 <audio id="bgMusic" loop>
     <source src="minecraft-music.mp3" type="audio/mpeg">
 </audio>
 
-<footer>
-
-```
-🔵 GM <span class="kids">KIDS</span> 🔴
-
-<br><br>
-
-Made for the GM KIDS Minecraft crew 🎮
-```
-
-</footer>
-
 <script>
 
-/* LIGHT / DARK MODE */
+/* =====================================================
+   ACCOUNT SYSTEM
+===================================================== */
+
+let signupData = {
+    username: "",
+    password: "",
+    avatar: ""
+};
+
+let selectedAvatar = "";
+
+function getAccounts() {
+
+    return JSON.parse(localStorage.getItem("gmKidsAccounts") || "{}");
+
+}
+
+async function hashPassword(password) {
+
+    const data = new TextEncoder().encode(password);
+
+    const hash = await crypto.subtle.digest("SHA-256", data);
+
+    return Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+
+}
+
+/* SHOW LOGIN */
+
+function showLogin() {
+
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("signupScreen").style.display = "none";
+    document.getElementById("avatarScreen").style.display = "none";
+
+    document.getElementById("loginError").innerText = "";
+
+}
+
+/* SHOW SIGNUP */
+
+function showSignup() {
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("signupScreen").style.display = "flex";
+    document.getElementById("avatarScreen").style.display = "none";
+
+    document.getElementById("signupError").innerText = "";
+
+}
+
+/* CONTINUE SIGNUP */
+
+function continueSignup() {
+
+    const username =
+        document.getElementById("signupUsername").value.trim();
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    const error =
+        document.getElementById("signupError");
+
+    if (username.length < 3) {
+
+        error.innerText =
+            "❌ Username must be at least 3 characters.";
+
+        return;
+    }
+
+    if (password.length < 4) {
+
+        error.innerText =
+            "❌ Password must be at least 4 characters.";
+
+        return;
+    }
+
+    const accounts = getAccounts();
+
+    if (accounts[username.toLowerCase()]) {
+
+        error.innerText =
+            "❌ That username already exists.";
+
+        return;
+    }
+
+    signupData.username = username;
+    signupData.password = password;
+
+    document.getElementById("signupScreen").style.display = "none";
+    document.getElementById("avatarScreen").style.display = "flex";
+
+}
+
+/* SELECT AVATAR */
+
+function selectMob(element, avatar) {
+
+    document.querySelectorAll(".mob").forEach(function(mob) {
+
+        mob.classList.remove("selected");
+
+    });
+
+    element.classList.add("selected");
+
+    selectedAvatar = avatar;
+
+}
+
+/* CREATE ACCOUNT */
+
+async function createAccount() {
+
+    const error =
+        document.getElementById("avatarError");
+
+    if (!selectedAvatar) {
+
+        error.innerText =
+            "❌ Please choose a profile picture.";
+
+        return;
+    }
+
+    const accounts = getAccounts();
+
+    const usernameKey =
+        signupData.username.toLowerCase();
+
+    const passwordHash =
+        await hashPassword(signupData.password);
+
+    accounts[usernameKey] = {
+
+        username: signupData.username,
+
+        password: passwordHash,
+
+        avatar: selectedAvatar
+
+    };
+
+    localStorage.setItem(
+        "gmKidsAccounts",
+        JSON.stringify(accounts)
+    );
+
+    localStorage.setItem(
+        "gmKidsCurrentUser",
+        usernameKey
+    );
+
+    signupData = {
+        username: "",
+        password: "",
+        avatar: ""
+    };
+
+    selectedAvatar = "";
+
+    loginCurrentUser();
+
+}
+
+/* LOGIN */
+
+async function login() {
+
+    const username =
+        document.getElementById("loginUsername")
+        .value.trim();
+
+    const password =
+        document.getElementById("loginPassword")
+        .value;
+
+    const error =
+        document.getElementById("loginError");
+
+    const accounts = getAccounts();
+
+    const account =
+        accounts[username.toLowerCase()];
+
+    if (!account) {
+
+        error.innerText =
+            "❌ Username or password is incorrect.";
+
+        return;
+    }
+
+    const passwordHash =
+        await hashPassword(password);
+
+    if (passwordHash !== account.password) {
+
+        error.innerText =
+            "❌ Username or password is incorrect.";
+
+        return;
+    }
+
+    localStorage.setItem(
+        "gmKidsCurrentUser",
+        username.toLowerCase()
+    );
+
+    error.innerText = "";
+
+    loginCurrentUser();
+
+}
+
+/* LOGIN CURRENT USER */
+
+function loginCurrentUser() {
+
+    const currentUser =
+        localStorage.getItem("gmKidsCurrentUser");
+
+    if (!currentUser) {
+
+        showLogin();
+
+        return;
+    }
+
+    const accounts = getAccounts();
+
+    const account = accounts[currentUser];
+
+    if (!account) {
+
+        localStorage.removeItem("gmKidsCurrentUser");
+
+        showLogin();
+
+        return;
+    }
+
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("signupScreen").style.display = "none";
+    document.getElementById("avatarScreen").style.display = "none";
+    document.getElementById("mainApp").classList.add("active");
+
+    document.getElementById("profileName").innerText =
+        account.username;
+
+    document.getElementById("profilePic").innerText =
+        account.avatar;
+
+}
+
+/* LOGOUT */
+
+function openLogout() {
+
+    document.getElementById("logoutModal").style.display = "flex";
+
+}
+
+function closeLogout() {
+
+    document.getElementById("logoutModal").style.display = "none";
+
+}
+
+function logout() {
+
+    localStorage.removeItem("gmKidsCurrentUser");
+
+    document.getElementById("mainApp").classList.remove("active");
+
+    closeLogout();
+
+    document.getElementById("loginUsername").value = "";
+    document.getElementById("loginPassword").value = "";
+
+    showLogin();
+
+}
+
+/* =====================================================
+   TABS
+===================================================== */
+
+function openPage(pageId, button) {
+
+    document.querySelectorAll(".page").forEach(function(page) {
+
+        page.classList.remove("active");
+
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    document.querySelectorAll(".tab-button").forEach(function(btn) {
+
+        btn.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+}
+
+/* =====================================================
+   LIGHT / DARK
+===================================================== */
 
 function toggleTheme() {
 
     document.body.classList.toggle("light");
 
-    const button = document.querySelector(".theme-button");
-
-    if (document.body.classList.contains("light")) {
-        button.innerHTML = "☀️ Dark Mode";
-    } else {
-        button.innerHTML = "🌙 Light Mode";
-    }
 }
 
-/* MUSIC */
+/* =====================================================
+   MUSIC
+===================================================== */
 
 let musicPlaying = false;
 
 function toggleMusic() {
 
-    const music = document.getElementById("bgMusic");
-    const button = document.querySelector(".music-button");
+    const music =
+        document.getElementById("bgMusic");
+
+    const button =
+        document.getElementById("musicButton");
 
     if (musicPlaying) {
 
         music.pause();
-        button.innerHTML = "🎵 Music: OFF";
+
+        button.innerText =
+            "🎵 Music: OFF";
+
         musicPlaying = false;
 
     } else {
@@ -1039,114 +1724,132 @@ function toggleMusic() {
         music.play()
         .then(function() {
 
-            button.innerHTML = "🎵 Music: ON";
+            button.innerText =
+                "🎵 Music: ON";
+
             musicPlaying = true;
 
         })
         .catch(function() {
 
-            alert("Put minecraft-music.mp3 in the same folder as index.html!");
+            showToast(
+                "⚠️ Put minecraft-music.mp3 beside index.html"
+            );
 
         });
+
     }
+
 }
 
-/* COPY IP */
+/* =====================================================
+   COPY SERVER IP
+===================================================== */
 
 function copyIP(ip) {
 
     navigator.clipboard.writeText(ip);
 
-    const message = document.getElementById("copy-message");
+    showToast("✅ Copied: " + ip);
 
-    message.innerHTML = "✅ Copied: " + ip;
-
-    message.classList.add("show");
-
-    setTimeout(function() {
-        message.classList.remove("show");
-    }, 2000);
 }
 
-/* FAVORITE SERVER */
+/* =====================================================
+   FAVORITE SERVER
+===================================================== */
 
 function favoriteServer(button, server) {
 
-    document.querySelectorAll(".favorite-button").forEach(function(btn) {
+    document.querySelectorAll(".favorite-button")
+    .forEach(function(btn) {
 
         btn.classList.remove("active");
-        btn.innerHTML = "☆";
+        btn.innerText = "☆";
 
     });
 
     button.classList.add("active");
-    button.innerHTML = "⭐";
+    button.innerText = "⭐";
 
-    document.getElementById("favoriteMessage").innerHTML =
+    document.getElementById("favoriteMessage")
+        .innerText =
         "⭐ Your Favorite Server: " + server;
+
 }
 
-/* RESOURCE PACKS */
+/* =====================================================
+   RESOURCE PACKS
+===================================================== */
 
-const resourceInput = document.getElementById("resourceInput");
-const resourcePacks = document.getElementById("resourcePacks");
+let resourcePacks = [];
 
-let packs = [];
+document.getElementById("resourceInput")
+.addEventListener("change", function(event) {
 
-resourceInput.addEventListener("change", function(event) {
+    Array.from(event.target.files).forEach(function(file) {
 
-    const files = Array.from(event.target.files);
+        resourcePacks.push({
 
-    files.forEach(function(file) {
+            name: file.name,
 
-        if (file.name.toLowerCase().endsWith(".zip")) {
+            file: file
 
-            packs.push({
-                name: file.name,
-                file: file
-            });
-
-        }
+        });
 
     });
 
-    displayPacks();
+    displayResourcePacks();
 
-    resourceInput.value = "";
+    this.value = "";
 
 });
 
-function displayPacks() {
+function displayResourcePacks() {
 
-    resourcePacks.innerHTML = "";
+    const container =
+        document.getElementById("resourcePacks");
 
-    if (packs.length === 0) {
+    container.innerHTML = "";
 
-        resourcePacks.innerHTML =
-            "<p>📦 No resource packs added yet.</p>";
+    if (resourcePacks.length === 0) {
+
+        container.innerHTML =
+            "<p>📦 No resource packs uploaded yet.</p>";
 
         return;
     }
 
-    packs.forEach(function(pack, index) {
+    resourcePacks.forEach(function(pack, index) {
 
-        const card = document.createElement("div");
+        const card =
+            document.createElement("div");
 
-        card.className = "resource-pack";
+        card.className =
+            "resource-pack";
 
         card.innerHTML = `
-            <button class="delete-pack" onclick="deletePack(${index})">×</button>
+
+            <button
+                class="delete-button"
+                onclick="deletePack(${index})">
+                ×
+            </button>
 
             <div class="pack-icon">📦</div>
 
-            <div class="pack-name">${escapeHTML(pack.name)}</div>
+            <div class="pack-name">
+                ${escapeHTML(pack.name)}
+            </div>
 
-            <button class="download-pack" onclick="downloadPack(${index})">
+            <button
+                class="download-button"
+                onclick="downloadPack(${index})">
                 ⬇️ Download
             </button>
+
         `;
 
-        resourcePacks.appendChild(card);
+        container.appendChild(card);
 
     });
 
@@ -1154,76 +1857,71 @@ function displayPacks() {
 
 function deletePack(index) {
 
-    packs.splice(index, 1);
+    resourcePacks.splice(index, 1);
 
-    displayPacks();
+    displayResourcePacks();
+
 }
 
 function downloadPack(index) {
 
-    const pack = packs[index];
+    const url =
+        URL.createObjectURL(
+            resourcePacks[index].file
+        );
 
-    const url = URL.createObjectURL(pack.file);
-
-    const link = document.createElement("a");
+    const link =
+        document.createElement("a");
 
     link.href = url;
-    link.download = pack.name;
+
+    link.download =
+        resourcePacks[index].name;
 
     link.click();
 
     URL.revokeObjectURL(url);
+
 }
 
-function escapeHTML(text) {
-
-    const div = document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-}
-
-displayPacks();
-
-/* GALLERY */
-
-const galleryInput = document.getElementById("galleryInput");
-const galleryGrid = document.getElementById("galleryGrid");
+/* =====================================================
+   GALLERY
+===================================================== */
 
 let galleryImages = [];
 
-galleryInput.addEventListener("change", function(event) {
+document.getElementById("galleryInput")
+.addEventListener("change", function(event) {
 
-    const files = Array.from(event.target.files);
+    Array.from(event.target.files).forEach(function(file) {
 
-    files.forEach(function(file) {
+        const url =
+            URL.createObjectURL(file);
 
-        if (file.type.startsWith("image/")) {
+        galleryImages.push({
 
-            const imageURL = URL.createObjectURL(file);
+            url: url
 
-            galleryImages.push({
-                url: imageURL
-            });
-
-        }
+        });
 
     });
 
     displayGallery();
 
-    galleryInput.value = "";
+    this.value = "";
 
 });
 
 function displayGallery() {
 
-    galleryGrid.innerHTML = "";
+    const gallery =
+        document.getElementById("galleryGrid");
+
+    gallery.innerHTML = "";
 
     if (galleryImages.length === 0) {
 
-        galleryGrid.innerHTML =
+        gallery.innerHTML =
             "<p>📸 No screenshots uploaded yet.</p>";
 
         return;
@@ -1231,26 +1929,27 @@ function displayGallery() {
 
     galleryImages.forEach(function(image, index) {
 
-        const item = document.createElement("div");
+        const item =
+            document.createElement("div");
 
-        item.className = "gallery-item";
+        item.className =
+            "gallery-item";
 
         item.innerHTML = `
+
             <img
                 src="${image.url}"
-                onclick="openImage('${image.url}')"
-                alt="Minecraft Screenshot"
-            >
+                onclick="openImage('${image.url}')">
 
             <button
-                class="delete-image"
-                onclick="deleteImage(event, ${index})"
-            >
+                class="delete-button"
+                onclick="deleteImage(event,${index})">
                 ×
             </button>
+
         `;
 
-        galleryGrid.appendChild(item);
+        gallery.appendChild(item);
 
     });
 
@@ -1260,34 +1959,42 @@ function deleteImage(event, index) {
 
     event.stopPropagation();
 
-    URL.revokeObjectURL(galleryImages[index].url);
+    URL.revokeObjectURL(
+        galleryImages[index].url
+    );
 
     galleryImages.splice(index, 1);
 
     displayGallery();
+
 }
 
 function openImage(url) {
 
-    const viewer = document.getElementById("imageViewer");
+    document.getElementById("viewerImage").src =
+        url;
 
-    document.getElementById("viewerImage").src = url;
+    document.getElementById("imageViewer")
+        .style.display = "flex";
 
-    viewer.style.display = "flex";
 }
 
 function closeImage() {
 
-    document.getElementById("imageViewer").style.display = "none";
+    document.getElementById("imageViewer")
+        .style.display = "none";
+
 }
 
-/* CHALLENGES */
+/* =====================================================
+   CHALLENGES
+===================================================== */
 
 const challenges = [
 
     "⛏️ Mine 3 stacks of diamonds!",
 
-    "🧟 Survive an entire Minecraft night without armor!",
+    "🧟 Survive a night without armor!",
 
     "🏠 Build a house using only ONE type of block!",
 
@@ -1295,36 +2002,84 @@ const challenges = [
 
     "🌋 Spend 10 minutes in the Nether!",
 
-    "⚔️ Win a PvP fight without eating food!",
+    "⚔️ Win a PvP fight without eating!",
 
     "🐉 Try to defeat the Ender Dragon!",
 
     "🎣 Catch 10 fish!",
 
-    "🪨 Get a full stack of every stone type you can find!",
+    "🐄 Build a farm with 5 different animals!",
 
-    "🐄 Build a farm with at least 5 different animals!",
+    "💀 Survive 5 minutes without taking damage!",
 
-    "💀 Survive 5 minutes without taking any damage!",
-
-    "🧱 Build the tallest tower you can without falling!",
+    "🧱 Build the tallest tower you can!",
 
     "🔥 Travel 1000 blocks in the Nether!",
 
-    "🗡️ Defeat 20 mobs without using a sword!",
+    "🗡️ Defeat 20 mobs without a sword!",
 
-    "💎 Find diamonds in under 10 minutes!"
+    "💎 Find diamonds in under 10 minutes!",
+
+    "🌲 Survive the first night using only wooden tools!"
 
 ];
 
 function newChallenge() {
 
-    const randomNumber =
-        Math.floor(Math.random() * challenges.length);
+    const random =
+        Math.floor(
+            Math.random() * challenges.length
+        );
 
-    document.getElementById("challengeText").innerHTML =
-        challenges[randomNumber];
+    document.getElementById("challengeText")
+        .innerText =
+        challenges[random];
+
 }
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.innerText = message;
+
+    toast.classList.add("show");
+
+    setTimeout(function() {
+
+        toast.classList.remove("show");
+
+    }, 2200);
+
+}
+
+/* =====================================================
+   SECURITY HELP
+===================================================== */
+
+function escapeHTML(text) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+/* =====================================================
+   START WEBSITE
+===================================================== */
+
+displayResourcePacks();
+
+loginCurrentUser();
 
 </script>
 
