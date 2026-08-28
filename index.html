@@ -1,1392 +1,2053 @@
-```html
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>GM KIDS</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #101010;
-            color: white;
-            transition: 0.3s ease;
-        }
-
-        body.light {
-            background: #f4f4f4;
-            color: #111;
-        }
-
-        /* =========================
-           HEADER
-        ========================= */
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            padding: 18px 40px;
-
-            background: rgba(16, 16, 16, 0.96);
-            border-bottom: 1px solid #333;
-        }
-
-        body.light header {
-            background: rgba(244, 244, 244, 0.96);
-            border-bottom: 1px solid #ddd;
-        }
-
-        .logo {
-            font-size: 40px;
-            font-weight: 900;
-            letter-spacing: 1px;
-        }
-
-        .gm {
-            color: #2196f3;
-        }
-
-        .kids {
-            color: #f44336;
-        }
-
-        .header-buttons {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        button {
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            transition: 0.2s;
-        }
-
-        button:hover {
-            transform: scale(1.04);
-        }
-
-        .theme-button {
-            padding: 11px 17px;
-            border-radius: 12px;
-            background: #292929;
-            color: white;
-            font-size: 15px;
-        }
-
-        body.light .theme-button {
-            background: #ddd;
-            color: #111;
-        }
-
-        .login-button {
-            padding: 11px 17px;
-            border-radius: 12px;
-            background: #2196f3;
-            color: white;
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .logged-user {
-            display: none;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .username-display {
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: #222;
-            font-weight: bold;
-        }
-
-        body.light .username-display {
-            background: #ddd;
-        }
-
-        .logout-button {
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: #f44336;
-            color: white;
-            font-weight: bold;
-        }
-
-        /* =========================
-           MAIN
-        ========================= */
-
-        main {
-            max-width: 1100px;
-            margin: auto;
-            padding: 55px 20px 100px;
-        }
-
-        .main-logo {
-            text-align: center;
-            font-size: 90px;
-            font-weight: 900;
-            margin: 20px 0 55px;
-        }
-
-        /* =========================
-           BEST PLAYERS
-        ========================= */
-
-        .players {
-            max-width: 650px;
-            margin: 0 auto 80px;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 38px;
-            margin-bottom: 30px;
-        }
-
-        .player {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-
-            margin: 12px 0;
-            padding: 17px 22px;
-
-            background: #1c1c1c;
-            border: 1px solid #333;
-            border-radius: 14px;
-
-            font-size: 21px;
-            font-weight: bold;
-
-            transition: 0.2s;
-        }
-
-        body.light .player {
-            background: white;
-            border-color: #ddd;
-        }
-
-        .player:hover {
-            transform: translateX(6px);
-            border-color: #2196f3;
-        }
-
-        .player-rank {
-            width: 35px;
-            text-align: center;
-        }
-
-        /* =========================
-           SERVER LIST
-        ========================= */
-
-        .server-section {
-            margin-bottom: 85px;
-        }
-
-        .server-title {
-            text-align: center;
-            font-size: 38px;
-            margin-bottom: 30px;
-        }
-
-        .servers {
-            display: grid;
-            gap: 16px;
-        }
-
-        .server-card {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-
-            padding: 20px 24px;
-
-            background: #1c1c1c;
-            border: 1px solid #333;
-            border-radius: 15px;
-
-            transition: 0.2s;
-        }
-
-        body.light .server-card {
-            background: white;
-            border-color: #ddd;
-        }
-
-        .server-card:hover {
-            transform: translateY(-3px);
-            border-color: #2196f3;
-        }
-
-        .server-number {
-            color: #888;
-            font-weight: bold;
-            min-width: 30px;
-        }
-
-        .server-name {
-            min-width: 160px;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .server-ip {
-            flex: 1;
-            font-family: monospace;
-            font-size: 18px;
-            color: #aaa;
-        }
-
-        body.light .server-ip {
-            color: #555;
-        }
-
-        .copy-button {
-            padding: 10px 16px;
-            border-radius: 10px;
-            background: #2196f3;
-            color: white;
-            font-weight: bold;
-        }
-
-        /* =========================
-           MEMBERS
-        ========================= */
-
-        .members-section {
-            text-align: center;
-        }
-
-        .members-title {
-            font-size: 38px;
-            margin-bottom: 30px;
-        }
-
-        .members {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-        }
-
-        .member {
-            padding: 25px 15px;
-
-            background: #1c1c1c;
-            border: 2px solid #777;
-            border-radius: 15px;
-
-            transition: 0.2s;
-        }
-
-        body.light .member {
-            background: white;
-        }
-
-        .member:hover {
-            transform: translateY(-6px);
-        }
-
-        .member-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .member-role {
-            font-size: 17px;
-            font-weight: bold;
-        }
-
-        /* OWNER */
-
-        .owner {
-            border-color: #f44336;
-            box-shadow: 0 0 15px rgba(244, 67, 54, 0.15);
-        }
-
-        .owner .member-name,
-        .owner .member-role {
-            color: #f44336;
-        }
-
-        /* ADMIN */
-
-        .admin {
-            border-color: #2196f3;
-            box-shadow: 0 0 15px rgba(33, 150, 243, 0.15);
-        }
-
-        .admin .member-name,
-        .admin .member-role {
-            color: #2196f3;
-        }
-
-        /* =========================
-           MODALS
-        ========================= */
-
-        .modal {
-            display: none;
-
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-
-            align-items: center;
-            justify-content: center;
-
-            padding: 20px;
-
-            background: rgba(0, 0, 0, 0.78);
-        }
-
-        .modal-box {
-            width: 100%;
-            max-width: 430px;
-
-            padding: 30px;
-
-            border-radius: 20px;
-
-            background: #1d1d1d;
-            color: white;
-
-            box-shadow: 0 15px 50px rgba(0,0,0,0.5);
-        }
-
-        body.light .modal-box {
-            background: white;
-            color: #111;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            margin-bottom: 20px;
-        }
-
-        .modal-header h2 {
-            margin: 0;
-        }
-
-        .close-button {
-            background: transparent;
-            color: #aaa;
-            font-size: 25px;
-        }
-
-        .modal-box input {
-            width: 100%;
-
-            padding: 14px;
-            margin: 7px 0;
-
-            border: 1px solid #555;
-            border-radius: 10px;
-
-            font-size: 16px;
-            background: #111;
-            color: white;
-        }
-
-        body.light .modal-box input {
-            background: #f4f4f4;
-            color: #111;
-            border-color: #ccc;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .primary-button {
-            flex: 1;
-            padding: 13px;
-            border-radius: 10px;
-            background: #2196f3;
-            color: white;
-            font-weight: bold;
-        }
-
-        .secondary-button {
-            flex: 1;
-            padding: 13px;
-            border-radius: 10px;
-            background: #555;
-            color: white;
-            font-weight: bold;
-        }
-
-        .message {
-            min-height: 24px;
-            margin: 12px 0;
-            text-align: center;
-        }
-
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-
-            border-top: 1px solid #333;
-            color: #888;
-        }
-
-        body.light footer {
-            border-color: #ddd;
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 700px) {
-
-            header {
-                padding: 15px;
-            }
-
-            .logo {
-                font-size: 29px;
-            }
-
-            .header-buttons {
-                gap: 4px;
-            }
-
-            .theme-button,
-            .login-button {
-                padding: 9px 10px;
-                font-size: 13px;
-            }
-
-            .main-logo {
-                font-size: 58px;
-            }
-
-            .section-title,
-            .server-title,
-            .members-title {
-                font-size: 30px;
-            }
-
-            .server-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .server-name,
-            .server-ip {
-                min-width: auto;
-                text-align: center;
-            }
-
-            .server-ip {
-                flex: none;
-            }
-
-            .logged-user {
-                flex-direction: column;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<title>GM KIDS</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:100%;min-height:100%;font-family:Arial,Helvetica,sans-serif}
+body{background:#0b0f17;color:white;transition:.3s}
+body.light{background:#eef2f7;color:#111}
+
+header{
+height:80px;display:flex;align-items:center;justify-content:space-between;
+padding:0 30px;background:rgba(10,14,23,.96);
+border-bottom:2px solid #222b3a;position:fixed;top:0;left:0;right:0;z-index:1000
+}
+body.light header{background:rgba(255,255,255,.96);border-bottom-color:#ddd}
+
+.logo{font-size:38px;font-weight:900;letter-spacing:2px}
+.gm{color:#2196f3}.kids{color:#f44336}
+
+nav{
+height:60px;position:fixed;top:80px;left:0;right:0;z-index:999;
+display:flex;align-items:center;justify-content:center;gap:8px;
+background:#111722;border-bottom:1px solid #283243;overflow-x:auto
+}
+body.light nav{background:white;border-bottom-color:#ddd}
+
+.nav-button{
+border:none;background:transparent;color:#aaa;padding:12px 16px;
+border-radius:10px;cursor:pointer;font-size:15px;white-space:nowrap
+}
+.nav-button:hover,.nav-button.active{background:#2196f3;color:white}
+
+.theme-button{
+border:none;padding:11px 16px;border-radius:20px;cursor:pointer;
+background:#222c3b;color:white
+}
+
+main{padding-top:140px;min-height:100vh}
+.tab{display:none;width:100%;min-height:calc(100vh - 140px);padding:35px 25px 80px}
+.tab.active{display:block}
+.container{max-width:1100px;margin:auto}
+
+.big-logo{text-align:center;font-size:85px;font-weight:900;margin:30px 0 15px}
+.subtitle{text-align:center;font-size:20px;opacity:.75}
+
+.players{
+max-width:600px;margin:35px auto;padding:25px;border-radius:18px;
+background:#151d2a;border:1px solid #2b394d
+}
+body.light .players{background:white;border-color:#ddd}
+.players h2{text-align:center;margin-top:0}
+.player{padding:12px;margin:7px 0;background:rgba(255,255,255,.05);border-radius:10px}
+
+.section-title{text-align:center;font-size:36px;margin-bottom:30px}
+
+.servers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.server-card{
+background:#151d2a;border:1px solid #2c3a50;padding:22px;
+border-radius:16px;text-align:center;transition:.2s
+}
+body.light .server-card{background:white;border-color:#ddd}
+.server-card:hover{transform:translateY(-5px);border-color:#2196f3}
+.server-number{color:#777;font-weight:bold}
+.server-name{font-size:24px;font-weight:bold;margin:10px}
+.server-ip{font-family:monospace;color:#2196f3;margin-bottom:15px}
+
+button{cursor:pointer}
+.copy-button,.add-button{
+border:none;padding:10px 16px;border-radius:9px;
+background:#2196f3;color:white;font-weight:bold
+}
+.copy-button:hover,.add-button:hover{filter:brightness(1.15)}
+
+.members{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+.member{
+padding:22px;text-align:center;border-radius:15px;background:#151d2a;
+border:2px solid #777;transition:.2s
+}
+body.light .member{background:white}
+.member:hover{transform:translateY(-5px)}
+.owner{border-color:#f44336}
+.owner .member-name,.owner .role{color:#f44336}
+.admin{border-color:#2196f3}
+.admin .member-name,.admin .role{color:#2196f3}
+.member-name{font-size:22px;font-weight:bold}
+.role{margin-top:8px;font-weight:bold}
+
+.upload-area{text-align:center;margin-bottom:30px}
+.gallery,.video-grid,.pack-grid{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px
+}
+.media-card,.pack-card{
+background:#151d2a;border:1px solid #2b394d;border-radius:15px;
+padding:12px;position:relative;overflow:hidden
+}
+body.light .media-card,body.light .pack-card{background:white;border-color:#ddd}
+.media-card img,.media-card video{width:100%;border-radius:10px;display:block}
+.media-name{font-weight:bold;margin:10px 0 4px}
+.media-user{color:#888;font-size:13px}
+
+.delete-button{
+position:absolute;top:8px;right:8px;width:30px;height:30px;
+border:none;border-radius:50%;background:#f44336;color:white;font-size:18px;z-index:5
+}
+
+.pack-icon{font-size:50px;text-align:center}
+.pack-name{font-size:20px;font-weight:bold;text-align:center;margin:10px}
+.download-button{
+width:100%;border:none;padding:11px;border-radius:9px;
+background:#4caf50;color:white;font-weight:bold
+}
+
+/* CHAT */
+
+.chat-box{
+max-width:800px;margin:auto;background:#151d2a;border:1px solid #2b394d;
+border-radius:16px;overflow:hidden
+}
+body.light .chat-box{background:white}
+
+.messages{
+height:450px;overflow-y:auto;padding:20px
+}
+
+.message{
+margin-bottom:15px;padding:12px;border-radius:12px;
+background:rgba(255,255,255,.05)
+}
+
+.message-user{font-weight:bold;color:#2196f3;margin-bottom:5px}
+.message-time{color:#777;font-size:12px;margin-left:8px}
+
+.chat-input{
+display:flex;gap:10px;padding:15px;border-top:1px solid #2b394d
+}
+
+.chat-input input{
+flex:1;padding:12px;border-radius:9px;border:1px solid #555;
+background:transparent;color:inherit
+}
+
+.login-box{
+max-width:450px;margin:50px auto;padding:30px;background:#151d2a;
+border-radius:18px;border:1px solid #2b394d
+}
+body.light .login-box{background:white}
+
+.login-box input{
+width:100%;margin:8px 0;padding:13px;border-radius:9px;
+border:1px solid #555;background:transparent;color:inherit
+}
+.login-box button{width:100%;margin-top:10px}
+.auth-message{text-align:center;margin-top:12px;color:#f44336}
+
+.mob-grid{
+display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+gap:15px;margin:20px 0
+}
+.mob{
+border:2px solid transparent;border-radius:12px;padding:10px;
+text-align:center;cursor:pointer;background:rgba(255,255,255,.05)
+}
+.mob.selected{border-color:#2196f3}
+.mob-face{font-size:45px}
+
+.user-area{display:flex;align-items:center;gap:10px}
+.user-name{font-weight:bold}
+.logout-button{
+border:none;padding:8px 12px;border-radius:8px;background:#f44336;color:white
+}
+.admin-button{
+border:none;padding:8px 12px;border-radius:8px;background:#9c27b0;
+color:white;font-weight:bold
+}
+
+.modal{
+display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);
+z-index:5000;align-items:center;justify-content:center
+}
+.modal.show{display:flex}
+.modal-box{
+background:#151d2a;padding:30px;border-radius:18px;width:min(420px,90%);
+text-align:center
+}
+body.light .modal-box{background:white}
+.modal-buttons{display:flex;gap:10px;justify-content:center;margin-top:20px}
+.modal-buttons button{padding:11px 25px;border:none;border-radius:8px}
+.yes{background:#f44336;color:white}.no{background:#555;color:white}
+
+@media(max-width:700px){
+header{padding:0 15px}
+.logo{font-size:27px}
+.user-name{display:none}
+.big-logo{font-size:55px}
+nav{justify-content:flex-start;padding:0 10px}
+.section-title{font-size:28px}
+}
+</style>
+
 </head>
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
-
 <header>
 
-    <div class="logo">
-        <span class="gm">GM</span><span class="kids">KIDS</span>
-    </div>
+<div class="logo">
+<span class="gm">GM</span>
+<span class="kids">KIDS</span>
+</div>
 
-    <div class="header-buttons">
-
-        <button
-            class="theme-button"
-            onclick="toggleTheme()">
-            🌙 Light Mode
-        </button>
-
-        <button
-            class="login-button"
-            id="loginButton"
-            onclick="openLogin()">
-            👤 Login
-        </button>
-
-        <div
-            class="logged-user"
-            id="loggedUser">
-
-            <span
-                class="username-display"
-                id="usernameDisplay">
-            </span>
-
-            <button
-                class="logout-button"
-                onclick="logout()">
-                Logout
-            </button>
-
-        </div>
-
-    </div>
+<div class="user-area" id="userArea">
+<button class="theme-button" onclick="toggleTheme()">🌙 Theme</button>
+<button class="theme-button" onclick="openTab('login')">🔐 Login</button>
+</div>
 
 </header>
 
+<nav>
 
-<!-- =========================
-     MAIN
-========================= -->
+<button class="nav-button active" onclick="openTab('home')">🏠 Home</button> <button class="nav-button" onclick="openTab('servers')">🖥️ Servers</button> <button class="nav-button" onclick="openTab('members')">👥 Members</button> <button class="nav-button" onclick="openTab('screenshots')">📸 Screenshots</button> <button class="nav-button" onclick="openTab('videos')">🎥 Videos</button> <button class="nav-button" onclick="openTab('packs')">📦 Resource Packs</button> <button class="nav-button" onclick="openTab('chat')">💬 Chat</button>
+
+</nav>
 
 <main>
 
-    <!-- GM KIDS -->
+<!-- HOME -->
 
-    <div class="main-logo">
-        <span class="gm">GM</span>
-        <span class="kids">KIDS</span>
-    </div>
+<section id="home" class="tab active">
 
+<div class="container">
 
-    <!-- =========================
-         BEST PLAYERS
-    ========================= -->
+<div class="big-logo">
+<span class="gm">GM</span>
+<span class="kids">KIDS</span>
+</div>
 
-    <section class="players">
+<p class="subtitle">
+🎮 Welcome to the GM KIDS Minecraft community!
+</p>
 
-        <h2 class="section-title">
-            🏆 Best Minecraft Players
-        </h2>
+<div class="players">
 
-        <div class="player">
-            <span class="player-rank">🥇</span>
-            <span>1. marlowww</span>
-        </div>
+<h2>🏆 Best Minecraft Players 🏆</h2>
 
-        <div class="player">
-            <span class="player-rank">🥈</span>
-            <span>2. itzrealme</span>
-        </div>
+<div class="player">1. marlowww</div>
+<div class="player">2. itzrealme</div>
+<div class="player">3. swight</div>
+<div class="player">4. coldfied</div>
 
-        <div class="player">
-            <span class="player-rank">🥉</span>
-            <span>3. swight</span>
-        </div>
+</div>
 
-        <div class="player">
-            <span class="player-rank">🏅</span>
-            <span>4. coldfied</span>
-        </div>
+</div>
+</section>
 
-    </section>
+<!-- SERVERS -->
 
+<section id="servers" class="tab">
 
-    <!-- =========================
-         SERVER LIST
-    ========================= -->
+<div class="container">
 
-    <section class="server-section">
+<h2 class="section-title">🖥️ GM KIDS SERVER LIST 🖥️</h2>
 
-        <h2 class="server-title">
-            🖥️ GM KIDS SERVER LIST
-        </h2>
+<div class="servers">
 
-        <div class="servers">
+<div class="server-card">
+<div class="server-number">#1</div>
+<div class="server-name">🎮 gameup</div>
+<div class="server-ip">gameup.ir</div>
+<button class="copy-button" onclick="copyIP('gameup.ir')">📋 Copy</button>
+</div>
 
-            <!-- GAMEUP -->
+<div class="server-card">
+<div class="server-number">#2</div>
+<div class="server-name">🦖 trexmine</div>
+<div class="server-ip">play.trexmine.com</div>
+<button class="copy-button" onclick="copyIP('play.trexmine.com')">📋 Copy</button>
+</div>
 
-            <div class="server-card">
+<div class="server-card">
+<div class="server-number">#3</div>
+<div class="server-name">⛏️ ucraft</div>
+<div class="server-ip">play.ucraft.ir</div>
+<button class="copy-button" onclick="copyIP('play.ucraft.ir')">📋 Copy</button>
+</div>
 
-                <div class="server-number">#1</div>
+<div class="server-card">
+<div class="server-number">#4</div>
+<div class="server-name">❄️ coldgames</div>
+<div class="server-ip">play.coldgames.ir</div>
+<button class="copy-button" onclick="copyIP('play.coldgames.ir')">📋 Copy</button>
+</div>
 
-                <div class="server-name">
-                    🎮 gameup
-                </div>
+<div class="server-card">
+<div class="server-number">#5</div>
+<div class="server-name">🟨 fakepixel</div>
+<div class="server-ip">play.fakepixel.me</div>
+<button class="copy-button" onclick="copyIP('play.fakepixel.me')">📋 Copy</button>
+</div>
 
-                <div class="server-ip">
-                    gameup.ir
-                </div>
+</div>
+</div>
+</section>
 
-                <button
-                    class="copy-button"
-                    onclick="copyIP('gameup.ir')">
-                    📋 Copy
-                </button>
+<!-- MEMBERS -->
 
-            </div>
+<section id="members" class="tab">
 
+<div class="container">
 
-            <!-- TREXMINE -->
+<h2 class="section-title">😎 GM KIDS MEMBERS 😎</h2>
 
-            <div class="server-card">
+<div class="members">
 
-                <div class="server-number">#2</div>
+<div class="member owner">
+<div class="member-name">👑 ahoora</div>
+<div class="role">OWNER</div>
+</div>
 
-                <div class="server-name">
-                    🦖 trexmine
-                </div>
+<div class="member admin">
+<div class="member-name">🛡️ barad</div>
+<div class="role">ADMIN</div>
+</div>
 
-                <div class="server-ip">
-                    play.trexmine.com
-                </div>
+<div class="member">
+<div class="member-name">👤 amir</div>
+<div class="role">MEMBER</div>
+</div>
 
-                <button
-                    class="copy-button"
-                    onclick="copyIP('play.trexmine.com')">
-                    📋 Copy
-                </button>
+<div class="member">
+<div class="member-name">👤 vafajo</div>
+<div class="role">MEMBER</div>
+</div>
 
-            </div>
+<div class="member">
+<div class="member-name">👤 ehsan</div>
+<div class="role">MEMBER</div>
+</div>
 
+<div class="member">
+<div class="member-name">👤 mahan</div>
+<div class="role">MEMBER</div>
+</div>
 
-            <!-- UCRAFT -->
+<div class="member">
+<div class="member-name">👤 yasin</div>
+<div class="role">MEMBER</div>
+</div>
 
-            <div class="server-card">
+<div class="member">
+<div class="member-name">👤 67</div>
+<div class="role">MEMBER</div>
+</div>
 
-                <div class="server-number">#3</div>
+</div>
+</div>
+</section>
 
-                <div class="server-name">
-                    ⛏️ ucraft
-                </div>
+<!-- SCREENSHOTS -->
 
-                <div class="server-ip">
-                    play.ucraft.ir
-                </div>
+<section id="screenshots" class="tab">
 
-                <button
-                    class="copy-button"
-                    onclick="copyIP('play.ucraft.ir')">
-                    📋 Copy
-                </button>
+<div class="container">
 
-            </div>
+<h2 class="section-title">📸 Minecraft Screenshots</h2>
 
+<div class="upload-area">
 
-            <!-- COLDGAMES -->
+<button class="add-button" onclick="requireLogin(addScreenshot)">
+➕ Add Screenshot
+</button>
 
-            <div class="server-card">
+<p>
+Anyone can view screenshots.<br>
+Only logged-in members can post.
+</p>
 
-                <div class="server-number">#4</div>
+</div>
 
-                <div class="server-name">
-                    ❄️ coldgames
-                </div>
+<div id="gallery" class="gallery"></div>
 
-                <div class="server-ip">
-                    play.coldgames.ir
-                </div>
+</div>
+</section>
 
-                <button
-                    class="copy-button"
-                    onclick="copyIP('play.coldgames.ir')">
-                    📋 Copy
-                </button>
+<!-- VIDEOS -->
 
-            </div>
+<section id="videos" class="tab">
 
+<div class="container">
 
-            <!-- FAKEPIXEL -->
+<h2 class="section-title">🎥 GM KIDS Videos</h2>
 
-            <div class="server-card">
+<div class="upload-area">
 
-                <div class="server-number">#5</div>
+<button class="add-button" onclick="requireLogin(addVideo)">
+➕ Add Video
+</button>
 
-                <div class="server-name">
-                    🟨 fakepixel
-                </div>
+<p>
+Anyone can watch videos.<br>
+Only logged-in members can upload.
+</p>
 
-                <div class="server-ip">
-                    play.fakepixel.me
-                </div>
+</div>
 
-                <button
-                    class="copy-button"
-                    onclick="copyIP('play.fakepixel.me')">
-                    📋 Copy
-                </button>
+<div id="videosGrid" class="video-grid"></div>
 
-            </div>
+</div>
+</section>
 
-        </div>
+<!-- RESOURCE PACKS -->
 
-    </section>
+<section id="packs" class="tab">
 
+<div class="container">
 
-    <!-- =========================
-         GROUP MEMBERS
-    ========================= -->
+<h2 class="section-title">📦 Resource Packs</h2>
 
-    <section class="members-section">
+<div class="upload-area">
 
-        <h2 class="members-title">
-            😎 اعضای گروه 😎
-        </h2>
+<button class="add-button" onclick="requireLogin(addResourcePack)">
+➕ Add Resource Pack
+</button>
 
-        <div class="members">
+<p>
+Anyone can download resource packs.<br>
+Only logged-in members can upload or delete their own packs.
+</p>
 
+</div>
 
-            <!-- OWNER -->
+<div id="packsGrid" class="pack-grid"></div>
 
-            <div class="member owner">
+</div>
+</section>
 
-                <div class="member-name">
-                    👑 ahoora
-                </div>
+<!-- REAL CHAT -->
 
-                <div class="member-role">
-                    OWNER
-                </div>
+<section id="chat" class="tab">
 
-            </div>
+<div class="container">
 
+<h2 class="section-title">💬 GM KIDS Live Chat</h2>
 
-            <!-- ONLY ADMIN -->
+<div class="chat-box">
 
-            <div class="member admin">
+<div id="messages" class="messages">
+<p style="text-align:center;color:#888">
+Loading chat...
+</p>
+</div>
 
-                <div class="member-name">
-                    🛡️ barad
-                </div>
+<div class="chat-input">
 
-                <div class="member-role">
-                    ADMIN
-                </div>
+<input
+id="chatInput"
+type="text"
+maxlength="500"
+placeholder="Write a message..."
+onkeydown="if(event.key==='Enter') requireLogin(sendMessage)"
 
-            </div>
+>
 
+<button
+class="add-button"
+onclick="requireLogin(sendMessage)">
+Send </button>
 
-            <!-- MEMBERS -->
+</div>
 
-            <div class="member">
+</div>
 
-                <div class="member-name">
-                    👤 amir
-                </div>
+</div>
+</section>
 
-                <div class="member-role">
-                    MEMBER
-                </div>
+<!-- LOGIN -->
 
-            </div>
+<section id="login" class="tab">
 
+<div class="login-box">
 
-            <div class="member">
+<h2>🔐 Login</h2>
 
-                <div class="member-name">
-                    👤 vafajo
-                </div>
+<input id="loginUsername" type="text" placeholder="Username">
 
-                <div class="member-role">
-                    MEMBER
-                </div>
+<input id="loginPassword" type="password" placeholder="Password">
 
-            </div>
+<button class="add-button" onclick="login()">Login</button>
 
+<button class="add-button" onclick="openTab('signup')">
+Create Account
+</button>
 
-            <div class="member">
+<div id="loginMessage" class="auth-message"></div>
 
-                <div class="member-name">
-                    👤 ehsan
-                </div>
+</div>
+</section>
 
-                <div class="member-role">
-                    MEMBER
-                </div>
+<!-- SIGNUP -->
 
-            </div>
+<section id="signup" class="tab">
 
+<div class="login-box">
 
-            <div class="member">
+<h2>✨ Create GM KIDS Account</h2>
 
-                <div class="member-name">
-                    👤 mahan
-                </div>
+<input id="signupUsername" type="text" placeholder="Username">
 
-                <div class="member-role">
-                    MEMBER
-                </div>
+<input id="signupPassword" type="password" placeholder="Password">
 
-            </div>
+<h3>Choose your Minecraft profile picture</h3>
 
+<div class="mob-grid">
 
-            <div class="member">
+<div class="mob selected" onclick="selectMob(this,'🧟')">
+<div class="mob-face">🧟</div>
+Zombie
+</div>
 
-                <div class="member-name">
-                    👤 yasin
-                </div>
+<div class="mob" onclick="selectMob(this,'💀')">
+<div class="mob-face">💀</div>
+Skeleton
+</div>
 
-                <div class="member-role">
-                    MEMBER
-                </div>
+<div class="mob" onclick="selectMob(this,'💚')">
+<div class="mob-face">💚</div>
+Creeper
+</div>
 
-            </div>
+<div class="mob" onclick="selectMob(this,'🐷')">
+<div class="mob-face">🐷</div>
+Pig
+</div>
 
+<div class="mob" onclick="selectMob(this,'🐮')">
+<div class="mob-face">🐮</div>
+Cow
+</div>
 
-            <div class="member">
+<div class="mob" onclick="selectMob(this,'🐑')">
+<div class="mob-face">🐑</div>
+Sheep
+</div>
 
-                <div class="member-name">
-                    👤 67
-                </div>
+<div class="mob" onclick="selectMob(this,'🐔')">
+<div class="mob-face">🐔</div>
+Chicken
+</div>
 
-                <div class="member-role">
-                    MEMBER
-                </div>
+<div class="mob" onclick="selectMob(this,'🐺')">
+<div class="mob-face">🐺</div>
+Wolf
+</div>
 
-            </div>
+</div>
 
-        </div>
+<button class="add-button" onclick="createAccount()">
+Create Account
+</button>
 
-    </section>
+<button class="add-button" onclick="openTab('login')">
+Back to Login
+</button>
+
+<div id="signupMessage" class="auth-message"></div>
+
+</div>
+</section>
 
 </main>
 
+<!-- LOGOUT MODAL -->
 
-<!-- =========================
-     LOGIN MODAL
-========================= -->
+<div id="logoutModal" class="modal">
 
-<div
-    class="modal"
-    id="loginModal">
+<div class="modal-box">
 
-    <div class="modal-box">
+<h2>🚪 Log Out?</h2>
 
-        <div class="modal-header">
+<p>Are you sure you want to log out?</p>
 
-            <h2>👤 Login</h2>
+<div class="modal-buttons">
 
-            <button
-                class="close-button"
-                onclick="closeLogin()">
-                ✕
-            </button>
+<button class="yes" onclick="logout()">Yes</button>
 
-        </div>
-
-        <input
-            id="loginUsername"
-            type="text"
-            placeholder="Username">
-
-        <input
-            id="loginPassword"
-            type="password"
-            placeholder="Password">
-
-        <div
-            class="message"
-            id="loginMessage">
-        </div>
-
-        <div class="modal-actions">
-
-            <button
-                class="primary-button"
-                onclick="login()">
-                Login
-            </button>
-
-            <button
-                class="secondary-button"
-                onclick="showSignup()">
-                Create Account
-            </button>
-
-        </div>
-
-    </div>
+<button class="no" onclick="closeLogout()">No</button>
 
 </div>
 
-
-<!-- =========================
-     SIGNUP MODAL
-========================= -->
-
-<div
-    class="modal"
-    id="signupModal">
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2>📝 Create Account</h2>
-
-            <button
-                class="close-button"
-                onclick="closeSignup()">
-                ✕
-            </button>
-
-        </div>
-
-        <input
-            id="signupUsername"
-            type="text"
-            placeholder="Username">
-
-        <input
-            id="signupPassword"
-            type="password"
-            placeholder="Password - 6+ characters">
-
-        <div
-            class="message"
-            id="signupMessage">
-        </div>
-
-        <div class="modal-actions">
-
-            <button
-                class="primary-button"
-                onclick="createAccount()">
-                Create Account
-            </button>
-
-            <button
-                class="secondary-button"
-                onclick="showLogin()">
-                Back
-            </button>
-
-        </div>
-
-    </div>
-
 </div>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
-
-<footer>
-    🔵 GM KIDS 🔴 — Minecraft Community
-</footer>
-
+</div>
 
 <script>
 
-    /* =====================================
-       SUPABASE
-    ===================================== */
+/* =========================================================
+   SUPABASE
+========================================================= */
 
-    const SUPABASE_URL =
-        "PUT_YOUR_SUPABASE_URL_HERE";
+const SUPABASE_URL =
+"https://yyjkujjxbqnostlojtax.supabase.co";
 
-    const SUPABASE_ANON_KEY =
-        "PUT_YOUR_SUPABASE_ANON_KEY_HERE";
+const SUPABASE_KEY =
+"sb_publishable_KkaliBzIv-0hceSgnb6TmQ_EDjmf_27";
 
-    const supabaseClient =
-        supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_ANON_KEY
-        );
+const supabaseClient =
+supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
 
 
-    /* =====================================
-       DARK / LIGHT MODE
-    ===================================== */
+/* =========================================================
+   VARIABLES
+========================================================= */
 
-    function toggleTheme() {
+let currentUser = null;
+let selectedMob = "🧟";
 
-        document.body.classList.toggle("light");
 
-        const button =
-            document.querySelector(".theme-button");
+/* =========================================================
+   TAB SYSTEM
+========================================================= */
 
-        if (
-            document.body.classList.contains("light")
-        ) {
+function openTab(id){
 
-            button.textContent =
-                "☀️ Dark Mode";
+document.querySelectorAll(".tab")
+.forEach(tab =>
+tab.classList.remove("active")
+);
 
-        } else {
+const target =
+document.getElementById(id);
 
-            button.textContent =
-                "🌙 Light Mode";
+if(target){
+target.classList.add("active");
+}
 
-        }
-    }
+window.scrollTo(0,0);
 
+}
 
-    /* =====================================
-       COPY SERVER IP
-    ===================================== */
 
-    async function copyIP(ip) {
+/* =========================================================
+   THEME
+========================================================= */
 
-        try {
+function toggleTheme(){
 
-            await navigator.clipboard.writeText(ip);
+document.body.classList.toggle("light");
 
-            alert("✅ IP copied: " + ip);
+localStorage.setItem(
+"gmTheme",
+document.body.classList.contains("light")
+? "light"
+: "dark"
+);
 
-        } catch (error) {
+}
 
-            alert("❌ Could not copy IP.");
+if(localStorage.getItem("gmTheme")==="light"){
+document.body.classList.add("light");
+}
 
-        }
-    }
 
+/* =========================================================
+   COPY SERVER IP
+========================================================= */
 
-    /* =====================================
-       LOGIN MODAL
-    ===================================== */
+function copyIP(ip){
 
-    function openLogin() {
+navigator.clipboard.writeText(ip)
+.then(()=>alert("✅ Copied: "+ip))
+.catch(()=>prompt("Copy this IP:",ip));
 
-        document.getElementById("loginModal")
-            .style.display = "flex";
+}
 
-    }
 
+/* =========================================================
+   PROFILE AVATAR
+========================================================= */
 
-    function closeLogin() {
+function selectMob(element,mob){
 
-        document.getElementById("loginModal")
-            .style.display = "none";
+document.querySelectorAll(".mob")
+.forEach(x =>
+x.classList.remove("selected")
+);
 
-    }
+element.classList.add("selected");
 
+selectedMob=mob;
 
-    function closeSignup() {
+}
 
-        document.getElementById("signupModal")
-            .style.display = "none";
 
-    }
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
+function escapeHTML(text){
 
-    function showSignup() {
+const div=document.createElement("div");
 
-        closeLogin();
+div.textContent=text || "";
 
-        document.getElementById("signupModal")
-            .style.display = "flex";
+return div.innerHTML;
 
-    }
+}
 
 
-    function showLogin() {
+/* =========================================================
+   CREATE ACCOUNT
+========================================================= */
 
-        closeSignup();
+async function createAccount(){
 
-        document.getElementById("loginModal")
-            .style.display = "flex";
+const username=
+document.getElementById("signupUsername")
+.value.trim();
 
-    }
+const password=
+document.getElementById("signupPassword")
+.value;
 
+const message=
+document.getElementById("signupMessage");
 
-    /* =====================================
-       CREATE ACCOUNT
-    ===================================== */
+message.textContent="";
 
-    async function createAccount() {
+if(!username || !password){
 
-        const username =
-            document.getElementById("signupUsername")
-                .value
-                .trim();
+message.textContent=
+"❌ Enter a username and password.";
 
-        const password =
-            document.getElementById("signupPassword")
-                .value;
+return;
+}
 
-        const message =
-            document.getElementById("signupMessage");
+if(!/^[a-zA-Z0-9_]{3,20}$/.test(username)){
 
+message.textContent=
+"❌ Username must be 3-20 characters and use only letters, numbers or _.";
 
-        if (!username || !password) {
+return;
+}
 
-            message.textContent =
-                "❌ Enter a username and password.";
+if(password.length<6){
 
-            return;
-        }
+message.textContent=
+"❌ Password must be at least 6 characters.";
 
+return;
+}
 
-        if (password.length < 6) {
 
-            message.textContent =
-                "❌ Password must be at least 6 characters.";
+/* Check username */
 
-            return;
-        }
+const {data:existing,error:checkError}=
+await supabaseClient
+.from("profiles")
+.select("username")
+.ilike("username",username);
 
+if(checkError){
 
-        try {
+message.textContent=
+"❌ Could not check username.";
 
-            const email =
-                username.toLowerCase() +
-                "@gmkids.local";
+console.error(checkError);
 
+return;
+}
 
-            const { data, error } =
-                await supabaseClient.auth.signUp({
+if(existing && existing.length>0){
 
-                    email: email,
-                    password: password
+message.textContent=
+"❌ That username already exists.";
 
-                });
+return;
+}
 
 
-            if (error) {
+/* Fake internal email for Supabase Auth */
 
-                message.textContent =
-                    "❌ " + error.message;
+const email=
+username.toLowerCase()+"@gmkids.local";
 
-                return;
-            }
 
+/* REAL SUPABASE ACCOUNT */
 
-            if (!data.user) {
+const {data,error}=
+await supabaseClient.auth.signUp({
 
-                message.textContent =
-                    "❌ Account could not be created.";
+email:email,
 
-                return;
-            }
+password:password,
 
+options:{
+data:{
+username:username,
+avatar:selectedMob
+}
+}
 
-            const { error: profileError } =
-                await supabaseClient
-                    .from("profiles")
-                    .insert({
+});
 
-                        id: data.user.id,
-                        username: username,
-                        role: "member"
 
-                    });
+if(error){
 
+message.textContent=
+"❌ "+error.message;
 
-            if (profileError) {
+return;
+}
 
-                message.textContent =
-                    "❌ " + profileError.message;
+if(!data.user){
 
-                return;
-            }
+message.textContent=
+"❌ Account could not be created.";
 
+return;
+}
 
-            message.textContent =
-                "🎉 Account created!";
 
+/*
+The SQL trigger creates the profile automatically.
+Wait briefly for the trigger/profile to exist.
+*/
 
-            setTimeout(() => {
+let profile=null;
 
-                closeSignup();
-                openLogin();
+for(let i=0;i<10;i++){
 
-            }, 1000);
+const result=
+await supabaseClient
+.from("profiles")
+.select("*")
+.eq("id",data.user.id)
+.single();
 
+if(result.data){
 
-        } catch (error) {
+profile=result.data;
 
-            message.textContent =
-                "❌ " + error.message;
+break;
+}
 
-        }
-    }
+await new Promise(
+resolve=>setTimeout(resolve,300)
+);
 
+}
 
-    /* =====================================
-       LOGIN
-    ===================================== */
 
-    async function login() {
+if(!profile){
 
-        const username =
-            document.getElementById("loginUsername")
-                .value
-                .trim();
+message.textContent=
+"❌ Account created, but profile is still loading. Try logging in.";
 
-        const password =
-            document.getElementById("loginPassword")
-                .value;
+return;
+}
 
-        const message =
-            document.getElementById("loginMessage");
 
+currentUser=profile;
 
-        if (!username || !password) {
+updateUserArea();
 
-            message.textContent =
-                "❌ Enter your username and password.";
+alert("🎉 Account created!");
 
-            return;
-        }
+openTab("home");
 
+}
 
-        const email =
-            username.toLowerCase() +
-            "@gmkids.local";
 
+/* =========================================================
+   LOGIN
+========================================================= */
 
-        try {
+async function login(){
 
-            const { data, error } =
-                await supabaseClient.auth
-                    .signInWithPassword({
+const username=
+document.getElementById("loginUsername")
+.value.trim();
 
-                        email: email,
-                        password: password
+const password=
+document.getElementById("loginPassword")
+.value;
 
-                    });
+const message=
+document.getElementById("loginMessage");
 
+message.textContent="";
 
-            if (error) {
+if(!username || !password){
 
-                message.textContent =
-                    "❌ " + error.message;
+message.textContent=
+"❌ Enter your username and password.";
 
-                return;
-            }
+return;
+}
 
+const email=
+username.toLowerCase()+"@gmkids.local";
 
-            const { data: profile, error: profileError } =
-                await supabaseClient
-                    .from("profiles")
-                    .select("*")
-                    .eq("id", data.user.id)
-                    .single();
 
+const {data,error}=
+await supabaseClient.auth.signInWithPassword({
 
-            if (profileError) {
+email:email,
 
-                message.textContent =
-                    "❌ " + profileError.message;
+password:password
 
-                return;
-            }
+});
 
 
-            showLoggedIn(profile.username);
+if(error){
 
-            closeLogin();
+message.textContent=
+"❌ Wrong username or password.";
 
-        } catch (error) {
+return;
+}
 
-            message.textContent =
-                "❌ " + error.message;
 
-        }
-    }
+const {data:profile,error:profileError}=
+await supabaseClient
+.from("profiles")
+.select("*")
+.eq("id",data.user.id)
+.single();
 
 
-    /* =====================================
-       SHOW LOGGED-IN USER
-    ===================================== */
+if(profileError || !profile){
 
-    function showLoggedIn(username) {
+message.textContent=
+"❌ Profile not found.";
 
-        document.getElementById("loginButton")
-            .style.display = "none";
+return;
+}
 
-        document.getElementById("loggedUser")
-            .style.display = "inline-flex";
 
-        document.getElementById("usernameDisplay")
-            .textContent =
-            "👋 " + username;
+currentUser=profile;
 
-    }
+updateUserArea();
 
+alert(
+"✅ Welcome back, "+
+profile.username+
+"!"
+);
 
-    /* =====================================
-       LOGOUT
-    ===================================== */
+openTab("home");
 
-    async function logout() {
+}
 
-        await supabaseClient.auth.signOut();
 
-        document.getElementById("loggedUser")
-            .style.display = "none";
+/* =========================================================
+   LOAD CURRENT USER
+========================================================= */
 
-        document.getElementById("loginButton")
-            .style.display = "inline-block";
+async function loadCurrentUser(){
 
-    }
+const {data}=
+await supabaseClient.auth.getSession();
 
+if(!data.session){
 
-    /* =====================================
-       CHECK LOGIN ON PAGE LOAD
-    ===================================== */
+currentUser=null;
 
-    async function checkLogin() {
+updateUserArea();
 
-        const { data } =
-            await supabaseClient.auth.getSession();
+return;
+}
 
 
-        if (!data.session) {
+const {data:profile}=
+await supabaseClient
+.from("profiles")
+.select("*")
+.eq("id",data.session.user.id)
+.single();
 
-            return;
 
-        }
+if(profile){
 
+currentUser=profile;
 
-        const { data: profile } =
-            await supabaseClient
-                .from("profiles")
-                .select("*")
-                .eq("id", data.session.user.id)
-                .single();
+}
 
+updateUserArea();
 
-        if (profile) {
+}
 
-            showLoggedIn(profile.username);
 
-        }
-    }
+/* =========================================================
+   AUTH STATE LISTENER
+========================================================= */
 
+supabaseClient.auth.onAuthStateChange(
+async(event,session)=>{
 
-    checkLogin();
+if(!session){
+
+currentUser=null;
+
+updateUserArea();
+
+return;
+
+}
+
+const {data:profile}=
+await supabaseClient
+.from("profiles")
+.select("*")
+.eq("id",session.user.id)
+.single();
+
+if(profile){
+
+currentUser=profile;
+
+updateUserArea();
+
+}
+
+}
+);
+
+
+/* =========================================================
+   USER AREA
+========================================================= */
+
+function updateUserArea(){
+
+const area=
+document.getElementById("userArea");
+
+
+if(!currentUser){
+
+area.innerHTML=`
+
+<button class="theme-button"
+onclick="toggleTheme()">
+🌙 Theme
+</button>
+
+<button class="theme-button"
+onclick="openTab('login')">
+🔐 Login
+</button>
+
+`;
+
+return;
+
+}
+
+
+area.innerHTML=`
+
+<span class="user-name">
+${currentUser.avatar || "👤"}
+${escapeHTML(currentUser.username)}
+</span>
+
+${
+currentUser.role==="admin"
+?
+`
+<button class="admin-button"
+onclick="alert('🛡️ Admin account: barad')">
+🛡️ Admin
+</button>
+`
+:""
+}
+
+<button class="theme-button"
+onclick="toggleTheme()">
+🌙 Theme
+</button>
+
+<button class="logout-button"
+onclick="openLogout()">
+🚪 Exit
+</button>
+
+`;
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function openLogout(){
+
+document
+.getElementById("logoutModal")
+.classList.add("show");
+
+}
+
+function closeLogout(){
+
+document
+.getElementById("logoutModal")
+.classList.remove("show");
+
+}
+
+async function logout(){
+
+await supabaseClient.auth.signOut();
+
+currentUser=null;
+
+closeLogout();
+
+updateUserArea();
+
+alert("👋 You have been logged out!");
+
+openTab("home");
+
+}
+
+
+/* =========================================================
+   LOGIN REQUIRED
+========================================================= */
+
+function requireLogin(callback){
+
+if(!currentUser){
+
+alert(
+"🔐 You need to be logged in to do that!"
+);
+
+openTab("login");
+
+return;
+
+}
+
+callback();
+
+}
+
+
+/* =========================================================
+   SCREENSHOTS
+========================================================= */
+
+async function addScreenshot(){
+
+if(!currentUser)return;
+
+
+const input=
+document.createElement("input");
+
+input.type="file";
+input.accept="image/*";
+
+
+input.onchange=async function(){
+
+const file=input.files[0];
+
+if(!file)return;
+
+if(file.size>50*1024*1024){
+
+alert("❌ File is larger than 50 MB.");
+
+return;
+
+}
+
+
+const path=
+"screenshots/"+
+currentUser.id+
+"/"+
+Date.now()+
+"_"+file.name
+.replace(/[^a-zA-Z0-9._-]/g,"_");
+
+
+const {error:uploadError}=
+await supabaseClient.storage
+.from("gm-kids-files")
+.upload(path,file);
+
+
+if(uploadError){
+
+alert(
+"❌ Upload failed: "+
+uploadError.message
+);
+
+return;
+
+}
+
+
+const {data:urlData}=
+supabaseClient.storage
+.from("gm-kids-files")
+.getPublicUrl(path);
+
+
+const {error}=
+await supabaseClient
+.from("screenshots")
+.insert({
+
+title:file.name,
+
+image_url:urlData.publicUrl,
+
+uploaded_by:currentUser.id,
+
+uploader_name:currentUser.username
+
+});
+
+
+if(error){
+
+alert(
+"❌ Database error: "+
+error.message
+);
+
+return;
+
+}
+
+
+renderScreenshots();
+
+};
+
+input.click();
+
+}
+
+
+async function renderScreenshots(){
+
+const gallery=
+document.getElementById("gallery");
+
+
+const {data,error}=
+await supabaseClient
+.from("screenshots")
+.select("*")
+.order("created_at",{ascending:false});
+
+
+if(error){
+
+gallery.innerHTML=
+"<p>❌ Could not load screenshots.</p>";
+
+return;
+
+}
+
+
+gallery.innerHTML="";
+
+
+data.forEach(item=>{
+
+const card=
+document.createElement("div");
+
+card.className="media-card";
+
+
+const canDelete=
+currentUser &&
+(
+currentUser.id===item.uploaded_by ||
+currentUser.role==="admin"
+);
+
+
+card.innerHTML=`
+
+${
+canDelete
+?
+`
+<button class="delete-button"
+onclick="deleteScreenshot(${item.id})">
+×
+</button>
+`
+:""
+}
+
+<img src="${escapeHTML(item.image_url)}">
+
+<div class="media-name">
+${escapeHTML(item.title)}
+</div>
+
+<div class="media-user">
+Posted by ${escapeHTML(item.uploader_name)}
+</div>
+
+`;
+
+gallery.appendChild(card);
+
+});
+
+}
+
+
+async function deleteScreenshot(id){
+
+if(!currentUser)return;
+
+
+const {data:item}=
+await supabaseClient
+.from("screenshots")
+.select("*")
+.eq("id",id)
+.single();
+
+
+if(!item)return;
+
+
+if(
+item.uploaded_by!==currentUser.id &&
+currentUser.role!=="admin"
+){
+
+alert("❌ You cannot delete this.");
+
+return;
+
+}
+
+
+await supabaseClient
+.from("screenshots")
+.delete()
+.eq("id",id);
+
+
+renderScreenshots();
+
+}
+
+
+/* =========================================================
+   VIDEOS
+========================================================= */
+
+async function addVideo(){
+
+if(!currentUser)return;
+
+
+const input=
+document.createElement("input");
+
+input.type="file";
+input.accept="video/mp4,video/webm,video/ogg";
+
+
+input.onchange=async function(){
+
+const file=input.files[0];
+
+if(!file)return;
+
+
+if(file.size>50*1024*1024){
+
+alert("❌ Video is larger than 50 MB.");
+
+return;
+
+}
+
+
+const path=
+"videos/"+
+currentUser.id+
+"/"+
+Date.now()+
+"_"+file.name
+.replace(/[^a-zA-Z0-9._-]/g,"_");
+
+
+const {error}=
+await supabaseClient.storage
+.from("gm-kids-files")
+.upload(path,file);
+
+
+if(error){
+
+alert(
+"❌ Upload failed: "+
+error.message
+);
+
+return;
+
+}
+
+
+const {data:urlData}=
+supabaseClient.storage
+.from("gm-kids-files")
+.getPublicUrl(path);
+
+
+const title=
+prompt("🎬 Video title:",file.name);
+
+
+const {error:dbError}=
+await supabaseClient
+.from("videos")
+.insert({
+
+title:title || file.name,
+
+description:"",
+
+video_url:urlData.publicUrl,
+
+thumbnail_url:null,
+
+uploaded_by:currentUser.id,
+
+uploader_name:currentUser.username
+
+});
+
+
+if(dbError){
+
+alert(
+"❌ Database error: "+
+dbError.message
+);
+
+return;
+
+}
+
+
+renderVideos();
+
+};
+
+input.click();
+
+}
+
+
+async function renderVideos(){
+
+const grid=
+document.getElementById("videosGrid");
+
+
+const {data,error}=
+await supabaseClient
+.from("videos")
+.select("*")
+.order("created_at",{ascending:false});
+
+
+if(error){
+
+grid.innerHTML=
+"<p>❌ Could not load videos.</p>";
+
+return;
+
+}
+
+
+grid.innerHTML="";
+
+
+data.forEach(item=>{
+
+const card=
+document.createElement("div");
+
+card.className="media-card";
+
+
+const canDelete=
+currentUser &&
+(
+currentUser.id===item.uploaded_by ||
+currentUser.role==="admin"
+);
+
+
+card.innerHTML=`
+
+${
+canDelete
+?
+`
+<button class="delete-button"
+onclick="deleteVideo(${item.id})">
+×
+</button>
+`
+:""
+}
+
+<video controls preload="metadata">
+<source src="${escapeHTML(item.video_url)}">
+</video>
+
+<div class="media-name">
+${escapeHTML(item.title)}
+</div>
+
+<div class="media-user">
+Posted by ${escapeHTML(item.uploader_name)}
+</div>
+
+`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+
+async function deleteVideo(id){
+
+if(!currentUser)return;
+
+
+const {data:item}=
+await supabaseClient
+.from("videos")
+.select("*")
+.eq("id",id)
+.single();
+
+
+if(!item)return;
+
+
+if(
+item.uploaded_by!==currentUser.id &&
+currentUser.role!=="admin"
+){
+
+alert("❌ You cannot delete this.");
+
+return;
+
+}
+
+
+await supabaseClient
+.from("videos")
+.delete()
+.eq("id",id);
+
+
+renderVideos();
+
+}
+
+
+/* =========================================================
+   RESOURCE PACKS
+========================================================= */
+
+async function addResourcePack(){
+
+if(!currentUser)return;
+
+
+const input=
+document.createElement("input");
+
+input.type="file";
+input.accept=".zip,.mcpack";
+
+
+input.onchange=async function(){
+
+const file=input.files[0];
+
+if(!file)return;
+
+
+if(file.size>50*1024*1024){
+
+alert(
+"❌ Resource pack is larger than 50 MB."
+);
+
+return;
+
+}
+
+
+const path=
+"packs/"+
+currentUser.id+
+"/"+
+Date.now()+
+"_"+file.name
+.replace(/[^a-zA-Z0-9._-]/g,"_");
+
+
+const {error}=
+await supabaseClient.storage
+.from("gm-kids-files")
+.upload(path,file);
+
+
+if(error){
+
+alert(
+"❌ Upload failed: "+
+error.message
+);
+
+return;
+
+}
+
+
+const {data:urlData}=
+supabaseClient.storage
+.from("gm-kids-files")
+.getPublicUrl(path);
+
+
+const {error:dbError}=
+await supabaseClient
+.from("resource_packs")
+.insert({
+
+name:file.name,
+
+description:"",
+
+file_url:urlData.publicUrl,
+
+thumbnail_url:null,
+
+uploaded_by:currentUser.id,
+
+uploader_name:currentUser.username
+
+});
+
+
+if(dbError){
+
+alert(
+"❌ Database error: "+
+dbError.message
+);
+
+return;
+
+}
+
+
+renderPacks();
+
+};
+
+input.click();
+
+}
+
+
+async function renderPacks(){
+
+const grid=
+document.getElementById("packsGrid");
+
+
+const {data,error}=
+await supabaseClient
+.from("resource_packs")
+.select("*")
+.order("created_at",{ascending:false});
+
+
+if(error){
+
+grid.innerHTML=
+"<p>❌ Could not load resource packs.</p>";
+
+return;
+
+}
+
+
+grid.innerHTML="";
+
+
+data.forEach(item=>{
+
+const card=
+document.createElement("div");
+
+card.className="pack-card";
+
+
+const canDelete=
+currentUser &&
+(
+currentUser.id===item.uploaded_by ||
+currentUser.role==="admin"
+);
+
+
+card.innerHTML=`
+
+${
+canDelete
+?
+`
+<button class="delete-button"
+onclick="deletePack(${item.id})">
+×
+</button>
+`
+:""
+}
+
+<div class="pack-icon">📦</div>
+
+<div class="pack-name">
+${escapeHTML(item.name)}
+</div>
+
+<div class="media-user"
+style="text-align:center;margin-bottom:15px">
+
+Uploaded by
+${escapeHTML(item.uploader_name)}
+
+</div>
+
+<button class="download-button"
+onclick="downloadPack('${escapeHTML(item.file_url)}','${escapeHTML(item.name)}')">
+
+⬇️ Download
+
+</button>
+
+`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+
+function downloadPack(url,name){
+
+const link=
+document.createElement("a");
+
+link.href=url;
+link.download=name;
+link.target="_blank";
+
+document.body.appendChild(link);
+
+link.click();
+
+link.remove();
+
+}
+
+
+async function deletePack(id){
+
+if(!currentUser)return;
+
+
+const {data:item}=
+await supabaseClient
+.from("resource_packs")
+.select("*")
+.eq("id",id)
+.single();
+
+
+if(!item)return;
+
+
+if(
+item.uploaded_by!==currentUser.id &&
+currentUser.role!=="admin"
+){
+
+alert("❌ You cannot delete this.");
+
+return;
+
+}
+
+
+await supabaseClient
+.from("resource_packs")
+.delete()
+.eq("id",id);
+
+
+renderPacks();
+
+}
+
+
+/* =========================================================
+   REAL CHAT
+========================================================= */
+
+async function sendMessage(){
+
+if(!currentUser)return;
+
+
+const input=
+document.getElementById("chatInput");
+
+const text=
+input.value.trim();
+
+
+if(!text)return;
+
+
+if(text.length>500){
+
+alert("❌ Message is too long.");
+
+return;
+
+}
+
+
+const {error}=
+await supabaseClient
+.from("chat_messages")
+.insert({
+
+message:text,
+
+user_id:currentUser.id,
+
+username:currentUser.username
+
+});
+
+
+if(error){
+
+alert(
+"❌ Could not send message: "+
+error.message
+);
+
+return;
+
+}
+
+
+input.value="";
+
+}
+
+
+/* =========================================================
+   RENDER CHAT
+========================================================= */
+
+async function renderChat(){
+
+const box=
+document.getElementById("messages");
+
+
+const {data,error}=
+await supabaseClient
+.from("chat_messages")
+.select("*")
+.order("created_at",{ascending:true});
+
+
+if(error){
+
+box.innerHTML=
+"<p>❌ Could not load chat.</p>";
+
+console.error(error);
+
+return;
+
+}
+
+
+box.innerHTML="";
+
+
+data.forEach(addMessageToChat);
+
+
+box.scrollTop=box.scrollHeight;
+
+}
+
+
+/* =========================================================
+   ADD ONE CHAT MESSAGE
+========================================================= */
+
+function addMessageToChat(message){
+
+const box=
+document.getElementById("messages");
+
+
+if(!box)return;
+
+
+const div=
+document.createElement("div");
+
+div.className="message";
+
+
+const time=
+new Date(message.created_at)
+.toLocaleTimeString([],{
+hour:"2-digit",
+minute:"2-digit"
+});
+
+
+div.innerHTML=`
+
+<div class="message-user">
+
+👤 ${escapeHTML(message.username)}
+
+<span class="message-time">
+${time}
+</span>
+
+</div>
+
+<div>
+${escapeHTML(message.message)}
+</div>
+
+`;
+
+
+box.appendChild(div);
+
+}
+
+
+/* =========================================================
+   LIVE REAL-TIME CHAT
+========================================================= */
+
+supabaseClient
+.channel("gm-kids-live-chat")
+.on(
+"postgres_changes",
+{
+event:"INSERT",
+schema:"public",
+table:"chat_messages"
+},
+payload=>{
+
+addMessageToChat(payload.new);
+
+const box=
+document.getElementById("messages");
+
+if(box){
+
+box.scrollTop=
+box.scrollHeight;
+
+}
+
+}
+)
+.subscribe();
+
+
+/* =========================================================
+   STARTUP
+========================================================= */
+
+loadCurrentUser();
+
+renderScreenshots();
+
+renderVideos();
+
+renderPacks();
+
+renderChat();
 
 </script>
 
 </body>
 </html>
-```
