@@ -19,418 +19,576 @@ const supabaseClient = supabase.createClient(
 <title>GM KIDS</title>
 
 <style>
-*{box-sizing:border-box}
-
-html,body{
-    margin:0;
-    padding:0;
-    font-family:Arial,Helvetica,sans-serif;
+* {
+    box-sizing: border-box;
 }
 
-body{
-    background:#0b0f17;
-    color:white;
-    transition:.3s;
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-body.light{
-    background:#eef2f7;
-    color:#111;
+body {
+    background: #0b0f17;
+    color: white;
+    transition: .3s;
 }
 
-header{
-    height:80px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 30px;
-    background:#0a0e17;
-    border-bottom:2px solid #222b3a;
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    z-index:1000;
+body.light {
+    background: #eef2f7;
+    color: #111;
 }
 
-body.light header{
-    background:white;
-    border-color:#ddd;
+header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    background: rgba(10,14,23,.96);
+    border-bottom: 2px solid #222b3a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
-.logo{
-    font-size:38px;
-    font-weight:900;
-    letter-spacing:2px;
+body.light header {
+    background: rgba(255,255,255,.96);
+    border-bottom-color: #ddd;
 }
 
-.gm{color:#2196f3}
-.kids{color:#f44336}
-
-nav{
-    height:60px;
-    position:fixed;
-    top:80px;
-    left:0;
-    right:0;
-    z-index:999;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:8px;
-    background:#111722;
-    border-bottom:1px solid #283243;
-    overflow-x:auto;
+.logo {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 2px;
 }
 
-body.light nav{
-    background:white;
-    border-color:#ddd;
+.gm {
+    color: #2196f3;
 }
 
-.nav-button{
-    border:none;
-    background:transparent;
-    color:#aaa;
-    padding:12px 16px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:15px;
-    white-space:nowrap;
+.kids {
+    color: #f44336;
+}
+
+nav {
+    height: 60px;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #111722;
+    border-bottom: 1px solid #283243;
+    overflow-x: auto;
+}
+
+body.light nav {
+    background: white;
+    border-bottom-color: #ddd;
+}
+
+.nav-button {
+    border: none;
+    background: transparent;
+    color: #aaa;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    white-space: nowrap;
 }
 
 .nav-button:hover,
-.nav-button.active{
-    background:#2196f3;
-    color:white;
+.nav-button.active {
+    background: #2196f3;
+    color: white;
 }
 
-main{
-    padding-top:140px;
-    min-height:100vh;
+.theme-button {
+    border: none;
+    padding: 11px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #222c3b;
+    color: white;
 }
 
-.tab{
-    display:none;
-    min-height:calc(100vh - 140px);
-    padding:35px 25px 80px;
+main {
+    padding-top: 140px;
+    min-height: 100vh;
 }
 
-.tab.active{
-    display:block;
+.tab {
+    display: none;
+    width: 100%;
+    min-height: calc(100vh - 140px);
+    padding: 35px 25px 80px;
 }
 
-.container{
-    max-width:1100px;
-    margin:auto;
+.tab.active {
+    display: block;
 }
 
-.big-logo{
-    text-align:center;
-    font-size:85px;
-    font-weight:900;
-    margin:30px 0 15px;
+.container {
+    max-width: 1100px;
+    margin: auto;
 }
 
-.subtitle{
-    text-align:center;
-    font-size:20px;
-    opacity:.75;
+.big-logo {
+    text-align: center;
+    font-size: 85px;
+    font-weight: 900;
+    margin: 30px 0 15px;
 }
 
-.section-title{
-    text-align:center;
-    font-size:36px;
-    margin-bottom:30px;
+.subtitle {
+    text-align: center;
+    font-size: 20px;
+    opacity: .75;
 }
 
-.players{
-    max-width:600px;
-    margin:35px auto;
-    padding:25px;
-    border-radius:18px;
-    background:#151d2a;
-    border:1px solid #2b394d;
+.players {
+    max-width: 600px;
+    margin: 35px auto;
+    padding: 25px;
+    border-radius: 18px;
+    background: #151d2a;
+    border: 1px solid #2b394d;
 }
 
-body.light .players,
-body.light .server-card,
-body.light .member,
-body.light .media-card,
-body.light .pack-card,
-body.light .chat-box,
-body.light .login-box{
-    background:white;
-    border-color:#ddd;
+body.light .players {
+    background: white;
+    border-color: #ddd;
 }
 
-.players h2{text-align:center}
-
-.player{
-    padding:12px;
-    margin:7px 0;
-    background:rgba(255,255,255,.05);
-    border-radius:10px;
+.players h2 {
+    text-align: center;
+    margin-top: 0;
 }
 
-.servers,
-.members,
-.gallery,
-.video-grid,
-.pack-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:18px;
+.player {
+    padding: 12px;
+    margin: 7px 0;
+    background: rgba(255,255,255,.05);
+    border-radius: 10px;
 }
 
-.server-card{
-    background:#151d2a;
-    border:1px solid #2c3a50;
-    padding:22px;
-    border-radius:16px;
-    text-align:center;
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
 }
 
-.server-card:hover{
-    border-color:#2196f3;
-    transform:translateY(-4px);
+.servers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 18px;
 }
 
-.server-number{color:#777;font-weight:bold}
-
-.server-name{
-    font-size:24px;
-    font-weight:bold;
-    margin:10px;
+.server-card {
+    background: #151d2a;
+    border: 1px solid #2c3a50;
+    padding: 22px;
+    border-radius: 16px;
+    text-align: center;
+    transition: .2s;
 }
 
-.server-ip{
-    font-family:monospace;
-    color:#2196f3;
-    margin-bottom:15px;
+body.light .server-card {
+    background: white;
+    border-color: #ddd;
 }
 
-button{cursor:pointer}
+.server-card:hover {
+    transform: translateY(-5px);
+    border-color: #2196f3;
+}
+
+.server-number {
+    color: #777;
+    font-weight: bold;
+}
+
+.server-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.server-ip {
+    font-family: monospace;
+    color: #2196f3;
+    margin-bottom: 15px;
+}
+
+button {
+    cursor: pointer;
+}
 
 .copy-button,
-.add-button,
-.theme-button{
-    border:none;
-    padding:10px 16px;
-    border-radius:9px;
-    background:#2196f3;
-    color:white;
-    font-weight:bold;
+.add-button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 9px;
+    background: #2196f3;
+    color: white;
+    font-weight: bold;
 }
 
-.theme-button{
-    background:#222c3b;
+.copy-button:hover,
+.add-button:hover {
+    filter: brightness(1.15);
 }
 
-.members{
-    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+.members {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(190px,1fr));
+    gap: 18px;
 }
 
-.member{
-    padding:22px;
-    text-align:center;
-    border-radius:15px;
-    background:#151d2a;
-    border:2px solid #777;
+.member {
+    padding: 22px;
+    text-align: center;
+    border-radius: 15px;
+    background: #151d2a;
+    border: 2px solid #777;
+    transition: .2s;
 }
 
-.member-name{
-    font-size:22px;
-    font-weight:bold;
+body.light .member {
+    background: white;
 }
 
-.role{
-    margin-top:8px;
-    font-weight:bold;
+.member:hover {
+    transform: translateY(-5px);
 }
 
-.owner{
-    border-color:#f44336;
+.owner {
+    border-color: #f44336;
 }
 
 .owner .member-name,
-.owner .role{
-    color:#f44336;
+.owner .role {
+    color: #f44336;
 }
 
-.admin{
-    border-color:#2196f3;
+.admin {
+    border-color: #2196f3;
 }
 
 .admin .member-name,
-.admin .role{
-    color:#2196f3;
+.admin .role {
+    color: #2196f3;
+}
+
+.member-name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.role {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.upload-area {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.gallery,
+.video-grid,
+.pack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 20px;
 }
 
 .media-card,
-.pack-card{
-    background:#151d2a;
-    border:1px solid #2b394d;
-    border-radius:15px;
-    padding:12px;
-    position:relative;
-    overflow:hidden;
+.pack-card {
+    background: #151d2a;
+    border: 1px solid #2b394d;
+    border-radius: 15px;
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+body.light .media-card,
+body.light .pack-card {
+    background: white;
+    border-color: #ddd;
 }
 
 .media-card img,
-.media-card video{
-    width:100%;
-    border-radius:10px;
+.media-card video {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
 }
 
-.media-name{
-    font-weight:bold;
-    margin:10px 0 4px;
+.media-name {
+    font-weight: bold;
+    margin: 10px 0 4px;
 }
 
-.media-user{
-    color:#888;
-    font-size:13px;
+.media-user {
+    color: #888;
+    font-size: 13px;
 }
 
-.delete-button{
-    position:absolute;
-    top:8px;
-    right:8px;
-    width:30px;
-    height:30px;
-    border:none;
-    border-radius:50%;
-    background:#f44336;
-    color:white;
-    font-size:18px;
-    z-index:5;
+.delete-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #f44336;
+    color: white;
+    font-size: 18px;
+    z-index: 5;
 }
 
-.pack-icon{
-    font-size:50px;
-    text-align:center;
+.pack-icon {
+    font-size: 50px;
+    text-align: center;
 }
 
-.pack-name{
-    font-size:20px;
-    font-weight:bold;
-    text-align:center;
-    margin:10px;
+.pack-name {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
 }
 
-.download-button{
-    width:100%;
-    border:none;
-    padding:11px;
-    border-radius:9px;
-    background:#4caf50;
-    color:white;
-    font-weight:bold;
+.download-button {
+    width: 100%;
+    border: none;
+    padding: 11px;
+    border-radius: 9px;
+    background: #4caf50;
+    color: white;
+    font-weight: bold;
 }
 
-.upload-area{
-    text-align:center;
-    margin-bottom:30px;
+.chat-box {
+    max-width: 800px;
+    margin: auto;
+    background: #151d2a;
+    border: 1px solid #2b394d;
+    border-radius: 16px;
+    overflow: hidden;
 }
 
-.chat-box{
-    max-width:800px;
-    margin:auto;
-    background:#151d2a;
-    border:1px solid #2b394d;
-    border-radius:16px;
-    overflow:hidden;
+body.light .chat-box {
+    background: white;
 }
 
-.messages{
-    height:450px;
-    overflow-y:auto;
-    padding:20px;
+.messages {
+    height: 450px;
+    overflow-y: auto;
+    padding: 20px;
 }
 
-.message{
-    margin-bottom:15px;
-    padding:12px;
-    border-radius:12px;
-    background:rgba(255,255,255,.05);
+.message {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.05);
 }
 
-.message-user{
-    font-weight:bold;
-    color:#2196f3;
+.message-user {
+    font-weight: bold;
+    color: #2196f3;
 }
 
-.chat-input{
-    display:flex;
-    gap:10px;
-    padding:15px;
-    border-top:1px solid #2b394d;
+.chat-input {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid #2b394d;
 }
 
-.chat-input input{
-    flex:1;
-    padding:12px;
-    border-radius:9px;
-    border:1px solid #555;
-    background:transparent;
-    color:inherit;
+.chat-input input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 9px;
+    border: 1px solid #555;
+    background: transparent;
+    color: inherit;
 }
 
-.login-box{
-    max-width:450px;
-    margin:50px auto;
-    padding:30px;
-    background:#151d2a;
-    border-radius:18px;
-    border:1px solid #2b394d;
+.login-box {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #151d2a;
+    border-radius: 18px;
+    border: 1px solid #2b394d;
 }
 
-.login-box input{
-    width:100%;
-    margin:8px 0;
-    padding:13px;
-    border-radius:9px;
-    border:1px solid #555;
-    background:transparent;
-    color:inherit;
+body.light .login-box {
+    background: white;
 }
 
-.login-box button{
-    width:100%;
-    margin-top:10px;
+.login-box input {
+    width: 100%;
+    margin: 8px 0;
+    padding: 13px;
+    border-radius: 9px;
+    border: 1px solid #555;
+    background: transparent;
+    color: inherit;
 }
 
-.auth-message{
-    text-align:center;
-    margin-top:12px;
-    color:#f44336;
+.login-box button {
+    width: 100%;
+    margin-top: 10px;
 }
 
-.user-area{
-    display:flex;
-    align-items:center;
-    gap:10px;
+.auth-message {
+    text-align: center;
+    margin-top: 12px;
+    color: #f44336;
 }
 
-.user-name{
-    font-weight:bold;
+.mob-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+    gap: 15px;
+    margin: 20px 0;
 }
 
-.logout-button{
-    border:none;
-    padding:8px 12px;
-    border-radius:8px;
-    background:#f44336;
-    color:white;
+.mob {
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(255,255,255,.05);
 }
 
-@media(max-width:700px){
-    header{padding:0 15px}
-    .logo{font-size:27px}
-    nav{justify-content:flex-start;padding:0 10px}
-    .big-logo{font-size:55px}
-    .section-title{font-size:28px}
+.mob.selected {
+    border-color: #2196f3;
+}
+
+.mob-face {
+    font-size: 45px;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.logout-button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #f44336;
+    color: white;
+}
+
+.admin-button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #9c27b0;
+    color: white;
+    font-weight: bold;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    background: #151d2a;
+    padding: 30px;
+    border-radius: 18px;
+    width: min(420px,90%);
+    text-align: center;
+}
+
+body.light .modal-box {
+    background: white;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 11px 25px;
+    border: none;
+    border-radius: 8px;
+}
+
+.yes {
+    background: #f44336;
+    color: white;
+}
+
+.no {
+    background: #555;
+    color: white;
+}
+
+@media(max-width:700px) {
+    header {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 27px;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .big-logo {
+        font-size: 55px;
+    }
+
+    nav {
+        justify-content: flex-start;
+        padding: 0 10px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
 }
 </style>
 </head>
@@ -438,32 +596,67 @@ button{cursor:pointer}
 <body>
 
 <header>
-    <div class="logo">
-        <span class="gm">GM</span>
-        <span class="kids">KIDS</span>
-    </div>
 
-    <div class="user-area" id="userArea"></div>
+<div class="logo">
+    <span class="gm">GM</span>
+    <span class="kids">KIDS</span>
+</div>
+
+<div class="user-area" id="userArea">
+    <button class="theme-button" onclick="toggleTheme()">
+        🌙 Theme
+    </button>
+
+    <button class="theme-button" onclick="openTab('login')">
+        🔐 Login
+    </button>
+</div>
+
 </header>
 
 <nav>
-    <button class="nav-button active" onclick="openTab('home')">🏠 Home</button>
-    <button class="nav-button" onclick="openTab('servers')">🖥️ Servers</button>
-    <button class="nav-button" onclick="openTab('members')">👥 Members</button>
-    <button class="nav-button" onclick="openTab('screenshots')">📸 Screenshots</button>
-    <button class="nav-button" onclick="openTab('videos')">🎥 Videos</button>
-    <button class="nav-button" onclick="openTab('packs')">📦 Resource Packs</button>
-    <button class="nav-button" onclick="openTab('chat')">💬 Chat</button>
+
+<button class="nav-button active" onclick="openTab('home')">
+🏠 Home
+</button>
+
+<button class="nav-button" onclick="openTab('servers')">
+🖥️ Servers
+</button>
+
+<button class="nav-button" onclick="openTab('members')">
+👥 Members
+</button>
+
+<button class="nav-button" onclick="openTab('screenshots')">
+📸 Screenshots
+</button>
+
+<button class="nav-button" onclick="openTab('videos')">
+🎥 Videos
+</button>
+
+<button class="nav-button" onclick="openTab('packs')">
+📦 Resource Packs
+</button>
+
+<button class="nav-button" onclick="openTab('chat')">
+💬 Chat
+</button>
+
 </nav>
 
 <main>
 
+<!-- HOME -->
+
 <section id="home" class="tab active">
+
 <div class="container">
 
 <div class="big-logo">
-    <span class="gm">GM</span>
-    <span class="kids">KIDS</span>
+<span class="gm">GM</span>
+<span class="kids">KIDS</span>
 </div>
 
 <p class="subtitle">
@@ -471,19 +664,29 @@ button{cursor:pointer}
 </p>
 
 <div class="players">
+
 <h2>🏆 Best Minecraft Players 🏆</h2>
+
 <div class="player">1. marlowww</div>
 <div class="player">2. itzrealme</div>
 <div class="player">3. swight</div>
 <div class="player">4. coldfied</div>
+
 </div>
 
 </div>
+
 </section>
 
+<!-- SERVERS -->
+
 <section id="servers" class="tab">
+
 <div class="container">
-<h2 class="section-title">🖥️ GM KIDS SERVER LIST 🖥️</h2>
+
+<h2 class="section-title">
+🖥️ GM KIDS SERVER LIST 🖥️
+</h2>
 
 <div class="servers">
 
@@ -491,45 +694,60 @@ button{cursor:pointer}
 <div class="server-number">#1</div>
 <div class="server-name">🎮 gameup</div>
 <div class="server-ip">gameup.ir</div>
-<button class="copy-button" onclick="copyIP('gameup.ir')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('gameup.ir')">
+📋 Copy
+</button>
 </div>
 
 <div class="server-card">
 <div class="server-number">#2</div>
 <div class="server-name">🦖 trexmine</div>
 <div class="server-ip">play.trexmine.com</div>
-<button class="copy-button" onclick="copyIP('play.trexmine.com')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('play.trexmine.com')">
+📋 Copy
+</button>
 </div>
 
 <div class="server-card">
 <div class="server-number">#3</div>
 <div class="server-name">⛏️ ucraft</div>
 <div class="server-ip">play.ucraft.ir</div>
-<button class="copy-button" onclick="copyIP('play.ucraft.ir')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('play.ucraft.ir')">
+📋 Copy
+</button>
 </div>
 
 <div class="server-card">
 <div class="server-number">#4</div>
 <div class="server-name">❄️ coldgames</div>
 <div class="server-ip">play.coldgames.ir</div>
-<button class="copy-button" onclick="copyIP('play.coldgames.ir')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('play.coldgames.ir')">
+📋 Copy
+</button>
 </div>
 
 <div class="server-card">
 <div class="server-number">#5</div>
 <div class="server-name">🟨 fakepixel</div>
 <div class="server-ip">play.fakepixel.me</div>
-<button class="copy-button" onclick="copyIP('play.fakepixel.me')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('play.fakepixel.me')">
+📋 Copy
+</button>
 </div>
 
 </div>
 </div>
 </section>
 
+<!-- MEMBERS -->
+
 <section id="members" class="tab">
+
 <div class="container">
 
-<h2 class="section-title">😎 GM KIDS MEMBERS 😎</h2>
+<h2 class="section-title">
+😎 GM KIDS MEMBERS 😎
+</h2>
 
 <div class="members">
 
@@ -577,16 +795,28 @@ button{cursor:pointer}
 </div>
 </section>
 
+<!-- SCREENSHOTS -->
+
 <section id="screenshots" class="tab">
+
 <div class="container">
 
-<h2 class="section-title">📸 Minecraft Screenshots</h2>
+<h2 class="section-title">
+📸 Minecraft Screenshots
+</h2>
 
 <div class="upload-area">
-<button class="add-button" onclick="requireLogin(addScreenshot)">
+
+<button class="add-button"
+onclick="requireLogin(addScreenshot)">
 ➕ Add Screenshot
 </button>
-<p>Anyone can view screenshots. Logged-in members can post.</p>
+
+<p>
+Anyone can view screenshots.
+Only logged-in members can post.
+</p>
+
 </div>
 
 <div id="gallery" class="gallery"></div>
@@ -594,16 +824,28 @@ button{cursor:pointer}
 </div>
 </section>
 
+<!-- VIDEOS -->
+
 <section id="videos" class="tab">
+
 <div class="container">
 
-<h2 class="section-title">🎥 GM KIDS Videos</h2>
+<h2 class="section-title">
+🎥 GM KIDS Videos
+</h2>
 
 <div class="upload-area">
-<button class="add-button" onclick="requireLogin(addVideo)">
+
+<button class="add-button"
+onclick="requireLogin(addVideo)">
 ➕ Add Video
 </button>
-<p>Anyone can watch videos. Logged-in members can upload.</p>
+
+<p>
+Anyone can watch videos.
+Only logged-in members can upload.
+</p>
+
 </div>
 
 <div id="videosGrid" class="video-grid"></div>
@@ -611,16 +853,28 @@ button{cursor:pointer}
 </div>
 </section>
 
+<!-- RESOURCE PACKS -->
+
 <section id="packs" class="tab">
+
 <div class="container">
 
-<h2 class="section-title">📦 Resource Packs</h2>
+<h2 class="section-title">
+📦 Resource Packs
+</h2>
 
 <div class="upload-area">
-<button class="add-button" onclick="requireLogin(addResourcePack)">
+
+<button class="add-button"
+onclick="requireLogin(addResourcePack)">
 ➕ Add Resource Pack
 </button>
-<p>Anyone can download resource packs. Logged-in members can upload.</p>
+
+<p>
+Anyone can download resource packs.
+Only logged-in members can upload or delete their own packs.
+</p>
+
 </div>
 
 <div id="packsGrid" class="pack-grid"></div>
@@ -628,36 +882,64 @@ button{cursor:pointer}
 </div>
 </section>
 
+<!-- CHAT -->
+
 <section id="chat" class="tab">
+
 <div class="container">
 
-<h2 class="section-title">💬 GM KIDS Chat</h2>
+<h2 class="section-title">
+💬 GM KIDS Chat
+</h2>
 
 <div class="chat-box">
+
 <div id="messages" class="messages"></div>
 
 <div class="chat-input">
-<input id="chatInput" type="text" placeholder="Write a message..."
-onkeydown="if(event.key==='Enter') sendMessage()">
 
-<button class="add-button" onclick="requireLogin(sendMessage)">
+<input
+id="chatInput"
+type="text"
+placeholder="Write a message..."
+onkeydown="if(event.key==='Enter') requireLogin(sendMessage)"
+>
+
+<button class="add-button"
+onclick="requireLogin(sendMessage)">
 Send
 </button>
+
 </div>
+
 </div>
 
 </div>
 </section>
 
+<!-- LOGIN -->
+
 <section id="login" class="tab">
+
 <div class="login-box">
 
 <h2>🔐 Login</h2>
 
-<input id="loginEmail" type="email" placeholder="Email">
-<input id="loginPassword" type="password" placeholder="Password">
+<input
+id="loginUsername"
+type="text"
+placeholder="Username"
+>
 
-<button class="add-button" onclick="login()">Login</button>
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+>
+
+<button class="add-button" onclick="login()">
+Login
+</button>
 
 <button class="add-button" onclick="openTab('signup')">
 Create Account
@@ -666,29 +948,72 @@ Create Account
 <div id="loginMessage" class="auth-message"></div>
 
 </div>
+
 </section>
 
+<!-- SIGNUP -->
+
 <section id="signup" class="tab">
+
 <div class="login-box">
 
 <h2>✨ Create GM KIDS Account</h2>
 
-<input id="signupUsername" type="text" placeholder="Username">
-<input id="signupEmail" type="email" placeholder="Email">
-<input id="signupPassword" type="password" placeholder="Password">
+<input
+id="signupUsername"
+type="text"
+placeholder="Username"
+>
+
+<input
+id="signupPassword"
+type="password"
+placeholder="Password"
+>
 
 <h3>Choose your Minecraft profile picture</h3>
 
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+<div class="mob-grid">
 
-<button onclick="selectMob(this,'🧟')">🧟</button>
-<button onclick="selectMob(this,'💀')">💀</button>
-<button onclick="selectMob(this,'💚')">💚</button>
-<button onclick="selectMob(this,'🐷')">🐷</button>
-<button onclick="selectMob(this,'🐮')">🐮</button>
-<button onclick="selectMob(this,'🐑')">🐑</button>
-<button onclick="selectMob(this,'🐔')">🐔</button>
-<button onclick="selectMob(this,'🐺')">🐺</button>
+<div class="mob selected" onclick="selectMob(this,'🧟')">
+<div class="mob-face">🧟</div>
+Zombie
+</div>
+
+<div class="mob" onclick="selectMob(this,'💀')">
+<div class="mob-face">💀</div>
+Skeleton
+</div>
+
+<div class="mob" onclick="selectMob(this,'💚')">
+<div class="mob-face">💚</div>
+Creeper
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐷')">
+<div class="mob-face">🐷</div>
+Pig
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐮')">
+<div class="mob-face">🐮</div>
+Cow
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐑')">
+<div class="mob-face">🐑</div>
+Sheep
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐔')">
+<div class="mob-face">🐔</div>
+Chicken
+</div>
+
+<div class="mob" onclick="selectMob(this,'🐺')">
+<div class="mob-face">🐺</div>
+Wolf
+</div>
 
 </div>
 
@@ -703,242 +1028,416 @@ Back to Login
 <div id="signupMessage" class="auth-message"></div>
 
 </div>
+
 </section>
 
 </main>
 
+<!-- LOGOUT -->
+
+<div id="logoutModal" class="modal">
+
+<div class="modal-box">
+
+<h2>🚪 Log Out?</h2>
+
+<p>Are you sure you want to log out?</p>
+
+<div class="modal-buttons">
+
+<button class="yes" onclick="logout()">
+Yes
+</button>
+
+<button class="no" onclick="closeLogout()">
+No
+</button>
+
+</div>
+
+</div>
+</div>
+
 <script>
+
+/* =========================
+   VARIABLES
+========================= */
 
 let currentUser = null;
 let selectedMob = "🧟";
 
-async function loadUser(){
 
-    const {data:{user}} =
-        await supabaseClient.auth.getUser();
+/* =========================
+   TAB SYSTEM
+========================= */
 
-    currentUser = user || null;
+function openTab(id) {
 
-    updateUserArea();
+    document.querySelectorAll(".tab").forEach(tab => {
+        tab.classList.remove("active");
+    });
 
-    if(currentUser){
-        await loadProfile();
+    const target = document.getElementById(id);
+
+    if (target) {
+        target.classList.add("active");
     }
-}
 
-async function loadProfile(){
-
-    const {data} =
-        await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id",currentUser.id)
-        .maybeSingle();
-
-    if(data){
-        currentUser.profile = data;
-    }
-}
-
-function openTab(id){
-
-    document.querySelectorAll(".tab")
-    .forEach(x=>x.classList.remove("active"));
-
-    const target=document.getElementById(id);
-
-    if(target) target.classList.add("active");
-
-    document.querySelectorAll(".nav-button")
-    .forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".nav-button").forEach(button => {
+        button.classList.remove("active");
+    });
 
     window.scrollTo(0,0);
 }
 
-function toggleTheme(){
+
+/* =========================
+   THEME
+========================= */
+
+function toggleTheme() {
 
     document.body.classList.toggle("light");
 
     localStorage.setItem(
         "gmTheme",
         document.body.classList.contains("light")
-        ?"light":"dark"
+            ? "light"
+            : "dark"
     );
 }
 
-if(localStorage.getItem("gmTheme")==="light"){
+if (localStorage.getItem("gmTheme") === "light") {
     document.body.classList.add("light");
 }
 
-function copyIP(ip){
+
+/* =========================
+   COPY IP
+========================= */
+
+function copyIP(ip) {
 
     navigator.clipboard.writeText(ip)
-    .then(()=>alert("✅ Copied: "+ip))
-    .catch(()=>prompt("Copy this IP:",ip));
+        .then(() => alert("✅ Copied: " + ip))
+        .catch(() => prompt("Copy this IP:", ip));
 }
 
-function selectMob(element,mob){
+
+/* =========================
+   PROFILE MOB
+========================= */
+
+function selectMob(element,mob) {
 
     document.querySelectorAll(".mob")
-    .forEach(x=>x.classList.remove("selected"));
+        .forEach(x => x.classList.remove("selected"));
 
-    selectedMob=mob;
+    element.classList.add("selected");
+
+    selectedMob = mob;
 }
 
-async function createAccount(){
 
-    const username=
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text || "";
+
+    return div.innerHTML;
+}
+
+
+/* =========================
+   CREATE ACCOUNT
+========================= */
+
+async function createAccount() {
+
+    const username =
         document.getElementById("signupUsername").value.trim();
 
-    const email=
-        document.getElementById("signupEmail").value.trim();
-
-    const password=
+    const password =
         document.getElementById("signupPassword").value;
 
-    const message=
+    const message =
         document.getElementById("signupMessage");
 
-    if(!username || !email || !password){
-
-        message.textContent=
-            "❌ Fill in all fields.";
-
+    if (!username || !password) {
+        message.textContent =
+            "❌ Enter a username and password.";
         return;
     }
 
-    if(password.length < 6){
-
-        message.textContent=
+    if (password.length < 6) {
+        message.textContent =
             "❌ Password must be at least 6 characters.";
-
         return;
     }
 
-    const {data,error}=
+    const { data: existing } =
+        await supabaseClient
+            .from("profiles")
+            .select("username")
+            .ilike("username",username);
+
+    if (existing && existing.length > 0) {
+        message.textContent =
+            "❌ That username already exists.";
+        return;
+    }
+
+    const email =
+        username.toLowerCase() +
+        "@gmkids.local";
+
+    const { data,error } =
         await supabaseClient.auth.signUp({
-            email:email,
-            password:password
+            email: email,
+            password: password
         });
 
-    if(error){
-
-        message.textContent="❌ "+error.message;
+    if (error) {
+        message.textContent =
+            "❌ " + error.message;
         return;
     }
 
-    if(data.user){
+    if (!data.user) {
+        message.textContent =
+            "❌ Account could not be created.";
+        return;
+    }
 
-        const {error:profileError}=
-            await supabaseClient
+    const { error: profileError } =
+        await supabaseClient
             .from("profiles")
             .insert({
-                id:data.user.id,
-                username:username,
-                avatar:selectedMob,
-                role:"member"
+                id: data.user.id,
+                username: username,
+                avatar: selectedMob,
+                role: "member"
             });
 
-        if(profileError){
-
-            message.textContent=
-                "❌ Account created, but profile failed: "
-                +profileError.message;
-
-            return;
-        }
-    }
-
-    message.style.color="#4caf50";
-    message.textContent=
-        "✅ Account created! You can now log in.";
-
-    setTimeout(()=>openTab("login"),1200);
-}
-
-async function login(){
-
-    const email=
-        document.getElementById("loginEmail").value.trim();
-
-    const password=
-        document.getElementById("loginPassword").value;
-
-    const message=
-        document.getElementById("loginMessage");
-
-    const {data,error}=
-        await supabaseClient.auth.signInWithPassword({
-            email:email,
-            password:password
-        });
-
-    if(error){
-
-        message.textContent="❌ "+error.message;
+    if (profileError) {
+        message.textContent =
+            "❌ " + profileError.message;
         return;
     }
 
-    currentUser=data.user;
-
-    await loadProfile();
+    currentUser = {
+        id: data.user.id,
+        username: username,
+        avatar: selectedMob,
+        role: "member"
+    };
 
     updateUserArea();
 
-    alert("✅ Welcome to GM KIDS!");
+    alert("🎉 Account created!");
 
     openTab("home");
 }
 
-async function logout(){
 
-    await supabaseClient.auth.signOut();
+/* =========================
+   LOGIN
+========================= */
 
-    currentUser=null;
+async function login() {
+
+    const username =
+        document.getElementById("loginUsername").value.trim();
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    const message =
+        document.getElementById("loginMessage");
+
+    if (!username || !password) {
+        message.textContent =
+            "❌ Enter your username and password.";
+        return;
+    }
+
+    const email =
+        username.toLowerCase() +
+        "@gmkids.local";
+
+    const { data,error } =
+        await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+    if (error) {
+        message.textContent =
+            "❌ Wrong username or password.";
+        return;
+    }
+
+    const { data: profile,error: profileError } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id",data.user.id)
+            .single();
+
+    if (profileError) {
+        message.textContent =
+            "❌ Profile not found.";
+        return;
+    }
+
+    currentUser = profile;
 
     updateUserArea();
+
+    alert("✅ Welcome back, " + profile.username + "!");
 
     openTab("home");
 }
 
-function updateUserArea(){
 
-    const area=document.getElementById("userArea");
+/* =========================
+   CURRENT USER
+========================= */
 
-    if(!currentUser){
+async function loadCurrentUser() {
 
-        area.innerHTML=`
+    const { data } =
+        await supabaseClient.auth.getSession();
+
+    if (!data.session) {
+        currentUser = null;
+        updateUserArea();
+        return;
+    }
+
+    const { data: profile } =
+        await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id",data.session.user.id)
+            .single();
+
+    if (profile) {
+        currentUser = profile;
+    }
+
+    updateUserArea();
+}
+
+
+/* =========================
+   USER AREA
+========================= */
+
+function updateUserArea() {
+
+    const area =
+        document.getElementById("userArea");
+
+    if (!currentUser) {
+
+        area.innerHTML = `
             <button class="theme-button"
-            onclick="toggleTheme()">🌙 Theme</button>
+                    onclick="toggleTheme()">
+                🌙 Theme
+            </button>
 
             <button class="theme-button"
-            onclick="openTab('login')">🔐 Login</button>
+                    onclick="openTab('login')">
+                🔐 Login
+            </button>
         `;
 
         return;
     }
 
-    const profile=currentUser.profile;
+    area.innerHTML = `
 
-    area.innerHTML=`
         <span class="user-name">
-            ${profile?.avatar || "👤"}
-            ${escapeHTML(profile?.username || currentUser.email)}
+            ${currentUser.avatar || "👤"}
+            ${escapeHTML(currentUser.username)}
         </span>
 
+        ${
+            currentUser.role === "admin"
+            ? `
+            <button class="admin-button"
+                    onclick="alert('🛡️ Admin panel coming next!')">
+                🛡️ Admin
+            </button>
+            `
+            : ""
+        }
+
         <button class="theme-button"
-        onclick="toggleTheme()">🌙 Theme</button>
+                onclick="toggleTheme()">
+            🌙 Theme
+        </button>
 
         <button class="logout-button"
-        onclick="logout()">🚪 Exit</button>
+                onclick="openLogout()">
+            🚪 Exit
+        </button>
     `;
 }
 
-function requireLogin(callback){
 
-    if(!currentUser){
+/* =========================
+   LOGOUT
+========================= */
 
-        alert("🔐 You need to be logged in!");
+function openLogout() {
+
+    document
+        .getElementById("logoutModal")
+        .classList.add("show");
+}
+
+function closeLogout() {
+
+    document
+        .getElementById("logoutModal")
+        .classList.remove("show");
+}
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    currentUser = null;
+
+    closeLogout();
+
+    updateUserArea();
+
+    alert("👋 You have been logged out!");
+
+    openTab("home");
+}
+
+
+/* =========================
+   LOGIN REQUIRED
+========================= */
+
+function requireLogin(callback) {
+
+    if (!currentUser) {
+
+        alert(
+            "🔐 You need to be logged in to do that!"
+        );
 
         openTab("login");
 
@@ -948,117 +1447,124 @@ function requireLogin(callback){
     callback();
 }
 
-function escapeHTML(text){
 
-    const div=document.createElement("div");
+/* =========================
+   SCREENSHOTS
+========================= */
 
-    div.textContent=text;
+async function addScreenshot() {
 
-    return div.innerHTML;
-}
+    if (!currentUser) return;
 
-async function uploadFile(file,path){
+    const input =
+        document.createElement("input");
 
-    const {error}=
-        await supabaseClient.storage
-        .from("gm-kids-files")
-        .upload(path,file,{
-            upsert:false
-        });
+    input.type = "file";
+    input.accept = "image/*";
 
-    if(error) throw error;
+    input.onchange = async function() {
 
-    const {data}=
-        supabaseClient.storage
-        .from("gm-kids-files")
-        .getPublicUrl(path);
+        const file = input.files[0];
 
-    return data.publicUrl;
-}
+        if (!file) return;
 
-async function addScreenshot(){
-
-    const input=document.createElement("input");
-
-    input.type="file";
-    input.accept="image/*";
-
-    input.onchange=async()=>{
-
-        const file=input.files[0];
-
-        if(!file)return;
-
-        if(file.size > 50*1024*1024){
-
-            alert("❌ File is bigger than 50 MB.");
+        if (file.size > 50 * 1024 * 1024) {
+            alert("❌ File is larger than 50 MB.");
             return;
         }
 
-        try{
+        const path =
+            "screenshots/" +
+            currentUser.id +
+            "/" +
+            Date.now() +
+            "_" +
+            file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
 
-            const path=
-                `${currentUser.id}/screenshots/${Date.now()}-${file.name}`;
+        const { error: uploadError } =
+            await supabaseClient.storage
+                .from("gm-kids-files")
+                .upload(path,file);
 
-            const url=
-                await uploadFile(file,path);
+        if (uploadError) {
+            alert("❌ Upload failed: " + uploadError.message);
+            return;
+        }
 
-            const username=
-                currentUser.profile?.username ||
-                currentUser.email;
+        const { data:urlData } =
+            supabaseClient.storage
+                .from("gm-kids-files")
+                .getPublicUrl(path);
 
-            const {error}=
-                await supabaseClient
+        const { error } =
+            await supabaseClient
                 .from("screenshots")
                 .insert({
-                    title:file.name,
-                    image_url:url,
-                    uploaded_by:currentUser.id,
-                    uploader_name:username
+                    title: file.name,
+                    image_url: urlData.publicUrl,
+                    uploaded_by: currentUser.id,
+                    uploader_name: currentUser.username
                 });
 
-            if(error)throw error;
-
-            renderScreenshots();
-
-        }catch(error){
-
-            alert("❌ Upload failed: "+error.message);
+        if (error) {
+            alert("❌ Database error: " + error.message);
+            return;
         }
+
+        renderScreenshots();
     };
 
     input.click();
 }
 
-async function renderScreenshots(){
 
-    const gallery=document.getElementById("gallery");
+async function renderScreenshots() {
 
-    const {data,error}=
+    const gallery =
+        document.getElementById("gallery");
+
+    const { data,error } =
         await supabaseClient
-        .from("screenshots")
-        .select("*")
-        .order("created_at",{ascending:false});
+            .from("screenshots")
+            .select("*")
+            .order("created_at",{ascending:false});
 
-    if(error){
-
-        gallery.innerHTML="❌ "+escapeHTML(error.message);
+    if (error) {
+        gallery.innerHTML =
+            "<p>❌ Could not load screenshots.</p>";
         return;
     }
 
-    gallery.innerHTML="";
+    gallery.innerHTML = "";
 
-    data.forEach(item=>{
+    data.forEach(item => {
 
-        const card=document.createElement("div");
+        const card =
+            document.createElement("div");
 
-        card.className="media-card";
+        card.className = "media-card";
 
-        card.innerHTML=`
-            <button class="delete-button"
-            onclick="deleteScreenshot(${item.id},'${item.image_url}')">×</button>
+        const canDelete =
+            currentUser &&
+            (
+                currentUser.id === item.uploaded_by ||
+                currentUser.role === "admin"
+            );
 
-            <img src="${item.image_url}">
+        card.innerHTML = `
+
+            ${
+                canDelete
+                ? `
+                <button class="delete-button"
+                        onclick="deleteScreenshot(${item.id})">
+                    ×
+                </button>
+                `
+                : ""
+            }
+
+            <img src="${escapeHTML(item.image_url)}">
 
             <div class="media-name">
                 ${escapeHTML(item.title)}
@@ -1073,33 +1579,26 @@ async function renderScreenshots(){
     });
 }
 
-async function deleteScreenshot(id,url){
 
-    if(!currentUser)return;
+async function deleteScreenshot(id) {
 
-    const username=
-        currentUser.profile?.username;
+    if (!currentUser) return;
 
-    const {data}=await supabaseClient
-        .from("screenshots")
-        .select("uploaded_by")
-        .eq("id",id)
-        .single();
-
-    if(!data || data.uploaded_by!==currentUser.id){
-
-        alert("❌ You can only delete your own screenshot.");
-        return;
-    }
-
-    const path=url.split("/gm-kids-files/")[1];
-
-    if(path){
-
+    const { data:item } =
         await supabaseClient
-        .storage
-        .from("gm-kids-files")
-        .remove([decodeURIComponent(path)]);
+            .from("screenshots")
+            .select("*")
+            .eq("id",id)
+            .single();
+
+    if (!item) return;
+
+    if (
+        item.uploaded_by !== currentUser.id &&
+        currentUser.role !== "admin"
+    ) {
+        alert("❌ You cannot delete this.");
+        return;
     }
 
     await supabaseClient
@@ -1110,90 +1609,131 @@ async function deleteScreenshot(id,url){
     renderScreenshots();
 }
 
-async function addVideo(){
 
-    const input=document.createElement("input");
+/* =========================
+   VIDEOS
+========================= */
 
-    input.type="file";
-    input.accept="video/mp4,video/webm,video/ogg";
+async function addVideo() {
 
-    input.onchange=async()=>{
+    if (!currentUser) return;
 
-        const file=input.files[0];
+    const input =
+        document.createElement("input");
 
-        if(!file)return;
+    input.type = "file";
+    input.accept = "video/mp4,video/webm,video/ogg";
 
-        if(file.size > 50*1024*1024){
+    input.onchange = async function() {
 
-            alert("❌ Video is bigger than 50 MB.");
+        const file = input.files[0];
+
+        if (!file) return;
+
+        if (file.size > 50 * 1024 * 1024) {
+            alert("❌ Video is larger than 50 MB.");
             return;
         }
 
-        try{
+        const path =
+            "videos/" +
+            currentUser.id +
+            "/" +
+            Date.now() +
+            "_" +
+            file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
 
-            const path=
-                `${currentUser.id}/videos/${Date.now()}-${file.name}`;
+        const { error } =
+            await supabaseClient.storage
+                .from("gm-kids-files")
+                .upload(path,file);
 
-            const url=
-                await uploadFile(file,path);
+        if (error) {
+            alert("❌ Upload failed: " + error.message);
+            return;
+        }
 
-            const username=
-                currentUser.profile?.username ||
-                currentUser.email;
+        const { data:urlData } =
+            supabaseClient.storage
+                .from("gm-kids-files")
+                .getPublicUrl(path);
 
-            const {error}=
-                await supabaseClient
+        const title =
+            prompt("🎬 Video title:",file.name);
+
+        const { error:dbError } =
+            await supabaseClient
                 .from("videos")
                 .insert({
-                    title:file.name,
-                    video_url:url,
-                    uploaded_by:currentUser.id,
-                    uploader_name:username
+                    title: title || file.name,
+                    description: "",
+                    video_url: urlData.publicUrl,
+                    thumbnail_url: null,
+                    uploaded_by: currentUser.id,
+                    uploader_name: currentUser.username
                 });
 
-            if(error)throw error;
-
-            renderVideos();
-
-        }catch(error){
-
-            alert("❌ Upload failed: "+error.message);
+        if (dbError) {
+            alert("❌ Database error: " + dbError.message);
+            return;
         }
+
+        renderVideos();
     };
 
     input.click();
 }
 
-async function renderVideos(){
 
-    const grid=document.getElementById("videosGrid");
+async function renderVideos() {
 
-    const {data,error}=
+    const grid =
+        document.getElementById("videosGrid");
+
+    const { data,error } =
         await supabaseClient
-        .from("videos")
-        .select("*")
-        .order("created_at",{ascending:false});
+            .from("videos")
+            .select("*")
+            .order("created_at",{ascending:false});
 
-    if(error){
-
-        grid.innerHTML="❌ "+escapeHTML(error.message);
+    if (error) {
+        grid.innerHTML =
+            "<p>❌ Could not load videos.</p>";
         return;
     }
 
-    grid.innerHTML="";
+    grid.innerHTML = "";
 
-    data.forEach(item=>{
+    data.forEach(item => {
 
-        const card=document.createElement("div");
+        const card =
+            document.createElement("div");
 
-        card.className="media-card";
+        card.className =
+            "media-card";
 
-        card.innerHTML=`
-            <button class="delete-button"
-            onclick="deleteVideo(${item.id},'${item.video_url}')">×</button>
+        const canDelete =
+            currentUser &&
+            (
+                currentUser.id === item.uploaded_by ||
+                currentUser.role === "admin"
+            );
+
+        card.innerHTML = `
+
+            ${
+                canDelete
+                ? `
+                <button class="delete-button"
+                        onclick="deleteVideo(${item.id})">
+                    ×
+                </button>
+                `
+                : ""
+            }
 
             <video controls preload="metadata">
-                <source src="${item.video_url}">
+                <source src="${escapeHTML(item.video_url)}">
             </video>
 
             <div class="media-name">
@@ -1209,31 +1749,26 @@ async function renderVideos(){
     });
 }
 
-async function deleteVideo(id,url){
 
-    if(!currentUser)return;
+async function deleteVideo(id) {
 
-    const {data}=
+    if (!currentUser) return;
+
+    const { data:item } =
         await supabaseClient
-        .from("videos")
-        .select("uploaded_by")
-        .eq("id",id)
-        .single();
+            .from("videos")
+            .select("*")
+            .eq("id",id)
+            .single();
 
-    if(!data || data.uploaded_by!==currentUser.id){
+    if (!item) return;
 
-        alert("❌ You can only delete your own video.");
+    if (
+        item.uploaded_by !== currentUser.id &&
+        currentUser.role !== "admin"
+    ) {
+        alert("❌ You cannot delete this.");
         return;
-    }
-
-    const path=url.split("/gm-kids-files/")[1];
-
-    if(path){
-
-        await supabaseClient
-        .storage
-        .from("gm-kids-files")
-        .remove([decodeURIComponent(path)]);
     }
 
     await supabaseClient
@@ -1244,108 +1779,141 @@ async function deleteVideo(id,url){
     renderVideos();
 }
 
-async function addResourcePack(){
 
-    const input=document.createElement("input");
+/* =========================
+   RESOURCE PACKS
+========================= */
 
-    input.type="file";
-    input.accept=".zip,.mcpack";
+async function addResourcePack() {
 
-    input.onchange=async()=>{
+    if (!currentUser) return;
 
-        const file=input.files[0];
+    const input =
+        document.createElement("input");
 
-        if(!file)return;
+    input.type = "file";
+    input.accept = ".zip,.mcpack";
 
-        if(file.size > 50*1024*1024){
+    input.onchange = async function() {
 
-            alert("❌ File is bigger than 50 MB.");
+        const file = input.files[0];
+
+        if (!file) return;
+
+        if (file.size > 50 * 1024 * 1024) {
+            alert("❌ Resource pack is larger than 50 MB.");
             return;
         }
 
-        try{
+        const path =
+            "packs/" +
+            currentUser.id +
+            "/" +
+            Date.now() +
+            "_" +
+            file.name.replace(/[^a-zA-Z0-9._-]/g,"_");
 
-            const path=
-                `${currentUser.id}/packs/${Date.now()}-${file.name}`;
+        const { error } =
+            await supabaseClient.storage
+                .from("gm-kids-files")
+                .upload(path,file);
 
-            const url=
-                await uploadFile(file,path);
+        if (error) {
+            alert("❌ Upload failed: " + error.message);
+            return;
+        }
 
-            const username=
-                currentUser.profile?.username ||
-                currentUser.email;
+        const { data:urlData } =
+            supabaseClient.storage
+                .from("gm-kids-files")
+                .getPublicUrl(path);
 
-            const {error}=
-                await supabaseClient
+        const { error:dbError } =
+            await supabaseClient
                 .from("resource_packs")
                 .insert({
-                    name:file.name,
-                    description:"",
-                    file_url:url,
-                    uploaded_by:currentUser.id,
-                    uploader_name:username
+                    name: file.name,
+                    description: "",
+                    file_url: urlData.publicUrl,
+                    thumbnail_url: null,
+                    uploaded_by: currentUser.id,
+                    uploader_name: currentUser.username
                 });
 
-            if(error)throw error;
-
-            renderPacks();
-
-        }catch(error){
-
-            alert("❌ Upload failed: "+error.message);
+        if (dbError) {
+            alert("❌ Database error: " + dbError.message);
+            return;
         }
+
+        renderPacks();
     };
 
     input.click();
 }
 
-async function renderPacks(){
 
-    const grid=document.getElementById("packsGrid");
+async function renderPacks() {
 
-    const {data,error}=
+    const grid =
+        document.getElementById("packsGrid");
+
+    const { data,error } =
         await supabaseClient
-        .from("resource_packs")
-        .select("*")
-        .order("created_at",{ascending:false});
+            .from("resource_packs")
+            .select("*")
+            .order("created_at",{ascending:false});
 
-    if(error){
-
-        grid.innerHTML="❌ "+escapeHTML(error.message);
+    if (error) {
+        grid.innerHTML =
+            "<p>❌ Could not load resource packs.</p>";
         return;
     }
 
-    grid.innerHTML="";
+    grid.innerHTML = "";
 
-    data.forEach(item=>{
+    data.forEach(item => {
 
-        const card=document.createElement("div");
+        const card =
+            document.createElement("div");
 
-        card.className="pack-card";
+        card.className =
+            "pack-card";
 
-        const canDelete=
+        const canDelete =
             currentUser &&
-            item.uploaded_by===currentUser.id;
+            (
+                currentUser.id === item.uploaded_by ||
+                currentUser.role === "admin"
+            );
 
-        card.innerHTML=`
-            ${canDelete ? `
-            <button class="delete-button"
-            onclick="deletePack(${item.id},'${item.file_url}')">×</button>
-            `:""}
+        card.innerHTML = `
 
-            <div class="pack-icon">📦</div>
+            ${
+                canDelete
+                ? `
+                <button class="delete-button"
+                        onclick="deletePack(${item.id})">
+                    ×
+                </button>
+                `
+                : ""
+            }
+
+            <div class="pack-icon">
+                📦
+            </div>
 
             <div class="pack-name">
                 ${escapeHTML(item.name)}
             </div>
 
             <div class="media-user"
-            style="text-align:center;margin-bottom:15px">
+                 style="text-align:center;margin-bottom:15px;">
                 Uploaded by ${escapeHTML(item.uploader_name)}
             </div>
 
             <button class="download-button"
-            onclick="window.open('${item.file_url}','_blank')">
+                    onclick="downloadPack('${escapeHTML(item.file_url)}','${escapeHTML(item.name)}')">
                 ⬇️ Download
             </button>
         `;
@@ -1354,31 +1922,43 @@ async function renderPacks(){
     });
 }
 
-async function deletePack(id,url){
 
-    if(!currentUser)return;
+function downloadPack(url,name) {
 
-    const {data}=
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+    link.download = name;
+    link.target = "_blank";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+}
+
+
+async function deletePack(id) {
+
+    if (!currentUser) return;
+
+    const { data:item } =
         await supabaseClient
-        .from("resource_packs")
-        .select("uploaded_by")
-        .eq("id",id)
-        .single();
+            .from("resource_packs")
+            .select("*")
+            .eq("id",id)
+            .single();
 
-    if(!data || data.uploaded_by!==currentUser.id){
+    if (!item) return;
 
-        alert("❌ You can only delete your own pack.");
+    if (
+        item.uploaded_by !== currentUser.id &&
+        currentUser.role !== "admin"
+    ) {
+        alert("❌ You cannot delete this.");
         return;
-    }
-
-    const path=url.split("/gm-kids-files/")[1];
-
-    if(path){
-
-        await supabaseClient
-        .storage
-        .from("gm-kids-files")
-        .remove([decodeURIComponent(path)]);
     }
 
     await supabaseClient
@@ -1389,70 +1969,82 @@ async function deletePack(id,url){
     renderPacks();
 }
 
-async function sendMessage(){
 
-    if(!currentUser)return;
+/* =========================
+   CHAT
+========================= */
 
-    const input=document.getElementById("chatInput");
+async function sendMessage() {
 
-    const text=input.value.trim();
+    if (!currentUser) return;
 
-    if(!text)return;
+    const input =
+        document.getElementById("chatInput");
 
-    const username=
-        currentUser.profile?.username ||
-        currentUser.email;
+    const text =
+        input.value.trim();
 
-    const {error}=
+    if (!text) return;
+
+    const { error } =
         await supabaseClient
-        .from("chat_messages")
-        .insert({
-            message:text,
-            user_id:currentUser.id,
-            username:username
-        });
+            .from("chat_messages")
+            .insert({
+                message: text,
+                user_id: currentUser.id,
+                username: currentUser.username
+            });
 
-    if(error){
-
-        alert("❌ "+error.message);
+    if (error) {
+        alert("❌ Could not send message.");
         return;
     }
 
-    input.value="";
+    input.value = "";
 
     renderChat();
 }
 
-async function renderChat(){
 
-    const box=document.getElementById("messages");
+async function renderChat() {
 
-    const {data,error}=
+    const box =
+        document.getElementById("messages");
+
+    const { data,error } =
         await supabaseClient
-        .from("chat_messages")
-        .select("*")
-        .order("created_at",{ascending:true});
+            .from("chat_messages")
+            .select("*")
+            .order("created_at",{ascending:true});
 
-    if(error){
-
-        box.innerHTML="❌ "+escapeHTML(error.message);
+    if (error) {
+        box.innerHTML =
+            "<p>❌ Could not load chat.</p>";
         return;
     }
 
-    box.innerHTML="";
+    box.innerHTML = "";
 
-    data.forEach(message=>{
+    data.forEach(message => {
 
-        const div=document.createElement("div");
+        const div =
+            document.createElement("div");
 
-        div.className="message";
+        div.className = "message";
 
-        div.innerHTML=`
+        div.innerHTML = `
+
             <div class="message-user">
-                👤 ${escapeHTML(message.username)}
+
+                👤
+                ${escapeHTML(message.username)}
+
                 <small style="color:#777">
-                    ${new Date(message.created_at).toLocaleTimeString()}
+                    ${new Date(
+                        message.created_at
+                    ).toLocaleTimeString()}
                 </small>
+
             </div>
 
             <div>
@@ -1463,23 +2055,16 @@ async function renderChat(){
         box.appendChild(div);
     });
 
-    box.scrollTop=box.scrollHeight;
+    box.scrollTop = box.scrollHeight;
 }
 
-supabaseClient.auth.onAuthStateChange(
-    async(event,session)=>{
 
-        currentUser=session?.user || null;
+/* =========================
+   STARTUP
+========================= */
 
-        if(currentUser){
-            await loadProfile();
-        }
+loadCurrentUser();
 
-        updateUserArea();
-    }
-);
-
-loadUser();
 renderScreenshots();
 renderVideos();
 renderPacks();
