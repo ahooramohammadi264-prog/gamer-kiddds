@@ -1,210 +1,601 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <title>GM KIDS</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;min-height:100%;font-family:Arial,Helvetica,sans-serif}
-body{background:#0b0f17;color:white;transition:.3s}
-body.light{background:#eef2f7;color:#111}
-
-header{
-height:80px;display:flex;align-items:center;justify-content:space-between;
-padding:0 30px;background:rgba(10,14,23,.96);
-border-bottom:2px solid #222b3a;position:fixed;top:0;left:0;right:0;z-index:1000
-}
-body.light header{background:rgba(255,255,255,.96);border-bottom-color:#ddd}
-
-.logo{font-size:38px;font-weight:900;letter-spacing:2px}
-.gm{color:#2196f3}.kids{color:#f44336}
-
-nav{
-height:60px;position:fixed;top:80px;left:0;right:0;z-index:999;
-display:flex;align-items:center;justify-content:center;gap:8px;
-background:#111722;border-bottom:1px solid #283243;overflow-x:auto
-}
-body.light nav{background:white;border-bottom-color:#ddd}
-
-.nav-button{
-border:none;background:transparent;color:#aaa;padding:12px 16px;
-border-radius:10px;cursor:pointer;font-size:15px;white-space:nowrap
-}
-.nav-button:hover,.nav-button.active{background:#2196f3;color:white}
-
-.theme-button{
-border:none;padding:11px 16px;border-radius:20px;cursor:pointer;
-background:#222c3b;color:white
+* {
+    box-sizing: border-box;
 }
 
-main{padding-top:140px;min-height:100vh}
-.tab{display:none;width:100%;min-height:calc(100vh - 140px);padding:35px 25px 80px}
-.tab.active{display:block}
-.container{max-width:1100px;margin:auto}
-
-.big-logo{text-align:center;font-size:85px;font-weight:900;margin:30px 0 15px}
-.subtitle{text-align:center;font-size:20px;opacity:.75}
-
-.players{
-max-width:600px;margin:35px auto;padding:25px;border-radius:18px;
-background:#151d2a;border:1px solid #2b394d
-}
-body.light .players{background:white;border-color:#ddd}
-.players h2{text-align:center;margin-top:0}
-.player{padding:12px;margin:7px 0;background:rgba(255,255,255,.05);border-radius:10px}
-
-.section-title{text-align:center;font-size:36px;margin-bottom:30px}
-
-.servers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
-.server-card{
-background:#151d2a;border:1px solid #2c3a50;padding:22px;
-border-radius:16px;text-align:center;transition:.2s
-}
-body.light .server-card{background:white;border-color:#ddd}
-.server-card:hover{transform:translateY(-5px);border-color:#2196f3}
-.server-number{color:#777;font-weight:bold}
-.server-name{font-size:24px;font-weight:bold;margin:10px}
-.server-ip{font-family:monospace;color:#2196f3;margin-bottom:15px}
-
-button{cursor:pointer}
-.copy-button,.add-button{
-border:none;padding:10px 16px;border-radius:9px;
-background:#2196f3;color:white;font-weight:bold
-}
-.copy-button:hover,.add-button:hover{filter:brightness(1.15)}
-
-.members{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.member{
-padding:22px;text-align:center;border-radius:15px;background:#151d2a;
-border:2px solid #777;transition:.2s
-}
-body.light .member{background:white}
-.member:hover{transform:translateY(-5px)}
-.owner{border-color:#f44336}
-.owner .member-name,.owner .role{color:#f44336}
-.admin{border-color:#2196f3}
-.admin .member-name,.admin .role{color:#2196f3}
-.member-name{font-size:22px;font-weight:bold}
-.role{margin-top:8px;font-weight:bold}
-
-.upload-area{text-align:center;margin-bottom:30px}
-.gallery,.video-grid,.pack-grid{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px
-}
-.media-card,.pack-card{
-background:#151d2a;border:1px solid #2b394d;border-radius:15px;
-padding:12px;position:relative;overflow:hidden
-}
-body.light .media-card,body.light .pack-card{background:white;border-color:#ddd}
-.media-card img,.media-card video{width:100%;border-radius:10px;display:block}
-.media-name{font-weight:bold;margin:10px 0 4px}
-.media-user{color:#888;font-size:13px}
-
-.delete-button{
-position:absolute;top:8px;right:8px;width:30px;height:30px;
-border:none;border-radius:50%;background:#f44336;color:white;font-size:18px;z-index:5
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.pack-icon{font-size:50px;text-align:center}
-.pack-name{font-size:20px;font-weight:bold;text-align:center;margin:10px}
-.download-button{
-width:100%;border:none;padding:11px;border-radius:9px;
-background:#4caf50;color:white;font-weight:bold
+body {
+    background: #0b0f17;
+    color: white;
+    transition: .3s;
+}
+
+body.light {
+    background: #eef2f7;
+    color: #111;
+}
+
+/* HEADER */
+
+header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    background: rgba(10,14,23,.97);
+    border-bottom: 2px solid #222b3a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+body.light header {
+    background: rgba(255,255,255,.97);
+    border-bottom-color: #ddd;
+}
+
+.logo {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.gm {
+    color: #2196f3;
+}
+
+.kids {
+    color: #f44336;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+nav {
+    height: 60px;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #111722;
+    border-bottom: 1px solid #283243;
+    overflow-x: auto;
+}
+
+body.light nav {
+    background: white;
+    border-bottom-color: #ddd;
+}
+
+.nav-button {
+    border: none;
+    background: transparent;
+    color: #aaa;
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.nav-button:hover,
+.nav-button.active {
+    background: #2196f3;
+    color: white;
+}
+
+button {
+    cursor: pointer;
+}
+
+.theme-button,
+.copy-button,
+.add-button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 9px;
+    background: #2196f3;
+    color: white;
+    font-weight: bold;
+}
+
+.theme-button {
+    background: #222c3b;
+}
+
+.logout-button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #f44336;
+    color: white;
+}
+
+.admin-button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #9c27b0;
+    color: white;
+    font-weight: bold;
+}
+
+/* MAIN */
+
+main {
+    padding-top: 140px;
+    min-height: 100vh;
+}
+
+.tab {
+    display: none;
+    width: 100%;
+    min-height: calc(100vh - 140px);
+    padding: 35px 25px 80px;
+}
+
+.tab.active {
+    display: block;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* HOME */
+
+.big-logo {
+    text-align: center;
+    font-size: 85px;
+    font-weight: 900;
+    margin: 30px 0 15px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 20px;
+    opacity: .75;
+}
+
+.players {
+    max-width: 600px;
+    margin: 35px auto;
+    padding: 25px;
+    border-radius: 18px;
+    background: #151d2a;
+    border: 1px solid #2b394d;
+}
+
+body.light .players {
+    background: white;
+    border-color: #ddd;
+}
+
+.players h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.player {
+    padding: 12px;
+    margin: 7px 0;
+    background: rgba(255,255,255,.05);
+    border-radius: 10px;
+}
+
+/* SECTIONS */
+
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+/* SERVERS */
+
+.servers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 18px;
+}
+
+.server-card {
+    background: #151d2a;
+    border: 1px solid #2c3a50;
+    padding: 22px;
+    border-radius: 16px;
+    text-align: center;
+    transition: .2s;
+}
+
+body.light .server-card {
+    background: white;
+    border-color: #ddd;
+}
+
+.server-card:hover {
+    transform: translateY(-5px);
+    border-color: #2196f3;
+}
+
+.server-number {
+    color: #777;
+    font-weight: bold;
+}
+
+.server-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.server-ip {
+    font-family: monospace;
+    color: #2196f3;
+    margin-bottom: 15px;
+}
+
+/* MEMBERS */
+
+.members {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(190px,1fr));
+    gap: 18px;
+}
+
+.member {
+    padding: 22px;
+    text-align: center;
+    border-radius: 15px;
+    background: #151d2a;
+    border: 2px solid #777;
+    transition: .2s;
+}
+
+body.light .member {
+    background: white;
+}
+
+.member:hover {
+    transform: translateY(-5px);
+}
+
+.owner {
+    border-color: #f44336;
+}
+
+.owner .member-name,
+.owner .role {
+    color: #f44336;
+}
+
+.admin {
+    border-color: #2196f3;
+}
+
+.admin .member-name,
+.admin .role {
+    color: #2196f3;
+}
+
+.member-name {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.role {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+/* MEDIA */
+
+.upload-area {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.gallery,
+.video-grid,
+.pack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 20px;
+}
+
+.media-card,
+.pack-card {
+    background: #151d2a;
+    border: 1px solid #2b394d;
+    border-radius: 15px;
+    padding: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+body.light .media-card,
+body.light .pack-card {
+    background: white;
+    border-color: #ddd;
+}
+
+.media-card img,
+.media-card video {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
+}
+
+.media-name {
+    font-weight: bold;
+    margin: 10px 0 4px;
+}
+
+.media-user {
+    color: #888;
+    font-size: 13px;
+}
+
+.delete-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: #f44336;
+    color: white;
+    font-size: 18px;
+    z-index: 5;
+}
+
+.pack-icon {
+    font-size: 50px;
+    text-align: center;
+}
+
+.pack-name {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+}
+
+.download-button {
+    width: 100%;
+    border: none;
+    padding: 11px;
+    border-radius: 9px;
+    background: #4caf50;
+    color: white;
+    font-weight: bold;
 }
 
 /* CHAT */
 
-.chat-box{
-max-width:800px;margin:auto;background:#151d2a;border:1px solid #2b394d;
-border-radius:16px;overflow:hidden
-}
-body.light .chat-box{background:white}
-
-.messages{
-height:450px;overflow-y:auto;padding:20px
-}
-
-.message{
-margin-bottom:15px;padding:12px;border-radius:12px;
-background:rgba(255,255,255,.05)
+.chat-box {
+    max-width: 800px;
+    margin: auto;
+    background: #151d2a;
+    border: 1px solid #2b394d;
+    border-radius: 16px;
+    overflow: hidden;
 }
 
-.message-user{font-weight:bold;color:#2196f3;margin-bottom:5px}
-.message-time{color:#777;font-size:12px;margin-left:8px}
-
-.chat-input{
-display:flex;gap:10px;padding:15px;border-top:1px solid #2b394d
+body.light .chat-box {
+    background: white;
 }
 
-.chat-input input{
-flex:1;padding:12px;border-radius:9px;border:1px solid #555;
-background:transparent;color:inherit
+.messages {
+    height: 450px;
+    overflow-y: auto;
+    padding: 20px;
 }
 
-.login-box{
-max-width:450px;margin:50px auto;padding:30px;background:#151d2a;
-border-radius:18px;border:1px solid #2b394d
-}
-body.light .login-box{background:white}
-
-.login-box input{
-width:100%;margin:8px 0;padding:13px;border-radius:9px;
-border:1px solid #555;background:transparent;color:inherit
-}
-.login-box button{width:100%;margin-top:10px}
-.auth-message{text-align:center;margin-top:12px;color:#f44336}
-
-.mob-grid{
-display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
-gap:15px;margin:20px 0
-}
-.mob{
-border:2px solid transparent;border-radius:12px;padding:10px;
-text-align:center;cursor:pointer;background:rgba(255,255,255,.05)
-}
-.mob.selected{border-color:#2196f3}
-.mob-face{font-size:45px}
-
-.user-area{display:flex;align-items:center;gap:10px}
-.user-name{font-weight:bold}
-.logout-button{
-border:none;padding:8px 12px;border-radius:8px;background:#f44336;color:white
-}
-.admin-button{
-border:none;padding:8px 12px;border-radius:8px;background:#9c27b0;
-color:white;font-weight:bold
+.message {
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.05);
 }
 
-.modal{
-display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);
-z-index:5000;align-items:center;justify-content:center
+.message-user {
+    font-weight: bold;
+    color: #2196f3;
 }
-.modal.show{display:flex}
-.modal-box{
-background:#151d2a;padding:30px;border-radius:18px;width:min(420px,90%);
-text-align:center
-}
-body.light .modal-box{background:white}
-.modal-buttons{display:flex;gap:10px;justify-content:center;margin-top:20px}
-.modal-buttons button{padding:11px 25px;border:none;border-radius:8px}
-.yes{background:#f44336;color:white}.no{background:#555;color:white}
 
-@media(max-width:700px){
-header{padding:0 15px}
-.logo{font-size:27px}
-.user-name{display:none}
-.big-logo{font-size:55px}
-nav{justify-content:flex-start;padding:0 10px}
-.section-title{font-size:28px}
+.chat-input {
+    display: flex;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid #2b394d;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 9px;
+    border: 1px solid #555;
+    background: transparent;
+    color: inherit;
+}
+
+/* LOGIN */
+
+.login-box {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #151d2a;
+    border-radius: 18px;
+    border: 1px solid #2b394d;
+}
+
+body.light .login-box {
+    background: white;
+}
+
+.login-box input {
+    width: 100%;
+    margin: 8px 0;
+    padding: 13px;
+    border-radius: 9px;
+    border: 1px solid #555;
+    background: transparent;
+    color: inherit;
+}
+
+.login-box button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.auth-message {
+    text-align: center;
+    margin-top: 12px;
+    color: #f44336;
+}
+
+/* AVATARS */
+
+.mob-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.mob {
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(255,255,255,.05);
+}
+
+.mob.selected {
+    border-color: #2196f3;
+}
+
+.mob-face {
+    font-size: 45px;
+}
+
+/* MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    background: #151d2a;
+    padding: 30px;
+    border-radius: 18px;
+    width: min(420px,90%);
+    text-align: center;
+}
+
+body.light .modal-box {
+    background: white;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 11px 25px;
+    border: none;
+    border-radius: 8px;
+}
+
+.yes {
+    background: #f44336;
+    color: white;
+}
+
+.no {
+    background: #555;
+    color: white;
+}
+
+@media(max-width:700px) {
+
+    header {
+        padding: 0 15px;
+    }
+
+    .logo {
+        font-size: 27px;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .big-logo {
+        font-size: 55px;
+    }
+
+    nav {
+        justify-content: flex-start;
+        padding: 0 10px;
+    }
+
+    .section-title {
+        font-size: 28px;
+    }
 }
 </style>
-
 </head>
 
 <body>
@@ -212,20 +603,43 @@ nav{justify-content:flex-start;padding:0 10px}
 <header>
 
 <div class="logo">
-<span class="gm">GM</span>
-<span class="kids">KIDS</span>
+    <span class="gm">GM</span>
+    <span class="kids">KIDS</span>
 </div>
 
-<div class="user-area" id="userArea">
-<button class="theme-button" onclick="toggleTheme()">🌙 Theme</button>
-<button class="theme-button" onclick="openTab('login')">🔐 Login</button>
-</div>
+<div class="user-area" id="userArea"></div>
 
 </header>
 
 <nav>
 
-<button class="nav-button active" onclick="openTab('home')">🏠 Home</button> <button class="nav-button" onclick="openTab('servers')">🖥️ Servers</button> <button class="nav-button" onclick="openTab('members')">👥 Members</button> <button class="nav-button" onclick="openTab('screenshots')">📸 Screenshots</button> <button class="nav-button" onclick="openTab('videos')">🎥 Videos</button> <button class="nav-button" onclick="openTab('packs')">📦 Resource Packs</button> <button class="nav-button" onclick="openTab('chat')">💬 Chat</button>
+<button class="nav-button active" onclick="openTab('home')">
+🏠 Home
+</button>
+
+<button class="nav-button" onclick="openTab('servers')">
+🖥️ Servers
+</button>
+
+<button class="nav-button" onclick="openTab('members')">
+👥 Members
+</button>
+
+<button class="nav-button" onclick="openTab('screenshots')">
+📸 Screenshots
+</button>
+
+<button class="nav-button" onclick="openTab('videos')">
+🎥 Videos
+</button>
+
+<button class="nav-button" onclick="openTab('packs')">
+📦 Resource Packs
+</button>
+
+<button class="nav-button" onclick="openTab('chat')">
+💬 Chat
+</button>
 
 </nav>
 
@@ -258,6 +672,7 @@ nav{justify-content:flex-start;padding:0 10px}
 </div>
 
 </div>
+
 </section>
 
 <!-- SERVERS -->
@@ -266,7 +681,9 @@ nav{justify-content:flex-start;padding:0 10px}
 
 <div class="container">
 
-<h2 class="section-title">🖥️ GM KIDS SERVER LIST 🖥️</h2>
+<h2 class="section-title">
+🖥️ GM KIDS SERVER LIST 🖥️
+</h2>
 
 <div class="servers">
 
@@ -274,35 +691,45 @@ nav{justify-content:flex-start;padding:0 10px}
 <div class="server-number">#1</div>
 <div class="server-name">🎮 gameup</div>
 <div class="server-ip">gameup.ir</div>
-<button class="copy-button" onclick="copyIP('gameup.ir')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('gameup.ir')">
+📋 Copy
+</button>
 </div>
 
 <div class="server-card">
 <div class="server-number">#2</div>
 <div class="server-name">🦖 trexmine</div>
 <div class="server-ip">play.trexmine.com</div>
-<button class="copy-button" onclick="copyIP('play.trexmine.com')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('play.trexmine.com')">
+📋 Copy
+</button>
 </div>
 
 <div class="server-card">
 <div class="server-number">#3</div>
 <div class="server-name">⛏️ ucraft</div>
 <div class="server-ip">play.ucraft.ir</div>
-<button class="copy-button" onclick="copyIP('play.ucraft.ir')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('play.ucraft.ir')">
+📋 Copy
+</button>
 </div>
 
 <div class="server-card">
 <div class="server-number">#4</div>
 <div class="server-name">❄️ coldgames</div>
 <div class="server-ip">play.coldgames.ir</div>
-<button class="copy-button" onclick="copyIP('play.coldgames.ir')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('play.coldgames.ir')">
+📋 Copy
+</button>
 </div>
 
 <div class="server-card">
 <div class="server-number">#5</div>
 <div class="server-name">🟨 fakepixel</div>
 <div class="server-ip">play.fakepixel.me</div>
-<button class="copy-button" onclick="copyIP('play.fakepixel.me')">📋 Copy</button>
+<button class="copy-button" onclick="copyIP('play.fakepixel.me')">
+📋 Copy
+</button>
 </div>
 
 </div>
@@ -315,7 +742,9 @@ nav{justify-content:flex-start;padding:0 10px}
 
 <div class="container">
 
-<h2 class="section-title">😎 GM KIDS MEMBERS 😎</h2>
+<h2 class="section-title">
+😎 GM KIDS MEMBERS 😎
+</h2>
 
 <div class="members">
 
@@ -369,7 +798,9 @@ nav{justify-content:flex-start;padding:0 10px}
 
 <div class="container">
 
-<h2 class="section-title">📸 Minecraft Screenshots</h2>
+<h2 class="section-title">
+📸 Minecraft Screenshots
+</h2>
 
 <div class="upload-area">
 
@@ -395,7 +826,9 @@ Only logged-in members can post.
 
 <div class="container">
 
-<h2 class="section-title">🎥 GM KIDS Videos</h2>
+<h2 class="section-title">
+🎥 GM KIDS Videos
+</h2>
 
 <div class="upload-area">
 
@@ -421,7 +854,9 @@ Only logged-in members can upload.
 
 <div class="container">
 
-<h2 class="section-title">📦 Resource Packs</h2>
+<h2 class="section-title">
+📦 Resource Packs
+</h2>
 
 <div class="upload-area">
 
@@ -431,7 +866,7 @@ Only logged-in members can upload.
 
 <p>
 Anyone can download resource packs.<br>
-Only logged-in members can upload or delete their own packs.
+Only logged-in members can upload.
 </p>
 
 </div>
@@ -441,21 +876,19 @@ Only logged-in members can upload or delete their own packs.
 </div>
 </section>
 
-<!-- REAL CHAT -->
+<!-- CHAT -->
 
 <section id="chat" class="tab">
 
 <div class="container">
 
-<h2 class="section-title">💬 GM KIDS Live Chat</h2>
+<h2 class="section-title">
+💬 GM KIDS Chat
+</h2>
 
 <div class="chat-box">
 
-<div id="messages" class="messages">
-<p style="text-align:center;color:#888">
-Loading chat...
-</p>
-</div>
+<div id="messages" class="messages"></div>
 
 <div class="chat-input">
 
@@ -463,15 +896,13 @@ Loading chat...
 id="chatInput"
 type="text"
 maxlength="500"
-placeholder="Write a message..."
-onkeydown="if(event.key==='Enter') requireLogin(sendMessage)"
-
+placeholder="Login to chat..."
+onkeydown="if(event.key==='Enter') sendMessage()"
 >
 
-<button
-class="add-button"
-onclick="requireLogin(sendMessage)">
-Send </button>
+<button class="add-button" onclick="sendMessage()">
+Send
+</button>
 
 </div>
 
@@ -488,11 +919,21 @@ Send </button>
 
 <h2>🔐 Login</h2>
 
-<input id="loginUsername" type="text" placeholder="Username">
+<input
+id="loginEmail"
+type="email"
+placeholder="Email"
+>
 
-<input id="loginPassword" type="password" placeholder="Password">
+<input
+id="loginPassword"
+type="password"
+placeholder="Password"
+>
 
-<button class="add-button" onclick="login()">Login</button>
+<button class="add-button" onclick="login()">
+Login
+</button>
 
 <button class="add-button" onclick="openTab('signup')">
 Create Account
@@ -501,6 +942,7 @@ Create Account
 <div id="loginMessage" class="auth-message"></div>
 
 </div>
+
 </section>
 
 <!-- SIGNUP -->
@@ -511,9 +953,24 @@ Create Account
 
 <h2>✨ Create GM KIDS Account</h2>
 
-<input id="signupUsername" type="text" placeholder="Username">
+<input
+id="signupUsername"
+type="text"
+maxlength="20"
+placeholder="Username"
+>
 
-<input id="signupPassword" type="password" placeholder="Password">
+<input
+id="signupEmail"
+type="email"
+placeholder="Email"
+>
+
+<input
+id="signupPassword"
+type="password"
+placeholder="Password (6+ characters)"
+>
 
 <h3>Choose your Minecraft profile picture</h3>
 
@@ -572,6 +1029,7 @@ Back to Login
 <div id="signupMessage" class="auth-message"></div>
 
 </div>
+
 </section>
 
 </main>
@@ -588,9 +1046,13 @@ Back to Login
 
 <div class="modal-buttons">
 
-<button class="yes" onclick="logout()">Yes</button>
+<button class="yes" onclick="logout()">
+Yes
+</button>
 
-<button class="no" onclick="closeLogout()">No</button>
+<button class="no" onclick="closeLogout()">
+No
+</button>
 
 </div>
 
@@ -599,9 +1061,9 @@ Back to Login
 
 <script>
 
-/* =========================================================
+/* =====================================================
    SUPABASE
-========================================================= */
+===================================================== */
 
 const SUPABASE_URL =
 "https://yyjkujjxbqnostlojtax.supabase.co";
@@ -611,1443 +1073,1420 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+    SUPABASE_URL,
+    SUPABASE_KEY
 );
 
 
-/* =========================================================
+/* =====================================================
    VARIABLES
-========================================================= */
+===================================================== */
 
 let currentUser = null;
 let selectedMob = "🧟";
+let chatChannel = null;
 
 
-/* =========================================================
+/* =====================================================
    TAB SYSTEM
-========================================================= */
+===================================================== */
 
-function openTab(id){
+function openTab(id) {
 
-document.querySelectorAll(".tab")
-.forEach(tab =>
-tab.classList.remove("active")
-);
+    document.querySelectorAll(".tab").forEach(tab => {
+        tab.classList.remove("active");
+    });
 
-const target =
-document.getElementById(id);
+    const target = document.getElementById(id);
 
-if(target){
-target.classList.add("active");
+    if (target) {
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav-button").forEach(button => {
+        button.classList.remove("active");
+    });
+
+    window.scrollTo(0,0);
 }
 
-window.scrollTo(0,0);
 
-}
-
-
-/* =========================================================
+/* =====================================================
    THEME
-========================================================= */
+===================================================== */
 
-function toggleTheme(){
+function toggleTheme() {
 
-document.body.classList.toggle("light");
+    document.body.classList.toggle("light");
 
-localStorage.setItem(
-"gmTheme",
-document.body.classList.contains("light")
-? "light"
-: "dark"
-);
-
+    localStorage.setItem(
+        "gmTheme",
+        document.body.classList.contains("light")
+            ? "light"
+            : "dark"
+    );
 }
 
-if(localStorage.getItem("gmTheme")==="light"){
-document.body.classList.add("light");
+if (localStorage.getItem("gmTheme") === "light") {
+    document.body.classList.add("light");
 }
 
 
-/* =========================================================
+/* =====================================================
    COPY SERVER IP
-========================================================= */
+===================================================== */
 
-function copyIP(ip){
+function copyIP(ip) {
 
-navigator.clipboard.writeText(ip)
-.then(()=>alert("✅ Copied: "+ip))
-.catch(()=>prompt("Copy this IP:",ip));
-
+    navigator.clipboard.writeText(ip)
+        .then(() => alert("✅ Copied: " + ip))
+        .catch(() => prompt("Copy this IP:", ip));
 }
 
 
-/* =========================================================
-   PROFILE AVATAR
-========================================================= */
+/* =====================================================
+   AVATAR
+===================================================== */
 
-function selectMob(element,mob){
+function selectMob(element,mob) {
 
-document.querySelectorAll(".mob")
-.forEach(x =>
-x.classList.remove("selected")
-);
+    document.querySelectorAll(".mob")
+        .forEach(x => x.classList.remove("selected"));
 
-element.classList.add("selected");
+    element.classList.add("selected");
 
-selectedMob=mob;
-
+    selectedMob = mob;
 }
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+/* =====================================================
+   HTML ESCAPE
+===================================================== */
 
-function escapeHTML(text){
+function escapeHTML(text) {
 
-const div=document.createElement("div");
+    const div = document.createElement("div");
 
-div.textContent=text || "";
+    div.textContent = text || "";
 
-return div.innerHTML;
-
+    return div.innerHTML;
 }
 
 
-/* =========================================================
+/* =====================================================
    CREATE ACCOUNT
-========================================================= */
+===================================================== */
 
-async function createAccount(){
+async function createAccount() {
 
-const username=
-document.getElementById("signupUsername")
-.value.trim();
+    const username =
+        document
+        .getElementById("signupUsername")
+        .value
+        .trim();
 
-const password=
-document.getElementById("signupPassword")
-.value;
+    const email =
+        document
+        .getElementById("signupEmail")
+        .value
+        .trim();
 
-const message=
-document.getElementById("signupMessage");
+    const password =
+        document
+        .getElementById("signupPassword")
+        .value;
 
-message.textContent="";
+    const message =
+        document.getElementById("signupMessage");
 
-if(!username || !password){
+    message.textContent = "";
 
-message.textContent=
-"❌ Enter a username and password.";
+    if (!username || !email || !password) {
 
-return;
-}
+        message.textContent =
+            "❌ Fill in username, email and password.";
 
-if(!/^[a-zA-Z0-9_]{3,20}$/.test(username)){
+        return;
+    }
 
-message.textContent=
-"❌ Username must be 3-20 characters and use only letters, numbers or _.";
+    if (username.length < 3) {
 
-return;
-}
+        message.textContent =
+            "❌ Username must be at least 3 characters.";
 
-if(password.length<6){
+        return;
+    }
 
-message.textContent=
-"❌ Password must be at least 6 characters.";
+    if (password.length < 6) {
 
-return;
-}
+        message.textContent =
+            "❌ Password must be at least 6 characters.";
 
+        return;
+    }
 
-/* Check username */
+    /* Check username */
 
-const {data:existing,error:checkError}=
-await supabaseClient
-.from("profiles")
-.select("username")
-.ilike("username",username);
+    const { data: existing, error: usernameError } =
+        await supabaseClient
+        .from("profiles")
+        .select("username")
+        .ilike("username", username);
 
-if(checkError){
+    if (usernameError) {
 
-message.textContent=
-"❌ Could not check username.";
+        message.textContent =
+            "❌ Could not check username: " +
+            usernameError.message;
 
-console.error(checkError);
+        return;
+    }
 
-return;
-}
+    if (existing && existing.length > 0) {
 
-if(existing && existing.length>0){
+        message.textContent =
+            "❌ That username is already taken.";
 
-message.textContent=
-"❌ That username already exists.";
+        return;
+    }
 
-return;
-}
+    /* Create real Supabase account */
 
+    const { data, error } =
+        await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    username: username,
+                    avatar: selectedMob
+                }
+            }
+        });
 
-/* Fake internal email for Supabase Auth */
+    if (error) {
 
-const email=
-username.toLowerCase()+"@gmkids.local";
+        message.textContent =
+            "❌ " + error.message;
 
+        return;
+    }
 
-/* REAL SUPABASE ACCOUNT */
+    if (!data.user) {
 
-const {data,error}=
-await supabaseClient.auth.signUp({
+        message.textContent =
+            "❌ Account could not be created.";
 
-email:email,
+        return;
+    }
 
-password:password,
+    /*
+       The database trigger should create
+       the profile automatically.
+    */
 
-options:{
-data:{
-username:username,
-avatar:selectedMob
-}
-}
+    message.style.color = "#4caf50";
 
-});
+    if (!data.session) {
 
+        message.textContent =
+            "✅ Account created! Check your email to verify it, then log in.";
 
-if(error){
+        return;
+    }
 
-message.textContent=
-"❌ "+error.message;
+    message.textContent =
+        "🎉 Account created!";
 
-return;
-}
+    await loadCurrentUser();
 
-if(!data.user){
-
-message.textContent=
-"❌ Account could not be created.";
-
-return;
-}
-
-
-/*
-The SQL trigger creates the profile automatically.
-Wait briefly for the trigger/profile to exist.
-*/
-
-let profile=null;
-
-for(let i=0;i<10;i++){
-
-const result=
-await supabaseClient
-.from("profiles")
-.select("*")
-.eq("id",data.user.id)
-.single();
-
-if(result.data){
-
-profile=result.data;
-
-break;
-}
-
-await new Promise(
-resolve=>setTimeout(resolve,300)
-);
-
+    setTimeout(() => {
+        openTab("home");
+    }, 800);
 }
 
 
-if(!profile){
-
-message.textContent=
-"❌ Account created, but profile is still loading. Try logging in.";
-
-return;
-}
-
-
-currentUser=profile;
-
-updateUserArea();
-
-alert("🎉 Account created!");
-
-openTab("home");
-
-}
-
-
-/* =========================================================
+/* =====================================================
    LOGIN
-========================================================= */
+===================================================== */
 
-async function login(){
+async function login() {
 
-const username=
-document.getElementById("loginUsername")
-.value.trim();
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value
+        .trim();
 
-const password=
-document.getElementById("loginPassword")
-.value;
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
 
-const message=
-document.getElementById("loginMessage");
+    const message =
+        document.getElementById("loginMessage");
 
-message.textContent="";
+    message.style.color = "#f44336";
 
-if(!username || !password){
+    if (!email || !password) {
 
-message.textContent=
-"❌ Enter your username and password.";
+        message.textContent =
+            "❌ Enter your email and password.";
 
-return;
-}
+        return;
+    }
 
-const email=
-username.toLowerCase()+"@gmkids.local";
+    const { data,error } =
+        await supabaseClient.auth.signInWithPassword({
 
+            email: email,
 
-const {data,error}=
-await supabaseClient.auth.signInWithPassword({
+            password: password
+        });
 
-email:email,
+    if (error) {
 
-password:password
+        message.textContent =
+            "❌ Wrong email or password.";
 
-});
+        return;
+    }
 
+    if (!data.user) {
 
-if(error){
+        message.textContent =
+            "❌ Login failed.";
 
-message.textContent=
-"❌ Wrong username or password.";
+        return;
+    }
 
-return;
-}
+    await loadCurrentUser();
 
+    if (!currentUser) {
 
-const {data:profile,error:profileError}=
-await supabaseClient
-.from("profiles")
-.select("*")
-.eq("id",data.user.id)
-.single();
+        message.textContent =
+            "❌ Account exists but profile could not be loaded.";
 
+        return;
+    }
 
-if(profileError || !profile){
+    message.style.color = "#4caf50";
 
-message.textContent=
-"❌ Profile not found.";
+    message.textContent =
+        "✅ Welcome back, " +
+        currentUser.username +
+        "!";
 
-return;
-}
-
-
-currentUser=profile;
-
-updateUserArea();
-
-alert(
-"✅ Welcome back, "+
-profile.username+
-"!"
-);
-
-openTab("home");
-
+    setTimeout(() => {
+        openTab("home");
+    }, 700);
 }
 
 
-/* =========================================================
-   LOAD CURRENT USER
-========================================================= */
+/* =====================================================
+   CURRENT USER
+===================================================== */
 
-async function loadCurrentUser(){
+async function loadCurrentUser() {
 
-const {data}=
-await supabaseClient.auth.getSession();
+    const { data } =
+        await supabaseClient.auth.getSession();
 
-if(!data.session){
+    if (!data.session) {
 
-currentUser=null;
+        currentUser = null;
 
-updateUserArea();
+        updateUserArea();
 
-return;
+        return;
+    }
+
+    const { data: profile } =
+        await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", data.session.user.id)
+        .single();
+
+    if (profile) {
+
+        currentUser = profile;
+
+    } else {
+
+        currentUser = null;
+    }
+
+    updateUserArea();
 }
 
 
-const {data:profile}=
-await supabaseClient
-.from("profiles")
-.select("*")
-.eq("id",data.session.user.id)
-.single();
+/* =====================================================
+   USER AREA
+===================================================== */
 
+function updateUserArea() {
 
-if(profile){
+    const area =
+        document.getElementById("userArea");
 
-currentUser=profile;
+    if (!currentUser) {
 
+        area.innerHTML = `
+
+            <button
+                class="theme-button"
+                onclick="toggleTheme()">
+                🌙 Theme
+            </button>
+
+            <button
+                class="theme-button"
+                onclick="openTab('login')">
+                🔐 Login
+            </button>
+
+        `;
+
+        return;
+    }
+
+    area.innerHTML = `
+
+        <span class="user-name">
+
+            ${escapeHTML(currentUser.avatar || "👤")}
+
+            ${escapeHTML(currentUser.username)}
+
+        </span>
+
+        ${
+            currentUser.role === "admin"
+            ?
+            `
+            <button
+                class="admin-button"
+                onclick="alert('🛡️ You are an admin!')">
+                🛡️ Admin
+            </button>
+            `
+            :
+            ""
+        }
+
+        <button
+            class="theme-button"
+            onclick="toggleTheme()">
+            🌙 Theme
+        </button>
+
+        <button
+            class="logout-button"
+            onclick="openLogout()">
+            🚪 Exit
+        </button>
+
+    `;
 }
 
-updateUserArea();
 
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function openLogout() {
+
+    document
+    .getElementById("logoutModal")
+    .classList.add("show");
+}
+
+function closeLogout() {
+
+    document
+    .getElementById("logoutModal")
+    .classList.remove("show");
+}
+
+async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    currentUser = null;
+
+    closeLogout();
+
+    updateUserArea();
+
+    alert("👋 You have been logged out!");
+
+    openTab("home");
 }
 
 
-/* =========================================================
-   AUTH STATE LISTENER
-========================================================= */
+/* =====================================================
+   LOGIN REQUIRED
+===================================================== */
+
+function requireLogin(callback) {
+
+    if (!currentUser) {
+
+        alert(
+            "🔐 You need to be logged in to do that!"
+        );
+
+        openTab("login");
+
+        return;
+    }
+
+    callback();
+}
+
+
+/* =====================================================
+   SCREENSHOTS
+===================================================== */
+
+async function addScreenshot() {
+
+    if (!currentUser) return;
+
+    const input =
+        document.createElement("input");
+
+    input.type = "file";
+    input.accept = "image/*";
+
+    input.onchange = async function() {
+
+        const file = input.files[0];
+
+        if (!file) return;
+
+        if (file.size > 50 * 1024 * 1024) {
+
+            alert(
+                "❌ File is larger than 50 MB."
+            );
+
+            return;
+        }
+
+        const safeName =
+            file.name.replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+            );
+
+        const path =
+            "screenshots/" +
+            currentUser.id +
+            "/" +
+            Date.now() +
+            "_" +
+            safeName;
+
+        const { error: uploadError } =
+            await supabaseClient.storage
+            .from("gm-kids-files")
+            .upload(path,file);
+
+        if (uploadError) {
+
+            alert(
+                "❌ Upload failed: " +
+                uploadError.message
+            );
+
+            return;
+        }
+
+        const { data:urlData } =
+            supabaseClient.storage
+            .from("gm-kids-files")
+            .getPublicUrl(path);
+
+        const { error } =
+            await supabaseClient
+            .from("screenshots")
+            .insert({
+
+                title: file.name,
+
+                image_url:
+                    urlData.publicUrl,
+
+                uploaded_by:
+                    currentUser.id,
+
+                uploader_name:
+                    currentUser.username
+            });
+
+        if (error) {
+
+            alert(
+                "❌ Database error: " +
+                error.message
+            );
+
+            return;
+        }
+
+        alert("✅ Screenshot uploaded!");
+
+        renderScreenshots();
+    };
+
+    input.click();
+}
+
+
+async function renderScreenshots() {
+
+    const gallery =
+        document.getElementById("gallery");
+
+    const { data,error } =
+        await supabaseClient
+        .from("screenshots")
+        .select("*")
+        .order(
+            "created_at",
+            {ascending:false}
+        );
+
+    if (error) {
+
+        gallery.innerHTML =
+            "<p>❌ Could not load screenshots.</p>";
+
+        return;
+    }
+
+    gallery.innerHTML = "";
+
+    data.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "media-card";
+
+        const canDelete =
+            currentUser &&
+            (
+                currentUser.id === item.uploaded_by ||
+                currentUser.role === "admin"
+            );
+
+        card.innerHTML = `
+
+            ${
+                canDelete
+                ?
+                `
+                <button
+                    class="delete-button"
+                    onclick="deleteScreenshot(${item.id})">
+                    ×
+                </button>
+                `
+                :
+                ""
+            }
+
+            <img
+                src="${escapeHTML(item.image_url)}"
+                alt="Minecraft screenshot">
+
+            <div class="media-name">
+                ${escapeHTML(item.title)}
+            </div>
+
+            <div class="media-user">
+                Posted by
+                ${escapeHTML(item.uploader_name)}
+            </div>
+
+        `;
+
+        gallery.appendChild(card);
+    });
+}
+
+
+async function deleteScreenshot(id) {
+
+    if (!currentUser) return;
+
+    const { data:item } =
+        await supabaseClient
+        .from("screenshots")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    if (!item) return;
+
+    if (
+        item.uploaded_by !== currentUser.id &&
+        currentUser.role !== "admin"
+    ) {
+
+        alert("❌ You cannot delete this.");
+
+        return;
+    }
+
+    const { error } =
+        await supabaseClient
+        .from("screenshots")
+        .delete()
+        .eq("id",id);
+
+    if (error) {
+
+        alert(
+            "❌ Delete failed: " +
+            error.message
+        );
+
+        return;
+    }
+
+    renderScreenshots();
+}
+
+
+/* =====================================================
+   VIDEOS
+===================================================== */
+
+async function addVideo() {
+
+    if (!currentUser) return;
+
+    const input =
+        document.createElement("input");
+
+    input.type = "file";
+
+    input.accept =
+        "video/mp4,video/webm,video/ogg";
+
+    input.onchange = async function() {
+
+        const file = input.files[0];
+
+        if (!file) return;
+
+        if (file.size > 50 * 1024 * 1024) {
+
+            alert(
+                "❌ Video is larger than 50 MB."
+            );
+
+            return;
+        }
+
+        const safeName =
+            file.name.replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+            );
+
+        const path =
+            "videos/" +
+            currentUser.id +
+            "/" +
+            Date.now() +
+            "_" +
+            safeName;
+
+        const { error:uploadError } =
+            await supabaseClient.storage
+            .from("gm-kids-files")
+            .upload(path,file);
+
+        if (uploadError) {
+
+            alert(
+                "❌ Upload failed: " +
+                uploadError.message
+            );
+
+            return;
+        }
+
+        const { data:urlData } =
+            supabaseClient.storage
+            .from("gm-kids-files")
+            .getPublicUrl(path);
+
+        const title =
+            prompt(
+                "🎬 Video title:",
+                file.name
+            );
+
+        const { error:dbError } =
+            await supabaseClient
+            .from("videos")
+            .insert({
+
+                title:
+                    title || file.name,
+
+                description:
+                    "",
+
+                video_url:
+                    urlData.publicUrl,
+
+                thumbnail_url:
+                    null,
+
+                uploaded_by:
+                    currentUser.id,
+
+                uploader_name:
+                    currentUser.username
+            });
+
+        if (dbError) {
+
+            alert(
+                "❌ Database error: " +
+                dbError.message
+            );
+
+            return;
+        }
+
+        alert("✅ Video uploaded!");
+
+        renderVideos();
+    };
+
+    input.click();
+}
+
+
+async function renderVideos() {
+
+    const grid =
+        document.getElementById("videosGrid");
+
+    const { data,error } =
+        await supabaseClient
+        .from("videos")
+        .select("*")
+        .order(
+            "created_at",
+            {ascending:false}
+        );
+
+    if (error) {
+
+        grid.innerHTML =
+            "<p>❌ Could not load videos.</p>";
+
+        return;
+    }
+
+    grid.innerHTML = "";
+
+    data.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "media-card";
+
+        const canDelete =
+            currentUser &&
+            (
+                currentUser.id === item.uploaded_by ||
+                currentUser.role === "admin"
+            );
+
+        card.innerHTML = `
+
+            ${
+                canDelete
+                ?
+                `
+                <button
+                    class="delete-button"
+                    onclick="deleteVideo(${item.id})">
+                    ×
+                </button>
+                `
+                :
+                ""
+            }
+
+            <video
+                controls
+                preload="metadata">
+
+                <source
+                    src="${escapeHTML(item.video_url)}">
+
+            </video>
+
+            <div class="media-name">
+                ${escapeHTML(item.title)}
+            </div>
+
+            <div class="media-user">
+                Posted by
+                ${escapeHTML(item.uploader_name)}
+            </div>
+
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+
+async function deleteVideo(id) {
+
+    if (!currentUser) return;
+
+    const { data:item } =
+        await supabaseClient
+        .from("videos")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    if (!item) return;
+
+    if (
+        item.uploaded_by !== currentUser.id &&
+        currentUser.role !== "admin"
+    ) {
+
+        alert("❌ You cannot delete this.");
+
+        return;
+    }
+
+    const { error } =
+        await supabaseClient
+        .from("videos")
+        .delete()
+        .eq("id",id);
+
+    if (error) {
+
+        alert(
+            "❌ Delete failed: " +
+            error.message
+        );
+
+        return;
+    }
+
+    renderVideos();
+}
+
+
+/* =====================================================
+   RESOURCE PACKS
+===================================================== */
+
+async function addResourcePack() {
+
+    if (!currentUser) return;
+
+    const input =
+        document.createElement("input");
+
+    input.type = "file";
+
+    input.accept =
+        ".zip,.mcpack";
+
+    input.onchange = async function() {
+
+        const file = input.files[0];
+
+        if (!file) return;
+
+        if (file.size > 50 * 1024 * 1024) {
+
+            alert(
+                "❌ Resource pack is larger than 50 MB."
+            );
+
+            return;
+        }
+
+        const safeName =
+            file.name.replace(
+                /[^a-zA-Z0-9._-]/g,
+                "_"
+            );
+
+        const path =
+            "packs/" +
+            currentUser.id +
+            "/" +
+            Date.now() +
+            "_" +
+            safeName;
+
+        const { error:uploadError } =
+            await supabaseClient.storage
+            .from("gm-kids-files")
+            .upload(path,file);
+
+        if (uploadError) {
+
+            alert(
+                "❌ Upload failed: " +
+                uploadError.message
+            );
+
+            return;
+        }
+
+        const { data:urlData } =
+            supabaseClient.storage
+            .from("gm-kids-files")
+            .getPublicUrl(path);
+
+        const { error:dbError } =
+            await supabaseClient
+            .from("resource_packs")
+            .insert({
+
+                name:
+                    file.name,
+
+                description:
+                    "",
+
+                file_url:
+                    urlData.publicUrl,
+
+                thumbnail_url:
+                    null,
+
+                uploaded_by:
+                    currentUser.id,
+
+                uploader_name:
+                    currentUser.username
+            });
+
+        if (dbError) {
+
+            alert(
+                "❌ Database error: " +
+                dbError.message
+            );
+
+            return;
+        }
+
+        alert("✅ Resource pack uploaded!");
+
+        renderPacks();
+    };
+
+    input.click();
+}
+
+
+async function renderPacks() {
+
+    const grid =
+        document.getElementById("packsGrid");
+
+    const { data,error } =
+        await supabaseClient
+        .from("resource_packs")
+        .select("*")
+        .order(
+            "created_at",
+            {ascending:false}
+        );
+
+    if (error) {
+
+        grid.innerHTML =
+            "<p>❌ Could not load resource packs.</p>";
+
+        return;
+    }
+
+    grid.innerHTML = "";
+
+    data.forEach(item => {
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "pack-card";
+
+        const canDelete =
+            currentUser &&
+            (
+                currentUser.id === item.uploaded_by ||
+                currentUser.role === "admin"
+            );
+
+        card.innerHTML = `
+
+            ${
+                canDelete
+                ?
+                `
+                <button
+                    class="delete-button"
+                    onclick="deletePack(${item.id})">
+                    ×
+                </button>
+                `
+                :
+                ""
+            }
+
+            <div class="pack-icon">
+                📦
+            </div>
+
+            <div class="pack-name">
+                ${escapeHTML(item.name)}
+            </div>
+
+            <div
+                class="media-user"
+                style="text-align:center;margin-bottom:15px;">
+
+                Uploaded by
+                ${escapeHTML(item.uploader_name)}
+
+            </div>
+
+            <button
+                class="download-button"
+                onclick="downloadPack(
+                    '${escapeHTML(item.file_url)}',
+                    '${escapeHTML(item.name)}'
+                )">
+
+                ⬇️ Download
+
+            </button>
+
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+
+function downloadPack(url,name) {
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download = name;
+
+    link.target = "_blank";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+}
+
+
+async function deletePack(id) {
+
+    if (!currentUser) return;
+
+    const { data:item } =
+        await supabaseClient
+        .from("resource_packs")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    if (!item) return;
+
+    if (
+        item.uploaded_by !== currentUser.id &&
+        currentUser.role !== "admin"
+    ) {
+
+        alert("❌ You cannot delete this.");
+
+        return;
+    }
+
+    const { error } =
+        await supabaseClient
+        .from("resource_packs")
+        .delete()
+        .eq("id",id);
+
+    if (error) {
+
+        alert(
+            "❌ Delete failed: " +
+            error.message
+        );
+
+        return;
+    }
+
+    renderPacks();
+}
+
+
+/* =====================================================
+   REAL-TIME CHAT
+===================================================== */
+
+async function sendMessage() {
+
+    if (!currentUser) {
+
+        alert(
+            "🔐 Login to send messages."
+        );
+
+        openTab("login");
+
+        return;
+    }
+
+    const input =
+        document.getElementById("chatInput");
+
+    const text =
+        input.value.trim();
+
+    if (!text) return;
+
+    if (text.length > 500) {
+
+        alert(
+            "❌ Message is too long."
+        );
+
+        return;
+    }
+
+    const { error } =
+        await supabaseClient
+        .from("chat_messages")
+        .insert({
+
+            message:
+                text,
+
+            user_id:
+                currentUser.id,
+
+            username:
+                currentUser.username
+        });
+
+    if (error) {
+
+        alert(
+            "❌ Could not send message: " +
+            error.message
+        );
+
+        return;
+    }
+
+    input.value = "";
+
+    await renderChat();
+}
+
+
+async function renderChat() {
+
+    const box =
+        document.getElementById("messages");
+
+    const { data,error } =
+        await supabaseClient
+        .from("chat_messages")
+        .select("*")
+        .order(
+            "created_at",
+            {ascending:true}
+        );
+
+    if (error) {
+
+        box.innerHTML =
+            "<p>❌ Could not load chat.</p>";
+
+        return;
+    }
+
+    box.innerHTML = "";
+
+    data.forEach(message => {
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "message";
+
+        const time =
+            message.created_at
+            ?
+            new Date(
+                message.created_at
+            ).toLocaleTimeString()
+            :
+            "";
+
+        div.innerHTML = `
+
+            <div class="message-user">
+
+                👤
+                ${escapeHTML(message.username)}
+
+                <small style="color:#777">
+
+                    ${escapeHTML(time)}
+
+                </small>
+
+            </div>
+
+            <div>
+                ${escapeHTML(message.message)}
+            </div>
+
+        `;
+
+        box.appendChild(div);
+    });
+
+    box.scrollTop =
+        box.scrollHeight;
+}
+
+
+/* =====================================================
+   REAL-TIME CHAT CONNECTION
+===================================================== */
+
+function setupRealtimeChat() {
+
+    if (chatChannel) {
+
+        supabaseClient
+        .removeChannel(chatChannel);
+    }
+
+    chatChannel =
+        supabaseClient
+        .channel("gm-kids-chat")
+
+        .on(
+            "postgres_changes",
+            {
+                event: "INSERT",
+                schema: "public",
+                table: "chat_messages"
+            },
+            payload => {
+
+                renderChat();
+            }
+        )
+
+        .subscribe();
+}
+
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
-async(event,session)=>{
+    async (event,session) => {
 
-if(!session){
+        if (session) {
 
-currentUser=null;
+            const { data:profile } =
+                await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq(
+                    "id",
+                    session.user.id
+                )
+                .single();
 
-updateUserArea();
+            if (profile) {
 
-return;
+                currentUser =
+                    profile;
 
-}
+            }
 
-const {data:profile}=
-await supabaseClient
-.from("profiles")
-.select("*")
-.eq("id",session.user.id)
-.single();
+        } else {
 
-if(profile){
+            currentUser = null;
+        }
 
-currentUser=profile;
-
-updateUserArea();
-
-}
-
-}
+        updateUserArea();
+    }
 );
 
 
-/* =========================================================
-   USER AREA
-========================================================= */
-
-function updateUserArea(){
-
-const area=
-document.getElementById("userArea");
-
-
-if(!currentUser){
-
-area.innerHTML=`
-
-<button class="theme-button"
-onclick="toggleTheme()">
-🌙 Theme
-</button>
-
-<button class="theme-button"
-onclick="openTab('login')">
-🔐 Login
-</button>
-
-`;
-
-return;
-
-}
-
-
-area.innerHTML=`
-
-<span class="user-name">
-${currentUser.avatar || "👤"}
-${escapeHTML(currentUser.username)}
-</span>
-
-${
-currentUser.role==="admin"
-?
-`
-<button class="admin-button"
-onclick="alert('🛡️ Admin account: barad')">
-🛡️ Admin
-</button>
-`
-:""
-}
-
-<button class="theme-button"
-onclick="toggleTheme()">
-🌙 Theme
-</button>
-
-<button class="logout-button"
-onclick="openLogout()">
-🚪 Exit
-</button>
-
-`;
-
-}
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
-function openLogout(){
-
-document
-.getElementById("logoutModal")
-.classList.add("show");
-
-}
-
-function closeLogout(){
-
-document
-.getElementById("logoutModal")
-.classList.remove("show");
-
-}
-
-async function logout(){
-
-await supabaseClient.auth.signOut();
-
-currentUser=null;
-
-closeLogout();
-
-updateUserArea();
-
-alert("👋 You have been logged out!");
-
-openTab("home");
-
-}
-
-
-/* =========================================================
-   LOGIN REQUIRED
-========================================================= */
-
-function requireLogin(callback){
-
-if(!currentUser){
-
-alert(
-"🔐 You need to be logged in to do that!"
-);
-
-openTab("login");
-
-return;
-
-}
-
-callback();
-
-}
-
-
-/* =========================================================
-   SCREENSHOTS
-========================================================= */
-
-async function addScreenshot(){
-
-if(!currentUser)return;
-
-
-const input=
-document.createElement("input");
-
-input.type="file";
-input.accept="image/*";
-
-
-input.onchange=async function(){
-
-const file=input.files[0];
-
-if(!file)return;
-
-if(file.size>50*1024*1024){
-
-alert("❌ File is larger than 50 MB.");
-
-return;
-
-}
-
-
-const path=
-"screenshots/"+
-currentUser.id+
-"/"+
-Date.now()+
-"_"+file.name
-.replace(/[^a-zA-Z0-9._-]/g,"_");
-
-
-const {error:uploadError}=
-await supabaseClient.storage
-.from("gm-kids-files")
-.upload(path,file);
-
-
-if(uploadError){
-
-alert(
-"❌ Upload failed: "+
-uploadError.message
-);
-
-return;
-
-}
-
-
-const {data:urlData}=
-supabaseClient.storage
-.from("gm-kids-files")
-.getPublicUrl(path);
-
-
-const {error}=
-await supabaseClient
-.from("screenshots")
-.insert({
-
-title:file.name,
-
-image_url:urlData.publicUrl,
-
-uploaded_by:currentUser.id,
-
-uploader_name:currentUser.username
-
-});
-
-
-if(error){
-
-alert(
-"❌ Database error: "+
-error.message
-);
-
-return;
-
-}
-
-
-renderScreenshots();
-
-};
-
-input.click();
-
-}
-
-
-async function renderScreenshots(){
-
-const gallery=
-document.getElementById("gallery");
-
-
-const {data,error}=
-await supabaseClient
-.from("screenshots")
-.select("*")
-.order("created_at",{ascending:false});
-
-
-if(error){
-
-gallery.innerHTML=
-"<p>❌ Could not load screenshots.</p>";
-
-return;
-
-}
-
-
-gallery.innerHTML="";
-
-
-data.forEach(item=>{
-
-const card=
-document.createElement("div");
-
-card.className="media-card";
-
-
-const canDelete=
-currentUser &&
-(
-currentUser.id===item.uploaded_by ||
-currentUser.role==="admin"
-);
-
-
-card.innerHTML=`
-
-${
-canDelete
-?
-`
-<button class="delete-button"
-onclick="deleteScreenshot(${item.id})">
-×
-</button>
-`
-:""
-}
-
-<img src="${escapeHTML(item.image_url)}">
-
-<div class="media-name">
-${escapeHTML(item.title)}
-</div>
-
-<div class="media-user">
-Posted by ${escapeHTML(item.uploader_name)}
-</div>
-
-`;
-
-gallery.appendChild(card);
-
-});
-
-}
-
-
-async function deleteScreenshot(id){
-
-if(!currentUser)return;
-
-
-const {data:item}=
-await supabaseClient
-.from("screenshots")
-.select("*")
-.eq("id",id)
-.single();
-
-
-if(!item)return;
-
-
-if(
-item.uploaded_by!==currentUser.id &&
-currentUser.role!=="admin"
-){
-
-alert("❌ You cannot delete this.");
-
-return;
-
-}
-
-
-await supabaseClient
-.from("screenshots")
-.delete()
-.eq("id",id);
-
-
-renderScreenshots();
-
-}
-
-
-/* =========================================================
-   VIDEOS
-========================================================= */
-
-async function addVideo(){
-
-if(!currentUser)return;
-
-
-const input=
-document.createElement("input");
-
-input.type="file";
-input.accept="video/mp4,video/webm,video/ogg";
-
-
-input.onchange=async function(){
-
-const file=input.files[0];
-
-if(!file)return;
-
-
-if(file.size>50*1024*1024){
-
-alert("❌ Video is larger than 50 MB.");
-
-return;
-
-}
-
-
-const path=
-"videos/"+
-currentUser.id+
-"/"+
-Date.now()+
-"_"+file.name
-.replace(/[^a-zA-Z0-9._-]/g,"_");
-
-
-const {error}=
-await supabaseClient.storage
-.from("gm-kids-files")
-.upload(path,file);
-
-
-if(error){
-
-alert(
-"❌ Upload failed: "+
-error.message
-);
-
-return;
-
-}
-
-
-const {data:urlData}=
-supabaseClient.storage
-.from("gm-kids-files")
-.getPublicUrl(path);
-
-
-const title=
-prompt("🎬 Video title:",file.name);
-
-
-const {error:dbError}=
-await supabaseClient
-.from("videos")
-.insert({
-
-title:title || file.name,
-
-description:"",
-
-video_url:urlData.publicUrl,
-
-thumbnail_url:null,
-
-uploaded_by:currentUser.id,
-
-uploader_name:currentUser.username
-
-});
-
-
-if(dbError){
-
-alert(
-"❌ Database error: "+
-dbError.message
-);
-
-return;
-
-}
-
-
-renderVideos();
-
-};
-
-input.click();
-
-}
-
-
-async function renderVideos(){
-
-const grid=
-document.getElementById("videosGrid");
-
-
-const {data,error}=
-await supabaseClient
-.from("videos")
-.select("*")
-.order("created_at",{ascending:false});
-
-
-if(error){
-
-grid.innerHTML=
-"<p>❌ Could not load videos.</p>";
-
-return;
-
-}
-
-
-grid.innerHTML="";
-
-
-data.forEach(item=>{
-
-const card=
-document.createElement("div");
-
-card.className="media-card";
-
-
-const canDelete=
-currentUser &&
-(
-currentUser.id===item.uploaded_by ||
-currentUser.role==="admin"
-);
-
-
-card.innerHTML=`
-
-${
-canDelete
-?
-`
-<button class="delete-button"
-onclick="deleteVideo(${item.id})">
-×
-</button>
-`
-:""
-}
-
-<video controls preload="metadata">
-<source src="${escapeHTML(item.video_url)}">
-</video>
-
-<div class="media-name">
-${escapeHTML(item.title)}
-</div>
-
-<div class="media-user">
-Posted by ${escapeHTML(item.uploader_name)}
-</div>
-
-`;
-
-grid.appendChild(card);
-
-});
-
-}
-
-
-async function deleteVideo(id){
-
-if(!currentUser)return;
-
-
-const {data:item}=
-await supabaseClient
-.from("videos")
-.select("*")
-.eq("id",id)
-.single();
-
-
-if(!item)return;
-
-
-if(
-item.uploaded_by!==currentUser.id &&
-currentUser.role!=="admin"
-){
-
-alert("❌ You cannot delete this.");
-
-return;
-
-}
-
-
-await supabaseClient
-.from("videos")
-.delete()
-.eq("id",id);
-
-
-renderVideos();
-
-}
-
-
-/* =========================================================
-   RESOURCE PACKS
-========================================================= */
-
-async function addResourcePack(){
-
-if(!currentUser)return;
-
-
-const input=
-document.createElement("input");
-
-input.type="file";
-input.accept=".zip,.mcpack";
-
-
-input.onchange=async function(){
-
-const file=input.files[0];
-
-if(!file)return;
-
-
-if(file.size>50*1024*1024){
-
-alert(
-"❌ Resource pack is larger than 50 MB."
-);
-
-return;
-
-}
-
-
-const path=
-"packs/"+
-currentUser.id+
-"/"+
-Date.now()+
-"_"+file.name
-.replace(/[^a-zA-Z0-9._-]/g,"_");
-
-
-const {error}=
-await supabaseClient.storage
-.from("gm-kids-files")
-.upload(path,file);
-
-
-if(error){
-
-alert(
-"❌ Upload failed: "+
-error.message
-);
-
-return;
-
-}
-
-
-const {data:urlData}=
-supabaseClient.storage
-.from("gm-kids-files")
-.getPublicUrl(path);
-
-
-const {error:dbError}=
-await supabaseClient
-.from("resource_packs")
-.insert({
-
-name:file.name,
-
-description:"",
-
-file_url:urlData.publicUrl,
-
-thumbnail_url:null,
-
-uploaded_by:currentUser.id,
-
-uploader_name:currentUser.username
-
-});
-
-
-if(dbError){
-
-alert(
-"❌ Database error: "+
-dbError.message
-);
-
-return;
-
-}
-
-
-renderPacks();
-
-};
-
-input.click();
-
-}
-
-
-async function renderPacks(){
-
-const grid=
-document.getElementById("packsGrid");
-
-
-const {data,error}=
-await supabaseClient
-.from("resource_packs")
-.select("*")
-.order("created_at",{ascending:false});
-
-
-if(error){
-
-grid.innerHTML=
-"<p>❌ Could not load resource packs.</p>";
-
-return;
-
-}
-
-
-grid.innerHTML="";
-
-
-data.forEach(item=>{
-
-const card=
-document.createElement("div");
-
-card.className="pack-card";
-
-
-const canDelete=
-currentUser &&
-(
-currentUser.id===item.uploaded_by ||
-currentUser.role==="admin"
-);
-
-
-card.innerHTML=`
-
-${
-canDelete
-?
-`
-<button class="delete-button"
-onclick="deletePack(${item.id})">
-×
-</button>
-`
-:""
-}
-
-<div class="pack-icon">📦</div>
-
-<div class="pack-name">
-${escapeHTML(item.name)}
-</div>
-
-<div class="media-user"
-style="text-align:center;margin-bottom:15px">
-
-Uploaded by
-${escapeHTML(item.uploader_name)}
-
-</div>
-
-<button class="download-button"
-onclick="downloadPack('${escapeHTML(item.file_url)}','${escapeHTML(item.name)}')">
-
-⬇️ Download
-
-</button>
-
-`;
-
-grid.appendChild(card);
-
-});
-
-}
-
-
-function downloadPack(url,name){
-
-const link=
-document.createElement("a");
-
-link.href=url;
-link.download=name;
-link.target="_blank";
-
-document.body.appendChild(link);
-
-link.click();
-
-link.remove();
-
-}
-
-
-async function deletePack(id){
-
-if(!currentUser)return;
-
-
-const {data:item}=
-await supabaseClient
-.from("resource_packs")
-.select("*")
-.eq("id",id)
-.single();
-
-
-if(!item)return;
-
-
-if(
-item.uploaded_by!==currentUser.id &&
-currentUser.role!=="admin"
-){
-
-alert("❌ You cannot delete this.");
-
-return;
-
-}
-
-
-await supabaseClient
-.from("resource_packs")
-.delete()
-.eq("id",id);
-
-
-renderPacks();
-
-}
-
-
-/* =========================================================
-   REAL CHAT
-========================================================= */
-
-async function sendMessage(){
-
-if(!currentUser)return;
-
-
-const input=
-document.getElementById("chatInput");
-
-const text=
-input.value.trim();
-
-
-if(!text)return;
-
-
-if(text.length>500){
-
-alert("❌ Message is too long.");
-
-return;
-
-}
-
-
-const {error}=
-await supabaseClient
-.from("chat_messages")
-.insert({
-
-message:text,
-
-user_id:currentUser.id,
-
-username:currentUser.username
-
-});
-
-
-if(error){
-
-alert(
-"❌ Could not send message: "+
-error.message
-);
-
-return;
-
-}
-
-
-input.value="";
-
-}
-
-
-/* =========================================================
-   RENDER CHAT
-========================================================= */
-
-async function renderChat(){
-
-const box=
-document.getElementById("messages");
-
-
-const {data,error}=
-await supabaseClient
-.from("chat_messages")
-.select("*")
-.order("created_at",{ascending:true});
-
-
-if(error){
-
-box.innerHTML=
-"<p>❌ Could not load chat.</p>";
-
-console.error(error);
-
-return;
-
-}
-
-
-box.innerHTML="";
-
-
-data.forEach(addMessageToChat);
-
-
-box.scrollTop=box.scrollHeight;
-
-}
-
-
-/* =========================================================
-   ADD ONE CHAT MESSAGE
-========================================================= */
-
-function addMessageToChat(message){
-
-const box=
-document.getElementById("messages");
-
-
-if(!box)return;
-
-
-const div=
-document.createElement("div");
-
-div.className="message";
-
-
-const time=
-new Date(message.created_at)
-.toLocaleTimeString([],{
-hour:"2-digit",
-minute:"2-digit"
-});
-
-
-div.innerHTML=`
-
-<div class="message-user">
-
-👤 ${escapeHTML(message.username)}
-
-<span class="message-time">
-${time}
-</span>
-
-</div>
-
-<div>
-${escapeHTML(message.message)}
-</div>
-
-`;
-
-
-box.appendChild(div);
-
-}
-
-
-/* =========================================================
-   LIVE REAL-TIME CHAT
-========================================================= */
-
-supabaseClient
-.channel("gm-kids-live-chat")
-.on(
-"postgres_changes",
-{
-event:"INSERT",
-schema:"public",
-table:"chat_messages"
-},
-payload=>{
-
-addMessageToChat(payload.new);
-
-const box=
-document.getElementById("messages");
-
-if(box){
-
-box.scrollTop=
-box.scrollHeight;
-
-}
-
-}
-)
-.subscribe();
-
-
-/* =========================================================
+/* =====================================================
    STARTUP
-========================================================= */
+===================================================== */
 
-loadCurrentUser();
+async function startup() {
 
-renderScreenshots();
+    await loadCurrentUser();
 
-renderVideos();
+    await renderScreenshots();
 
-renderPacks();
+    await renderVideos();
 
-renderChat();
+    await renderPacks();
+
+    await renderChat();
+
+    setupRealtimeChat();
+}
+
+startup();
 
 </script>
 
 </body>
 </html>
+```
